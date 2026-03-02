@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import ResourceForm from './ResourceForm';
-import { Resource } from '@/lib/types';
+import { Resource, Tag } from '@/lib/types';
 
 interface AdminPanelProps {
   adminPassword: string;
@@ -10,6 +10,7 @@ interface AdminPanelProps {
 
 export default function AdminPanel({ adminPassword }: AdminPanelProps) {
   const [resources, setResources] = useState<Resource[]>([]);
+  const [allTags, setAllTags] = useState<Tag[]>([]);
   const [loading, setLoading] = useState(true);
   const [showAddForm, setShowAddForm] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -29,13 +30,25 @@ export default function AdminPanel({ adminPassword }: AdminPanelProps) {
     }
   };
 
+  const fetchTags = async () => {
+    try {
+      const res = await fetch('/api/tags');
+      const data = await res.json();
+      setAllTags(Array.isArray(data) ? data : []);
+    } catch {
+      // silent
+    }
+  };
+
   useEffect(() => {
     fetchResources();
+    fetchTags();
   }, []);
 
   const handleAddSuccess = (resource: Resource) => {
     setResources((prev) => [resource, ...prev]);
     setShowAddForm(false);
+    fetchTags(); // refresh tags in case new ones were created
   };
 
   const handleEditSuccess = (updated: Resource) => {
@@ -43,6 +56,7 @@ export default function AdminPanel({ adminPassword }: AdminPanelProps) {
       prev.map((r) => (r.id === updated.id ? updated : r))
     );
     setEditingId(null);
+    fetchTags(); // refresh tags in case new ones were created
   };
 
   const handleDelete = async (id: string) => {
@@ -154,6 +168,7 @@ export default function AdminPanel({ adminPassword }: AdminPanelProps) {
             <h2 className="font-semibold text-slate-900 mb-4">New resource</h2>
             <ResourceForm
               adminPassword={adminPassword}
+              existingTags={allTags}
               onSuccess={handleAddSuccess}
               onCancel={() => setShowAddForm(false)}
             />
@@ -182,6 +197,7 @@ export default function AdminPanel({ adminPassword }: AdminPanelProps) {
                     <ResourceForm
                       adminPassword={adminPassword}
                       initialData={resource}
+                      existingTags={allTags}
                       onSuccess={handleEditSuccess}
                       onCancel={() => setEditingId(null)}
                     />

@@ -1,11 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import { Resource, ResourceType } from '@/lib/types';
+import { Resource, ResourceType, Tag } from '@/lib/types';
 
 interface ResourceFormProps {
   adminPassword: string;
   initialData?: Resource;
+  existingTags?: Tag[];
   onSuccess: (resource: Resource) => void;
   onCancel?: () => void;
 }
@@ -15,6 +16,7 @@ const TYPES: ResourceType[] = ['tool', 'learning', 'project'];
 export default function ResourceForm({
   adminPassword,
   initialData,
+  existingTags = [],
   onSuccess,
   onCancel,
 }: ResourceFormProps) {
@@ -246,6 +248,44 @@ export default function ResourceForm({
         <label className="block text-sm font-medium text-slate-700 mb-1">
           Tags
         </label>
+
+        {/* Existing tag chips */}
+        {existingTags.length > 0 && (
+          <div className="flex flex-wrap gap-1.5 mb-2">
+            {existingTags.map((tag) => {
+              const currentArr = form.tags
+                .split(',')
+                .map((t) => t.trim().toLowerCase())
+                .filter(Boolean);
+              const selected = currentArr.includes(tag.slug);
+              return (
+                <button
+                  key={tag.slug}
+                  type="button"
+                  onClick={() => {
+                    const arr = form.tags
+                      .split(',')
+                      .map((t) => t.trim().toLowerCase())
+                      .filter(Boolean);
+                    const next = selected
+                      ? arr.filter((t) => t !== tag.slug)
+                      : [...arr, tag.slug];
+                    setForm((f) => ({ ...f, tags: next.join(', ') }));
+                  }}
+                  className={`px-2.5 py-1 rounded-full text-xs font-medium border transition-colors ${
+                    selected
+                      ? 'bg-slate-900 text-white border-slate-900'
+                      : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400'
+                  }`}
+                >
+                  {tag.label}
+                </button>
+              );
+            })}
+          </div>
+        )}
+
+        {/* Free-text input for new tags */}
         <input
           type="text"
           value={form.tags}
@@ -254,7 +294,7 @@ export default function ResourceForm({
           className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent"
         />
         <p className="text-xs text-slate-400 mt-1">
-          Tags are used for filtering. New tags are created automatically.
+          Click existing tags above to toggle, or type new ones separated by commas.
         </p>
       </div>
 

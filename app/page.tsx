@@ -113,24 +113,29 @@ function HomeContent() {
     <div className="min-h-screen bg-white">
       {/* Hero — capped at min(50vh, 500px) */}
       <header className="h-[min(50vh,500px)] flex flex-col px-4 sm:px-14 pt-8 pb-10 bg-white overflow-hidden">
-        {/* Nav row: wordmark + submit */}
+        {/* Nav row: wordmark + CTA */}
         <div className="flex items-center justify-between flex-shrink-0">
-          <p className="font-sans font-light text-2xl sm:text-[32px] tracking-[-0.04em] text-black leading-none">
+          <p className="font-sans font-light text-[clamp(16px,1.5vw,26px)] tracking-[-0.04em] text-black leading-none">
             vibestack
           </p>
-          <button className="px-4 py-2 bg-black text-white text-sm font-medium rounded-full hover:bg-neutral-800 active:scale-95 transition-all">
-            Submit
-          </button>
+          <a
+            href="https://docs.google.com/forms/d/e/1FAIpQLSd7aHdgM1mEpaHS3zQNRw6_JN3T5GNYYvbn9QuX2YvNz-8-WA/viewform?usp=dialog"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-4 py-2 bg-black text-white text-sm font-medium rounded-full hover:bg-neutral-800 active:scale-95 transition-all whitespace-nowrap"
+          >
+            Share Suggestions
+          </a>
         </div>
 
         {/* Headline — fills remaining height, vertically centered */}
         <div className="flex flex-col justify-center flex-1 min-h-0">
-          <h1 className="font-serif font-normal text-[clamp(32px,5.83vw,84px)] leading-[1.1] tracking-[-0.04em] text-black">
+          <h1 className="font-serif font-normal text-[clamp(24px,3.8vw,62px)] leading-[1.1] tracking-[-0.04em] text-black">
             Stop overthinking it.
             <br />
             <em>Just start building.</em>
           </h1>
-          <p className="font-sans font-normal text-[clamp(14px,1.5vw,22px)] leading-[1.6] text-black/60 mt-3 max-w-[800px]">
+          <p className="font-sans font-normal text-[clamp(13px,1vw,17px)] leading-[1.6] text-black/60 mt-3 max-w-[800px]">
             Handpicked tools and real examples from non-coders who figured it out.
           </p>
         </div>

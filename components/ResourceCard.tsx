@@ -65,8 +65,8 @@ export default function ResourceCard({ resource }: ResourceCardProps) {
           </span>
         </div>
 
-        {/* Type badge — glass effect */}
-        <div className="absolute top-3 left-3">
+        {/* Type badge — glass effect, top right */}
+        <div className="absolute top-3 right-3">
           <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-black/20 backdrop-blur-md text-white border border-white/20">
             {resource.type}
           </span>
@@ -78,7 +78,7 @@ export default function ResourceCard({ resource }: ResourceCardProps) {
         <h3 className="font-semibold text-black text-base leading-snug line-clamp-1">
           {resource.name}
         </h3>
-        <p className="text-black/50 text-sm leading-relaxed line-clamp-2 flex-1">
+        <p className="text-black/50 text-sm leading-relaxed line-clamp-3 flex-1">
           {resource.description || 'No description available.'}
         </p>
         <div className="flex items-center gap-1.5 mt-2 pt-2 border-t border-black/5">
