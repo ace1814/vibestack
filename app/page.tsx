@@ -110,19 +110,25 @@ function HomeContent() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      {/* Header */}
-      <header className="bg-white border-b border-slate-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-5 flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
-              Vibe<span className="text-violet-600">Stack</span>
-            </h1>
-            <p className="text-sm text-slate-500 mt-0.5">
-              Curated tools, learning &amp; projects for builders
-            </p>
-          </div>
-        </div>
+    <div className="min-h-screen bg-white">
+      {/* Hero */}
+      <header className="bg-white px-14 pt-9 pb-16">
+        {/* Wordmark */}
+        <p className="font-sans font-light text-[32px] tracking-[-0.04em] text-black">
+          vibestack
+        </p>
+
+        {/* Headline */}
+        <h1 className="font-serif font-normal text-[clamp(40px,5.83vw,84px)] leading-[1.1] tracking-[-0.04em] text-black mt-[clamp(48px,10.3vw,149px)]">
+          Stop overthinking it.
+          <br />
+          <em>Just start building.</em>
+        </h1>
+
+        {/* Subheading */}
+        <p className="font-sans font-normal text-[clamp(16px,1.67vw,24px)] leading-[1.6] text-black/70 mt-3 max-w-[1069px]">
+          Handpicked tools and real examples from non-coders who figured it out.
+        </p>
       </header>
 
       {/* Sticky filter bar */}
@@ -135,7 +141,7 @@ function HomeContent() {
       />
 
       {/* Main content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8 bg-white">
         {loading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
             {Array.from({ length: 12 }).map((_, i) => (
