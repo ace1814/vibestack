@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+
+# VibeStack
+Sitemap: https://vibestack.dev/sitemap.xml

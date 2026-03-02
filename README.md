@@ -1,36 +1,91 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# VibeStack
 
-## Getting Started
+A curated image-forward directory for non-coder builders. Showcases **tools**, **learning resources**, and **projects** — each as a card with a large preview image, name, description, and domain.
 
-First, run the development server:
+## Stack
+
+- **Next.js 15** (App Router) — frontend + API routes
+- **Supabase (Postgres)** — database
+- **Tailwind CSS** — styling
+- **Vercel** — deployment
+
+## Getting started
+
+### 1. Set up Supabase
+
+1. Create a free project at [supabase.com](https://supabase.com)
+2. Open the **SQL Editor** and run the contents of `supabase-schema.sql`
+3. Copy your project URL, anon key, and service role key from **Settings → API**
+
+### 2. Configure environment variables
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cp .env.local.example .env.local
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Edit `.env.local`:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Variable | Description |
+|---|---|
+| `NEXT_PUBLIC_SUPABASE_URL` | Your Supabase project URL |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anon/public key |
+| `SUPABASE_SERVICE_ROLE_KEY` | Supabase service role key (server-only) |
+| `ADMIN_PASS` | Password to protect the admin panel |
+| `NEXT_PUBLIC_ADMIN_SLUG` | The URL path for your admin panel (e.g. `abc123xyz`) |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 3. Run locally
 
-## Learn More
+```bash
+npm install
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+Open [http://localhost:3000](http://localhost:3000)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Admin panel: `http://localhost:3000/admin/<NEXT_PUBLIC_ADMIN_SLUG>`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 4. Deploy to Vercel
 
-## Deploy on Vercel
+```bash
+npx vercel
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Add all env variables in the Vercel dashboard under **Project Settings → Environment Variables**.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Project structure
+
+```
+vibestack/
+├── app/
+│   ├── page.tsx                    # Home page (card grid + filters)
+│   ├── layout.tsx
+│   ├── globals.css
+│   ├── admin/[slug]/page.tsx       # Admin login + panel
+│   └── api/
+│       ├── resources/route.ts      # GET /api/resources
+│       ├── tags/route.ts           # GET /api/tags
+│       └── admin/resources/
+│           ├── route.ts            # POST /api/admin/resources
+│           └── [id]/route.ts       # PATCH, DELETE /api/admin/resources/:id
+├── components/
+│   ├── ResourceCard.tsx
+│   ├── FilterBar.tsx
+│   ├── AdminPanel.tsx
+│   └── ResourceForm.tsx
+├── lib/
+│   ├── supabase.ts
+│   ├── og-scraper.ts
+│   └── types.ts
+├── supabase-schema.sql
+└── .env.local.example
+```
+
+## Features
+
+- **Card grid** — responsive 1–4 columns, OG image preview, hover "Open" overlay
+- **ref tracking** — all outbound links append `?ref=vibestack`
+- **Filtering** — by type (tool/learning/project) and tags; URL query string updated
+- **Pagination** — 12 cards per page with "Load more"
+- **Admin panel** — hidden URL + password protected; add/edit/delete resources
+- **OG scraping** — automatically fetches `og:image` → `twitter:image` → favicon on save
+- **Tag management** — tags auto-created when adding resources
