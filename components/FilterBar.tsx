@@ -25,57 +25,56 @@ export default function FilterBar({
   onTagChange,
 }: FilterBarProps) {
   return (
-    <div className="sticky top-0 z-10 bg-white/80 backdrop-blur-md border-b border-slate-100 shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3">
-        <div className="flex flex-col sm:flex-row sm:items-center gap-3">
-          {/* Type filter */}
-          <div className="flex items-center gap-1.5 flex-shrink-0">
-            <span className="text-xs font-semibold text-slate-400 uppercase tracking-wide mr-1">
-              Type
-            </span>
-            {TYPES.map((t) => (
-              <button
-                key={t.value}
-                onClick={() => onTypeChange(t.value)}
-                className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
-                  selectedType === t.value
-                    ? 'bg-slate-900 text-white'
-                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-                }`}
-              >
-                {t.label}
-              </button>
-            ))}
-          </div>
+    <div className="sticky top-0 z-10 bg-white/90 backdrop-blur-md border-b border-black/8">
+      <div className="px-4 sm:px-14 py-3">
+        {/* Single scrollable row on all screen sizes */}
+        <div className="flex items-center gap-2 overflow-x-auto scrollbar-none pb-0.5">
+          {/* Type label */}
+          <span className="text-[11px] font-semibold text-black/30 uppercase tracking-widest flex-shrink-0">
+            Type
+          </span>
+
+          {/* Type buttons */}
+          {TYPES.map((t) => (
+            <button
+              key={t.value}
+              onClick={() => onTypeChange(t.value)}
+              className={`flex-shrink-0 px-3 py-1.5 rounded-full text-sm font-medium transition-colors whitespace-nowrap ${
+                selectedType === t.value
+                  ? 'bg-black text-white'
+                  : 'bg-black/5 text-black/60 hover:bg-black/10'
+              }`}
+            >
+              {t.label}
+            </button>
+          ))}
 
           {/* Divider */}
           {tags.length > 0 && (
-            <div className="hidden sm:block h-5 w-px bg-slate-200 mx-1 flex-shrink-0" />
+            <div className="h-4 w-px bg-black/10 mx-1 flex-shrink-0" />
           )}
 
-          {/* Tag filter */}
+          {/* Tag label */}
           {tags.length > 0 && (
-            <div className="flex items-center gap-1.5 flex-wrap">
-              <span className="text-xs font-semibold text-slate-400 uppercase tracking-wide mr-1">
-                Tag
-              </span>
-              {tags.map((tag) => (
-                <button
-                  key={tag.slug}
-                  onClick={() =>
-                    onTagChange(selectedTag === tag.slug ? '' : tag.slug)
-                  }
-                  className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
-                    selectedTag === tag.slug
-                      ? 'bg-violet-600 text-white'
-                      : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-                  }`}
-                >
-                  {tag.label}
-                </button>
-              ))}
-            </div>
+            <span className="text-[11px] font-semibold text-black/30 uppercase tracking-widest flex-shrink-0">
+              Tag
+            </span>
           )}
+
+          {/* Tag buttons */}
+          {tags.map((tag) => (
+            <button
+              key={tag.slug}
+              onClick={() => onTagChange(selectedTag === tag.slug ? '' : tag.slug)}
+              className={`flex-shrink-0 px-3 py-1.5 rounded-full text-sm font-medium transition-colors whitespace-nowrap ${
+                selectedTag === tag.slug
+                  ? 'bg-black text-white'
+                  : 'bg-black/5 text-black/60 hover:bg-black/10'
+              }`}
+            >
+              {tag.label}
+            </button>
+          ))}
         </div>
       </div>
     </div>
