@@ -26,10 +26,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${inter.variable} ${ibmPlexSerif.variable} font-sans antialiased`}
-      >
+    <html lang="en" className={`${inter.variable} ${ibmPlexSerif.variable}`}>
+      <body className="font-sans antialiased">
         {children}
       </body>
     </html>
