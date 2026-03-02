@@ -14,6 +14,7 @@ export default function AdminPanel({ adminPassword }: AdminPanelProps) {
   const [showAddForm, setShowAddForm] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [rescrapingId, setRescrapingId] = useState<string | null>(null);
 
   const fetchResources = async () => {
     setLoading(true);
@@ -57,6 +58,51 @@ export default function AdminPanel({ adminPassword }: AdminPanelProps) {
       alert('Failed to delete. Try again.');
     } finally {
       setDeletingId(null);
+    }
+  };
+
+  const handleRescrape = async (resource: Resource) => {
+    setRescrapingId(resource.id);
+    try {
+      // Fetch fresh OG image
+      const scrapeRes = await fetch('/api/admin/scrape-og', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-password': adminPassword,
+        },
+        body: JSON.stringify({ url: resource.url }),
+      });
+      const scrapeData = await scrapeRes.json();
+
+      if (!scrapeRes.ok || !scrapeData.previewImageUrl) {
+        alert('Could not fetch an image for this URL.');
+        return;
+      }
+
+      // Patch the resource with the new image
+      const patchRes = await fetch(`/api/admin/resources/${resource.id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-password': adminPassword,
+        },
+        body: JSON.stringify({ preview_image_url: scrapeData.previewImageUrl }),
+      });
+      const updated = await patchRes.json();
+
+      if (!patchRes.ok) {
+        alert(updated.error || 'Failed to update image.');
+        return;
+      }
+
+      setResources((prev) =>
+        prev.map((r) => (r.id === resource.id ? { ...r, preview_image_url: scrapeData.previewImageUrl } : r))
+      );
+    } catch {
+      alert('Re-scrape failed. Try again.');
+    } finally {
+      setRescrapingId(null);
     }
   };
 
@@ -180,6 +226,29 @@ export default function AdminPanel({ adminPassword }: AdminPanelProps) {
                     </div>
 
                     <div className="flex items-center gap-2 flex-shrink-0">
+                      <button
+                        onClick={() => handleRescrape(resource)}
+                        disabled={rescrapingId === resource.id}
+                        title="Re-fetch OG image from URL"
+                        className="px-3 py-1.5 text-xs border border-slate-200 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1"
+                      >
+                        {rescrapingId === resource.id ? (
+                          <>
+                            <svg className="w-3 h-3 animate-spin" viewBox="0 0 24 24" fill="none">
+                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
+                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"/>
+                            </svg>
+                            Fetching…
+                          </>
+                        ) : (
+                          <>
+                            <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                            </svg>
+                            Re-scrape
+                          </>
+                        )}
+                      </button>
                       <button
                         onClick={() => setEditingId(resource.id)}
                         className="px-3 py-1.5 text-xs border border-slate-200 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors"

@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
   }
 
-  const { type, name, description, url, tags } = body;
+  const { type, name, description, url, tags, preview_image_url: manualImageUrl } = body;
 
   if (!type || !name || !url) {
     return NextResponse.json(
@@ -80,13 +80,20 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Scrape OG metadata (non-blocking — failure just means no image)
-    const { previewImageUrl, domain } = await scrapeOGMeta(url);
+    // Use manual image if provided, otherwise scrape
+    let finalImageUrl: string | null = manualImageUrl || null;
+    let domain = new URL(url).hostname.replace(/^www\./, '');
+
+    if (!finalImageUrl) {
+      const scraped = await scrapeOGMeta(url);
+      finalImageUrl = scraped.previewImageUrl;
+      domain = scraped.domain;
+    }
 
     // Insert resource
     const { data: resource, error: insertError } = await db
       .from('resources')
-      .insert({ type, name, description, url, domain, preview_image_url: previewImageUrl })
+      .insert({ type, name, description, url, domain, preview_image_url: finalImageUrl })
       .select()
       .single();
 

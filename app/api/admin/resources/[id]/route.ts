@@ -28,12 +28,21 @@ export async function PATCH(
   if (body.name) updateData.name = body.name;
   if ('description' in body) updateData.description = body.description;
 
-  // If URL changed, re-scrape
+  // Manual image override takes highest priority
+  if (body.preview_image_url !== undefined) {
+    updateData.preview_image_url = body.preview_image_url || null;
+  }
+
+  // If URL changed and no manual image provided, re-scrape
   if (body.url) {
     updateData.url = body.url;
-    const { previewImageUrl, domain } = await scrapeOGMeta(body.url as string);
-    updateData.domain = domain;
-    updateData.preview_image_url = previewImageUrl;
+    if (!body.preview_image_url) {
+      const { previewImageUrl, domain } = await scrapeOGMeta(body.url as string);
+      updateData.domain = domain;
+      updateData.preview_image_url = previewImageUrl;
+    } else {
+      updateData.domain = new URL(body.url as string).hostname.replace(/^www\./, '');
+    }
   }
 
   const { data: resource, error } = await getSupabaseAdmin()

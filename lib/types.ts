@@ -29,4 +29,5 @@ export interface CreateResourceBody {
   description: string;
   url: string;
   tags: string[]; // tag slugs
+  preview_image_url?: string; // optional manual override
 }
