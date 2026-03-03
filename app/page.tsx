@@ -141,8 +141,13 @@ function HomeContent() {
             vibestack
           </p>
 
-          {/* CTA + last-added timestamp */}
-          <div className="flex flex-col items-end gap-1">
+          {/* CTA + last-updated timestamp — side by side */}
+          <div className="flex items-center gap-3">
+            {mounted && !loading && resources.length > 0 && (
+              <span className="text-xs text-black/40 whitespace-nowrap">
+                Last updated · {timeAgo(resources[0].created_at)}
+              </span>
+            )}
             <a
               href="https://docs.google.com/forms/d/e/1FAIpQLSd7aHdgM1mEpaHS3zQNRw6_JN3T5GNYYvbn9QuX2YvNz-8-WA/viewform?usp=dialog"
               target="_blank"
@@ -151,11 +156,6 @@ function HomeContent() {
             >
               Share Suggestions
             </a>
-            {mounted && !loading && resources.length > 0 && (
-              <span className="text-[11px] text-black/35 tracking-wide">
-                Last added · {timeAgo(resources[0].created_at)}
-              </span>
-            )}
           </div>
         </div>
 

@@ -18,6 +18,13 @@ export const metadata: Metadata = {
   title: "VibeStack — Curated tools & resources for builders",
   description:
     "A curated image-forward directory of tools, learning resources, and projects for non-coder builders.",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "32x32" },
+      { url: "/icon.png", sizes: "64x64", type: "image/png" },
+    ],
+    apple: { url: "/icon.png", sizes: "64x64", type: "image/png" },
+  },
 };
 
 export default function RootLayout({
