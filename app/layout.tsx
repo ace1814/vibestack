@@ -15,9 +15,7 @@ const ibmPlexSerif = IBM_Plex_Serif({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ?? 'https://vibestack.in'
-  ),
+  metadataBase: new URL('https://www.vibestack.in'),
   title: "VibeStack — Curated tools & resources for builders",
   description:
     "A curated image-forward directory of tools, learning resources, and projects for non-coder builders.",
