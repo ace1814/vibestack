@@ -4,6 +4,7 @@ import { useState, useCallback, useRef, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import useSWR, { mutate } from 'swr';
 import ResourceCard from '@/components/ResourceCard';
+import ResourceListRow from '@/components/ResourceListRow';
 import FilterBar from '@/components/FilterBar';
 import { Resource, Tag } from '@/lib/types';
 
@@ -34,6 +35,8 @@ function HomeContent() {
 
   const selectedType = searchParams.get('type') || '';
   const selectedTag = searchParams.get('tag') || '';
+
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
 
   // Extra items loaded via "Load more" (cursor-based pagination)
   const [extraItems, setExtraItems] = useState<Resource[]>([]);
@@ -156,12 +159,12 @@ function HomeContent() {
         {/* Headline — fills remaining height, vertically centered */}
         <div className="flex flex-col justify-center flex-1 min-h-0">
           <h1 className="font-serif font-normal text-[clamp(24px,3.8vw,62px)] leading-[1.1] tracking-[-0.04em] text-black">
-            Stop overthinking it.
+            A curated library for
             <br />
-            <em>Just start building.</em>
+            <em>non-coders who want to build.</em>
           </h1>
           <p className="font-sans font-normal text-[clamp(13px,1vw,17px)] leading-[1.6] text-black/60 mt-3 max-w-[800px]">
-            Handpicked tools and real examples from non-coders who figured it out.
+            Handpicked tools, resources and real projects so you don&apos;t waste time.
           </p>
         </div>
       </header>
@@ -173,26 +176,41 @@ function HomeContent() {
         selectedTag={selectedTag}
         onTypeChange={handleTypeChange}
         onTagChange={handleTagChange}
+        viewMode={viewMode}
+        onViewModeChange={setViewMode}
       />
 
       {/* Main content — left-aligned with hero */}
       <main className="px-4 sm:px-14 py-8 bg-white">
         {loading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-            {Array.from({ length: 12 }).map((_, i) => (
-              <div
-                key={i}
-                className="rounded-2xl overflow-hidden bg-white border border-slate-100 shadow-sm animate-pulse"
-              >
-                <div className="aspect-[16/9] bg-slate-100" />
-                <div className="p-4 space-y-2">
-                  <div className="h-4 bg-slate-100 rounded w-3/4" />
-                  <div className="h-3 bg-slate-100 rounded w-full" />
-                  <div className="h-3 bg-slate-100 rounded w-2/3" />
+          /* Skeleton — matches active view mode */
+          viewMode === 'grid' ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+              {Array.from({ length: 12 }).map((_, i) => (
+                <div key={i} className="rounded-2xl overflow-hidden bg-white border border-slate-100 shadow-sm animate-pulse">
+                  <div className="aspect-[16/9] bg-slate-100" />
+                  <div className="p-4 space-y-2">
+                    <div className="h-4 bg-slate-100 rounded w-3/4" />
+                    <div className="h-3 bg-slate-100 rounded w-full" />
+                    <div className="h-3 bg-slate-100 rounded w-2/3" />
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <div>
+              {Array.from({ length: 8 }).map((_, i) => (
+                <div key={i} className="flex items-center gap-4 py-4 border-b border-black/6 animate-pulse">
+                  <div className="flex-shrink-0 w-[100px] sm:w-[160px] aspect-[16/9] rounded-xl bg-slate-100" />
+                  <div className="flex-1 space-y-2">
+                    <div className="h-4 bg-slate-100 rounded w-1/3" />
+                    <div className="h-3 bg-slate-100 rounded w-full" />
+                    <div className="h-3 bg-slate-100 rounded w-2/3" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          )
         ) : error ? (
           <div className="text-center py-20 text-slate-500">
             <p className="text-lg">{error}</p>
@@ -207,17 +225,23 @@ function HomeContent() {
           <div className="py-20">
             <p className="text-5xl mb-4">🔍</p>
             <p className="text-slate-500 text-lg">No resources found.</p>
-            <p className="text-slate-400 text-sm mt-1">
-              Try removing a filter or check back later.
-            </p>
+            <p className="text-slate-400 text-sm mt-1">Try removing a filter or check back later.</p>
           </div>
         ) : (
           <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-              {resources.map((resource) => (
-                <ResourceCard key={resource.id} resource={resource} />
-              ))}
-            </div>
+            {viewMode === 'grid' ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+                {resources.map((resource) => (
+                  <ResourceCard key={resource.id} resource={resource} />
+                ))}
+              </div>
+            ) : (
+              <div>
+                {resources.map((resource) => (
+                  <ResourceListRow key={resource.id} resource={resource} />
+                ))}
+              </div>
+            )}
 
             {/* Load more */}
             {nextCursor && (
