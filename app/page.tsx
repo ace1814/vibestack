@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useEffect, useCallback, useRef, Suspense } from 'react';
+import { useState, useCallback, useRef, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
+import useSWR, { mutate } from 'swr';
 import ResourceCard from '@/components/ResourceCard';
 import FilterBar from '@/components/FilterBar';
 import { Resource, Tag } from '@/lib/types';
@@ -25,67 +26,60 @@ function timeAgo(dateStr: string): string {
   });
 }
 
+const fetcher = (url: string) => fetch(url).then((r) => r.json());
+
 function HomeContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  const [resources, setResources] = useState<Resource[]>([]);
-  const [tags, setTags] = useState<Tag[]>([]);
-  const [nextCursor, setNextCursor] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [loadingMore, setLoadingMore] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  // Client-side only timestamp to avoid SSR hydration mismatch
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => { setMounted(true); }, []);
-
   const selectedType = searchParams.get('type') || '';
   const selectedTag = searchParams.get('tag') || '';
 
-  const isMounted = useRef(true);
-  useEffect(() => {
-    isMounted.current = true;
-    return () => {
-      isMounted.current = false;
-    };
-  }, []);
+  // Extra items loaded via "Load more" (cursor-based pagination)
+  const [extraItems, setExtraItems] = useState<Resource[]>([]);
+  const [nextCursor, setNextCursor] = useState<string | null>(null);
+  const [loadingMore, setLoadingMore] = useState(false);
 
-  // Fetch tags once
-  useEffect(() => {
-    fetch('/api/tags')
-      .then((r) => r.json())
-      .then((data) => {
-        if (isMounted.current) setTags(Array.isArray(data) ? data : []);
-      })
-      .catch(() => {});
-  }, []);
+  // Build the API key for the current filter combo
+  const resourceParams = new URLSearchParams();
+  if (selectedType) resourceParams.set('type', selectedType);
+  if (selectedTag) resourceParams.set('tag', selectedTag);
+  const resourceKey = `/api/resources?${resourceParams.toString()}`;
 
-  // Fetch resources when filters change
-  const fetchResources = useCallback(async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const params = new URLSearchParams();
-      if (selectedType) params.set('type', selectedType);
-      if (selectedTag) params.set('tag', selectedTag);
+  // SWR: tags (long cache — rarely change)
+  const { data: tagsData } = useSWR<Tag[]>('/api/tags', fetcher, {
+    revalidateOnFocus: false,
+    dedupingInterval: 60_000,
+  });
+  const tags = tagsData ?? [];
 
-      const res = await fetch(`/api/resources?${params.toString()}`);
-      const data = await res.json();
-
-      if (isMounted.current) {
-        setResources(data.items || []);
-        setNextCursor(data.nextCursor || null);
-      }
-    } catch {
-      if (isMounted.current) setError('Failed to load resources.');
-    } finally {
-      if (isMounted.current) setLoading(false);
+  // SWR: resources (revalidate on focus to keep fresh)
+  const {
+    data: resourceData,
+    isLoading: loading,
+    error: swrError,
+    mutate: revalidateResources,
+  } = useSWR<{ items: Resource[]; nextCursor: string | null }>(
+    resourceKey,
+    fetcher,
+    {
+      revalidateOnFocus: true,
+      dedupingInterval: 5_000,
+      onSuccess: (data) => {
+        // Reset extra items whenever the primary query changes
+        setExtraItems([]);
+        setNextCursor(data.nextCursor ?? null);
+      },
     }
-  }, [selectedType, selectedTag]);
+  );
 
-  useEffect(() => {
-    fetchResources();
-  }, [fetchResources]);
+  const resources = [...(resourceData?.items ?? []), ...extraItems];
+  const error = swrError ? 'Failed to load resources.' : null;
+
+  // Track whether component has mounted (avoids SSR hydration mismatch on timeAgo)
+  const mounted = typeof window !== 'undefined';
+
+  const isMounted = useRef(true);
 
   const handleTypeChange = (type: string) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -108,7 +102,7 @@ function HomeContent() {
     router.push(`/?${params.toString()}`);
   };
 
-  const handleLoadMore = async () => {
+  const handleLoadMore = useCallback(async () => {
     if (!nextCursor || loadingMore) return;
     setLoadingMore(true);
     try {
@@ -121,7 +115,7 @@ function HomeContent() {
       const data = await res.json();
 
       if (isMounted.current) {
-        setResources((prev) => [...prev, ...(data.items || [])]);
+        setExtraItems((prev) => [...prev, ...(data.items || [])]);
         setNextCursor(data.nextCursor || null);
       }
     } catch {
@@ -129,7 +123,7 @@ function HomeContent() {
     } finally {
       if (isMounted.current) setLoadingMore(false);
     }
-  };
+  }, [nextCursor, loadingMore, selectedType, selectedTag]);
 
   return (
     <div className="min-h-screen bg-white">
@@ -144,7 +138,7 @@ function HomeContent() {
           {/* CTA + last-updated timestamp — side by side */}
           <div className="flex items-center gap-3">
             {mounted && !loading && resources.length > 0 && (
-              <span className="text-xs text-black/40 whitespace-nowrap">
+              <span className="hidden sm:inline text-xs text-black/40 whitespace-nowrap">
                 Last updated · {timeAgo(resources[0].created_at)}
               </span>
             )}
@@ -203,7 +197,7 @@ function HomeContent() {
           <div className="text-center py-20 text-slate-500">
             <p className="text-lg">{error}</p>
             <button
-              onClick={fetchResources}
+              onClick={() => revalidateResources()}
               className="mt-4 px-4 py-2 bg-black text-white rounded-full text-sm hover:bg-neutral-800 transition-colors"
             >
               Try again

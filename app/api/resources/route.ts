@@ -53,7 +53,9 @@ export async function GET(req: NextRequest) {
 
     const items = (data || []).map((r) => ({ ...r, tags: [tag.toLowerCase()] }));
     const nextCursor = items.length === PAGE_SIZE ? String(offset + PAGE_SIZE) : null;
-    return NextResponse.json({ items, nextCursor });
+    return NextResponse.json({ items, nextCursor }, {
+      headers: { 'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300' },
+    });
   }
 
   // No tag filter
@@ -71,5 +73,7 @@ export async function GET(req: NextRequest) {
   const items = (data || []).map((r) => ({ ...r, tags: [] }));
   const nextCursor = items.length === PAGE_SIZE ? String(offset + PAGE_SIZE) : null;
 
-  return NextResponse.json({ items, nextCursor });
+  return NextResponse.json({ items, nextCursor }, {
+    headers: { 'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300' },
+  });
 }
