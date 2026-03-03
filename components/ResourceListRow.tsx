@@ -16,7 +16,7 @@ export default function ResourceListRow({ resource }: { resource: Resource }) {
 
   return (
     <div
-      className="group flex items-center gap-4 py-4 border-b border-black/6 cursor-pointer hover:bg-black/[0.02] transition-colors -mx-4 sm:-mx-14 px-4 sm:px-14"
+      className="group flex items-center gap-4 py-4 border-b border-black/6 dark:border-white/6 cursor-pointer hover:bg-black/[0.02] dark:hover:bg-white/[0.03] transition-colors -mx-4 sm:-mx-14 px-4 sm:px-14"
       onClick={handleClick}
       onKeyDown={(e) => e.key === 'Enter' && handleClick()}
       tabIndex={0}
@@ -24,7 +24,7 @@ export default function ResourceListRow({ resource }: { resource: Resource }) {
       aria-label={`Open ${resource.name}`}
     >
       {/* Thumbnail */}
-      <div className="relative flex-shrink-0 w-[100px] sm:w-[160px] aspect-[16/9] rounded-xl overflow-hidden bg-slate-50">
+      <div className="relative flex-shrink-0 w-[100px] sm:w-[160px] aspect-[16/9] rounded-xl overflow-hidden bg-slate-50 dark:bg-zinc-800">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={(!imgError && resource.preview_image_url) ? resource.preview_image_url : PLACEHOLDER_IMAGE}
@@ -37,22 +37,19 @@ export default function ResourceListRow({ resource }: { resource: Resource }) {
 
       {/* Content */}
       <div className="flex flex-col flex-1 min-w-0 gap-1">
-        {/* Name row + type badge */}
         <div className="flex items-start justify-between gap-3">
-          <h3 className="font-semibold text-black text-base leading-snug line-clamp-1">
+          <h3 className="font-semibold text-black dark:text-white text-base leading-snug line-clamp-1">
             {resource.name}
           </h3>
-          <span className="flex-shrink-0 text-xs font-medium px-2.5 py-1 rounded-full bg-black/6 text-black/50">
+          <span className="flex-shrink-0 text-xs font-medium px-2.5 py-1 rounded-full bg-black/6 dark:bg-white/8 text-black/50 dark:text-white/50">
             {resource.type}
           </span>
         </div>
 
-        {/* Description */}
-        <p className="text-black/50 text-sm leading-relaxed line-clamp-2">
+        <p className="text-black/50 dark:text-white/45 text-sm leading-relaxed line-clamp-2">
           {resource.description || 'No description available.'}
         </p>
 
-        {/* Footer: domain + creator + tags */}
         <div className="flex items-center gap-1.5 mt-1 min-w-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -61,36 +58,33 @@ export default function ResourceListRow({ resource }: { resource: Resource }) {
             className="w-4 h-4 rounded flex-shrink-0"
             loading="lazy"
           />
-          <span className="text-xs text-black/35 flex-shrink-0">{resource.domain}</span>
+          <span className="text-xs text-black/35 dark:text-white/35 flex-shrink-0">{resource.domain}</span>
 
           {resource.created_by && (
             <>
-              <span className="text-black/15 text-xs flex-shrink-0">·</span>
+              <span className="text-black/15 dark:text-white/15 text-xs flex-shrink-0">·</span>
               {resource.created_by_url ? (
                 <a
                   href={resource.created_by_url}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={(e) => e.stopPropagation()}
-                  className="text-xs text-black/40 hover:text-black/70 truncate transition-colors underline underline-offset-2"
+                  className="text-xs text-black/40 dark:text-white/40 hover:text-black/70 dark:hover:text-white/70 truncate transition-colors underline underline-offset-2"
                 >
                   by {resource.created_by}
                 </a>
               ) : (
-                <span className="text-xs text-black/35 truncate">by {resource.created_by}</span>
+                <span className="text-xs text-black/35 dark:text-white/35 truncate">by {resource.created_by}</span>
               )}
             </>
           )}
 
           {resource.tags && resource.tags.length > 0 && (
             <>
-              <span className="text-black/15 text-xs flex-shrink-0">·</span>
+              <span className="text-black/15 dark:text-white/15 text-xs flex-shrink-0">·</span>
               <div className="flex items-center gap-1 min-w-0 overflow-hidden">
                 {resource.tags.slice(0, 3).map((tag) => (
-                  <span
-                    key={tag}
-                    className="flex-shrink-0 text-[11px] px-2 py-0.5 rounded-full bg-black/5 text-black/40"
-                  >
+                  <span key={tag} className="flex-shrink-0 text-[11px] px-2 py-0.5 rounded-full bg-black/5 dark:bg-white/5 text-black/40 dark:text-white/40">
                     {tag}
                   </span>
                 ))}
@@ -100,9 +94,9 @@ export default function ResourceListRow({ resource }: { resource: Resource }) {
         </div>
       </div>
 
-      {/* Arrow — appears on hover */}
+      {/* Arrow on hover */}
       <svg
-        className="w-4 h-4 text-black/20 group-hover:text-black/50 flex-shrink-0 transition-colors hidden sm:block"
+        className="w-4 h-4 text-black/20 dark:text-white/20 group-hover:text-black/50 dark:group-hover:text-white/50 flex-shrink-0 transition-colors hidden sm:block"
         fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
       >
         <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />

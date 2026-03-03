@@ -3,13 +3,9 @@
 import { useState } from 'react';
 import { Resource } from '@/lib/types';
 
-interface ResourceCardProps {
-  resource: Resource;
-}
-
 const PLACEHOLDER_IMAGE = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='250' viewBox='0 0 400 250'%3E%3Crect width='400' height='250' fill='%23f8f8f8'/%3E%3Ctext x='200' y='130' text-anchor='middle' fill='%23ccc' font-size='48' font-family='system-ui'%3E🔗%3C/text%3E%3C/svg%3E";
 
-export default function ResourceCard({ resource }: ResourceCardProps) {
+export default function ResourceCard({ resource }: { resource: Resource }) {
   const [isHovered, setIsHovered] = useState(false);
   const [imgError, setImgError] = useState(false);
 
@@ -21,7 +17,7 @@ export default function ResourceCard({ resource }: ResourceCardProps) {
 
   return (
     <div
-      className="group relative flex flex-col rounded-2xl overflow-hidden bg-white border border-black/8 shadow-sm cursor-pointer transition-all duration-200 hover:shadow-md hover:-translate-y-0.5"
+      className="group relative flex flex-col rounded-2xl overflow-hidden bg-white dark:bg-zinc-900 border border-black/8 dark:border-white/8 shadow-sm cursor-pointer transition-all duration-200 hover:shadow-md hover:-translate-y-0.5"
       onClick={handleClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -31,7 +27,7 @@ export default function ResourceCard({ resource }: ResourceCardProps) {
       aria-label={`Open ${resource.name}`}
     >
       {/* Image */}
-      <div className="relative w-full aspect-[16/9] overflow-hidden bg-slate-50">
+      <div className="relative w-full aspect-[16/9] overflow-hidden bg-slate-50 dark:bg-zinc-800">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={(!imgError && resource.preview_image_url) ? resource.preview_image_url : PLACEHOLDER_IMAGE}
@@ -48,24 +44,14 @@ export default function ResourceCard({ resource }: ResourceCardProps) {
           }`}
         >
           <span className="flex items-center gap-2 bg-white text-black font-semibold px-4 py-2 rounded-full text-sm shadow-lg">
-            <svg
-              className="w-4 h-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-              />
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
             </svg>
             Open
           </span>
         </div>
 
-        {/* Type badge — glass effect, top right */}
+        {/* Type badge */}
         <div className="absolute top-3 right-3">
           <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-black/20 backdrop-blur-md text-white border border-white/20">
             {resource.type}
@@ -75,13 +61,13 @@ export default function ResourceCard({ resource }: ResourceCardProps) {
 
       {/* Card body */}
       <div className="flex flex-col flex-1 p-4 gap-1.5">
-        <h3 className="font-semibold text-black text-base leading-snug line-clamp-1">
+        <h3 className="font-semibold text-black dark:text-white text-base leading-snug line-clamp-1">
           {resource.name}
         </h3>
-        <p className="text-black/50 text-sm leading-relaxed line-clamp-3 flex-1">
+        <p className="text-black/50 dark:text-white/45 text-sm leading-relaxed line-clamp-3 flex-1">
           {resource.description || 'No description available.'}
         </p>
-        <div className="flex items-center gap-1.5 mt-2 pt-2 border-t border-black/5 min-w-0">
+        <div className="flex items-center gap-1.5 mt-2 pt-2 border-t border-black/5 dark:border-white/5 min-w-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={`https://www.google.com/s2/favicons?domain=${resource.domain}&sz=16`}
@@ -89,24 +75,23 @@ export default function ResourceCard({ resource }: ResourceCardProps) {
             className="w-4 h-4 rounded flex-shrink-0"
             loading="lazy"
           />
-          <span className="text-xs text-black/35 truncate flex-shrink-0">{resource.domain}</span>
+          <span className="text-xs text-black/35 dark:text-white/35 truncate flex-shrink-0">{resource.domain}</span>
 
-          {/* Creator attribution — only shown when present */}
           {resource.created_by && (
             <>
-              <span className="text-black/15 text-xs flex-shrink-0">·</span>
+              <span className="text-black/15 dark:text-white/15 text-xs flex-shrink-0">·</span>
               {resource.created_by_url ? (
                 <a
                   href={resource.created_by_url}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={(e) => e.stopPropagation()}
-                  className="text-xs text-black/40 hover:text-black/70 truncate transition-colors underline underline-offset-2"
+                  className="text-xs text-black/40 dark:text-white/40 hover:text-black/70 dark:hover:text-white/70 truncate transition-colors underline underline-offset-2"
                 >
                   by {resource.created_by}
                 </a>
               ) : (
-                <span className="text-xs text-black/35 truncate">by {resource.created_by}</span>
+                <span className="text-xs text-black/35 dark:text-white/35 truncate">by {resource.created_by}</span>
               )}
             </>
           )}

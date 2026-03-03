@@ -30,53 +30,48 @@ export default function FilterBar({
   onViewModeChange,
 }: FilterBarProps) {
   return (
-    <div className="sticky top-0 z-10 bg-white/90 backdrop-blur-md border-b border-black/8">
+    <div className="sticky top-0 z-10 bg-white/90 dark:bg-zinc-950/90 backdrop-blur-md border-b border-black/8 dark:border-white/8">
       <div className="px-4 sm:px-14 py-3">
         <div className="flex items-center gap-2">
 
-          {/* Scrollable pills — type + tag filters */}
+          {/* Scrollable pills */}
           <div className="flex items-center gap-2 overflow-x-auto scrollbar-none pb-0.5 flex-1 min-w-0">
-            {/* Type label */}
-            <span className="text-[11px] font-semibold text-black/30 uppercase tracking-widest flex-shrink-0">
+            <span className="text-[11px] font-semibold text-black/30 dark:text-white/30 uppercase tracking-widest flex-shrink-0">
               Type
             </span>
 
-            {/* Type buttons */}
             {TYPES.map((t) => (
               <button
                 key={t.value}
                 onClick={() => onTypeChange(t.value)}
                 className={`flex-shrink-0 px-3 py-1.5 rounded-full text-sm font-medium transition-colors whitespace-nowrap ${
                   selectedType === t.value
-                    ? 'bg-black text-white'
-                    : 'bg-black/5 text-black/60 hover:bg-black/10'
+                    ? 'bg-black text-white dark:bg-white dark:text-black'
+                    : 'bg-black/5 text-black/60 hover:bg-black/10 dark:bg-white/5 dark:text-white/60 dark:hover:bg-white/10'
                 }`}
               >
                 {t.label}
               </button>
             ))}
 
-            {/* Divider */}
             {tags.length > 0 && (
-              <div className="h-4 w-px bg-black/10 mx-1 flex-shrink-0" />
+              <div className="h-4 w-px bg-black/10 dark:bg-white/10 mx-1 flex-shrink-0" />
             )}
 
-            {/* Tag label */}
             {tags.length > 0 && (
-              <span className="text-[11px] font-semibold text-black/30 uppercase tracking-widest flex-shrink-0">
+              <span className="text-[11px] font-semibold text-black/30 dark:text-white/30 uppercase tracking-widest flex-shrink-0">
                 Tag
               </span>
             )}
 
-            {/* Tag buttons */}
             {tags.map((tag) => (
               <button
                 key={tag.slug}
                 onClick={() => onTagChange(selectedTag === tag.slug ? '' : tag.slug)}
                 className={`flex-shrink-0 px-3 py-1.5 rounded-full text-sm font-medium transition-colors whitespace-nowrap ${
                   selectedTag === tag.slug
-                    ? 'bg-black text-white'
-                    : 'bg-black/5 text-black/60 hover:bg-black/10'
+                    ? 'bg-black text-white dark:bg-white dark:text-black'
+                    : 'bg-black/5 text-black/60 hover:bg-black/10 dark:bg-white/5 dark:text-white/60 dark:hover:bg-white/10'
                 }`}
               >
                 {tag.label}
@@ -84,16 +79,15 @@ export default function FilterBar({
             ))}
           </div>
 
-          {/* View mode toggle — pinned to the right, never scrolls away */}
-          <div className="flex-shrink-0 flex items-center gap-1 pl-3 border-l border-black/10">
-            {/* Grid view */}
+          {/* View mode toggle */}
+          <div className="flex-shrink-0 flex items-center gap-1 pl-3 border-l border-black/10 dark:border-white/10">
             <button
               onClick={() => onViewModeChange('grid')}
               aria-label="Grid view"
               className={`p-1.5 rounded-lg transition-colors ${
                 viewMode === 'grid'
-                  ? 'bg-black text-white'
-                  : 'text-black/30 hover:text-black/60 hover:bg-black/5'
+                  ? 'bg-black text-white dark:bg-white dark:text-black'
+                  : 'text-black/30 hover:text-black/60 hover:bg-black/5 dark:text-white/30 dark:hover:text-white/60 dark:hover:bg-white/5'
               }`}
             >
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 16 16">
@@ -104,14 +98,13 @@ export default function FilterBar({
               </svg>
             </button>
 
-            {/* List view */}
             <button
               onClick={() => onViewModeChange('list')}
               aria-label="List view"
               className={`p-1.5 rounded-lg transition-colors ${
                 viewMode === 'list'
-                  ? 'bg-black text-white'
-                  : 'text-black/30 hover:text-black/60 hover:bg-black/5'
+                  ? 'bg-black text-white dark:bg-white dark:text-black'
+                  : 'text-black/30 hover:text-black/60 hover:bg-black/5 dark:text-white/30 dark:hover:text-white/60 dark:hover:bg-white/5'
               }`}
             >
               <svg className="w-4 h-4" fill="none" viewBox="0 0 16 16" stroke="currentColor" strokeWidth="1.75">

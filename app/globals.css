@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Class-based dark mode — applies when <html class="dark"> */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-ibm-plex-serif), ui-serif, Georgia, serif;
