@@ -6,6 +6,25 @@ import ResourceCard from '@/components/ResourceCard';
 import FilterBar from '@/components/FilterBar';
 import { Resource, Tag } from '@/lib/types';
 
+/** Returns a human-readable relative time string using the browser's local timezone */
+function timeAgo(dateStr: string): string {
+  const date = new Date(dateStr);
+  const seconds = Math.floor((Date.now() - date.getTime()) / 1000);
+  if (seconds < 60) return 'just now';
+  const minutes = Math.floor(seconds / 60);
+  if (minutes < 60) return `${minutes}m ago`;
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) return `${hours}h ago`;
+  const days = Math.floor(hours / 24);
+  if (days < 7) return `${days}d ago`;
+  if (days < 30) return `${Math.floor(days / 7)}w ago`;
+  return date.toLocaleDateString(undefined, {
+    month: 'short',
+    day: 'numeric',
+    year: days > 365 ? 'numeric' : undefined,
+  });
+}
+
 function HomeContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -16,6 +35,9 @@ function HomeContent() {
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // Client-side only timestamp to avoid SSR hydration mismatch
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
 
   const selectedType = searchParams.get('type') || '';
   const selectedTag = searchParams.get('tag') || '';
@@ -118,14 +140,23 @@ function HomeContent() {
           <p className="font-sans font-light text-[clamp(16px,1.5vw,26px)] tracking-[-0.04em] text-black leading-none">
             vibestack
           </p>
-          <a
-            href="https://docs.google.com/forms/d/e/1FAIpQLSd7aHdgM1mEpaHS3zQNRw6_JN3T5GNYYvbn9QuX2YvNz-8-WA/viewform?usp=dialog"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-4 py-2 bg-black text-white text-sm font-medium rounded-full hover:bg-neutral-800 active:scale-95 transition-all whitespace-nowrap"
-          >
-            Share Suggestions
-          </a>
+
+          {/* CTA + last-added timestamp */}
+          <div className="flex flex-col items-end gap-1">
+            <a
+              href="https://docs.google.com/forms/d/e/1FAIpQLSd7aHdgM1mEpaHS3zQNRw6_JN3T5GNYYvbn9QuX2YvNz-8-WA/viewform?usp=dialog"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-2 bg-black text-white text-sm font-medium rounded-full hover:bg-neutral-800 active:scale-95 transition-all whitespace-nowrap"
+            >
+              Share Suggestions
+            </a>
+            {mounted && !loading && resources.length > 0 && (
+              <span className="text-[11px] text-black/35 tracking-wide">
+                Last added · {timeAgo(resources[0].created_at)}
+              </span>
+            )}
+          </div>
         </div>
 
         {/* Headline — fills remaining height, vertically centered */}
