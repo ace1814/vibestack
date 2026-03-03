@@ -25,12 +25,14 @@ export const metadata: Metadata = {
       "Handpicked tools, learning resources & projects from vibe-coders.",
     siteName: "VibeStack",
     type: "website",
+    images: [{ url: '/og-image.png', width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
     title: "VibeStack — Curated tools & resources for builders",
     description:
       "Handpicked tools, learning resources & projects from vibe-coders.",
+    images: ['/og-image.png'],
   },
 };
 
