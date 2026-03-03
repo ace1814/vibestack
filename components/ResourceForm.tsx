@@ -11,7 +11,17 @@ interface ResourceFormProps {
   onCancel?: () => void;
 }
 
-const TYPES: ResourceType[] = ['tool', 'learning', 'project'];
+const TYPES: ResourceType[] = ['tool', 'learning', 'project', 'mcp'];
+
+const TYPE_LABELS: Record<ResourceType, string> = {
+  tool: 'Tool',
+  learning: 'Learning',
+  project: 'Project',
+  mcp: 'MCP Server',
+};
+
+/** Types that support the "Created by" attribution field */
+const CREATOR_TYPES: ResourceType[] = ['project', 'mcp'];
 
 export default function ResourceForm({
   adminPassword,
@@ -29,10 +39,14 @@ export default function ResourceForm({
     url: initialData?.url || '',
     tags: initialData?.tags?.join(', ') || '',
     preview_image_url: initialData?.preview_image_url || '',
+    created_by: initialData?.created_by || '',
+    created_by_url: initialData?.created_by_url || '',
   });
   const [loading, setLoading] = useState(false);
   const [scraping, setScraping] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const showCreatorFields = CREATOR_TYPES.includes(form.type);
 
   // Manually trigger OG scrape and populate image field
   const handleScrapeImage = async () => {
@@ -70,7 +84,7 @@ export default function ResourceForm({
       .map((t) => t.trim().toLowerCase())
       .filter(Boolean);
 
-    const body = {
+    const body: Record<string, unknown> = {
       type: form.type,
       name: form.name,
       description: form.description,
@@ -79,6 +93,12 @@ export default function ResourceForm({
       // Only send if manually set
       ...(form.preview_image_url ? { preview_image_url: form.preview_image_url } : {}),
     };
+
+    // Only include creator fields for project / mcp types
+    if (showCreatorFields) {
+      if (form.created_by.trim()) body.created_by = form.created_by.trim();
+      if (form.created_by_url.trim()) body.created_by_url = form.created_by_url.trim();
+    }
 
     try {
       const endpoint = isEdit
@@ -117,7 +137,7 @@ export default function ResourceForm({
         <label className="block text-sm font-medium text-slate-700 mb-1">
           Type <span className="text-red-500">*</span>
         </label>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           {TYPES.map((t) => (
             <button
               key={t}
@@ -129,7 +149,7 @@ export default function ResourceForm({
                   : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400'
               }`}
             >
-              {t}
+              {TYPE_LABELS[t]}
             </button>
           ))}
         </div>
@@ -242,6 +262,43 @@ export default function ResourceForm({
           Leave blank to auto-fetch on save. Paste a direct image URL to override.
         </p>
       </div>
+
+      {/* Created by — only for project / mcp */}
+      {showCreatorFields && (
+        <div className="rounded-xl border border-slate-100 bg-slate-50 p-4 space-y-3">
+          <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+            Creator attribution <span className="font-normal normal-case tracking-normal text-slate-400">(optional)</span>
+          </p>
+
+          {/* Creator name */}
+          <div>
+            <label className="block text-sm font-medium text-slate-700 mb-1">
+              Created by
+            </label>
+            <input
+              type="text"
+              value={form.created_by}
+              onChange={(e) => setForm((f) => ({ ...f, created_by: e.target.value }))}
+              placeholder="e.g. Jane Doe"
+              className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent"
+            />
+          </div>
+
+          {/* Creator social / profile URL */}
+          <div>
+            <label className="block text-sm font-medium text-slate-700 mb-1">
+              Creator profile URL
+            </label>
+            <input
+              type="url"
+              value={form.created_by_url}
+              onChange={(e) => setForm((f) => ({ ...f, created_by_url: e.target.value }))}
+              placeholder="https://twitter.com/janedoe"
+              className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent"
+            />
+          </div>
+        </div>
+      )}
 
       {/* Tags */}
       <div>

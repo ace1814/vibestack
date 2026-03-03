@@ -1,4 +1,4 @@
-export type ResourceType = 'tool' | 'learning' | 'project';
+export type ResourceType = 'tool' | 'learning' | 'project' | 'mcp';
 
 export interface Tag {
   id: string;
@@ -16,6 +16,8 @@ export interface Resource {
   preview_image_url: string | null;
   created_at: string;
   tags?: string[]; // tag slugs
+  created_by?: string | null;
+  created_by_url?: string | null;
 }
 
 export interface ResourcesResponse {
@@ -30,4 +32,6 @@ export interface CreateResourceBody {
   url: string;
   tags: string[]; // tag slugs
   preview_image_url?: string; // optional manual override
+  created_by?: string;
+  created_by_url?: string;
 }

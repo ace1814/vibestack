@@ -33,6 +33,10 @@ export async function PATCH(
     updateData.preview_image_url = body.preview_image_url || null;
   }
 
+  // Creator attribution (null-able — pass empty string to clear)
+  if ('created_by' in body) updateData.created_by = body.created_by || null;
+  if ('created_by_url' in body) updateData.created_by_url = body.created_by_url || null;
+
   // If URL changed and no manual image provided, re-scrape
   if (body.url) {
     updateData.url = body.url;

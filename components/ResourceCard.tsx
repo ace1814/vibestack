@@ -81,15 +81,35 @@ export default function ResourceCard({ resource }: ResourceCardProps) {
         <p className="text-black/50 text-sm leading-relaxed line-clamp-3 flex-1">
           {resource.description || 'No description available.'}
         </p>
-        <div className="flex items-center gap-1.5 mt-2 pt-2 border-t border-black/5">
+        <div className="flex items-center gap-1.5 mt-2 pt-2 border-t border-black/5 min-w-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={`https://www.google.com/s2/favicons?domain=${resource.domain}&sz=16`}
             alt=""
-            className="w-4 h-4 rounded"
+            className="w-4 h-4 rounded flex-shrink-0"
             loading="lazy"
           />
-          <span className="text-xs text-black/35 truncate">{resource.domain}</span>
+          <span className="text-xs text-black/35 truncate flex-shrink-0">{resource.domain}</span>
+
+          {/* Creator attribution — only shown when present */}
+          {resource.created_by && (
+            <>
+              <span className="text-black/15 text-xs flex-shrink-0">·</span>
+              {resource.created_by_url ? (
+                <a
+                  href={resource.created_by_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  className="text-xs text-black/40 hover:text-black/70 truncate transition-colors underline underline-offset-2"
+                >
+                  by {resource.created_by}
+                </a>
+              ) : (
+                <span className="text-xs text-black/35 truncate">by {resource.created_by}</span>
+              )}
+            </>
+          )}
         </div>
       </div>
     </div>

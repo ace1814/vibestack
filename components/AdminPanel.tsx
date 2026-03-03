@@ -124,6 +124,7 @@ export default function AdminPanel({ adminPassword }: AdminPanelProps) {
     tool: 'bg-violet-100 text-violet-700',
     learning: 'bg-emerald-100 text-emerald-700',
     project: 'bg-amber-100 text-amber-700',
+    mcp: 'bg-sky-100 text-sky-700',
   };
 
   return (

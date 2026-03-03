@@ -45,7 +45,16 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
   }
 
-  const { type, name, description, url, tags, preview_image_url: manualImageUrl } = body;
+  const {
+    type,
+    name,
+    description,
+    url,
+    tags,
+    preview_image_url: manualImageUrl,
+    created_by,
+    created_by_url,
+  } = body;
 
   if (!type || !name || !url) {
     return NextResponse.json(
@@ -93,7 +102,16 @@ export async function POST(req: NextRequest) {
     // Insert resource
     const { data: resource, error: insertError } = await db
       .from('resources')
-      .insert({ type, name, description, url, domain, preview_image_url: finalImageUrl })
+      .insert({
+        type,
+        name,
+        description,
+        url,
+        domain,
+        preview_image_url: finalImageUrl,
+        ...(created_by ? { created_by } : {}),
+        ...(created_by_url ? { created_by_url } : {}),
+      })
       .select()
       .single();
 

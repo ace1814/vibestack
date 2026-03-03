@@ -4,12 +4,14 @@
 -- Resources table
 CREATE TABLE resources (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  type TEXT NOT NULL CHECK (type IN ('tool', 'learning', 'project')),
+  type TEXT NOT NULL CHECK (type IN ('tool', 'learning', 'project', 'mcp')),
   name TEXT NOT NULL,
   description TEXT,
   url TEXT NOT NULL UNIQUE,
   domain TEXT NOT NULL,
   preview_image_url TEXT,
+  created_by TEXT,
+  created_by_url TEXT,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT now()
 );
 

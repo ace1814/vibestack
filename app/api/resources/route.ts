@@ -41,7 +41,7 @@ export async function GET(req: NextRequest) {
 
     let query = db
       .from('resources')
-      .select('id, type, name, description, url, domain, preview_image_url, created_at')
+      .select('id, type, name, description, url, domain, preview_image_url, created_by, created_by_url, created_at')
       .in('id', resourceIds)
       .order('created_at', { ascending: false })
       .range(offset, offset + PAGE_SIZE - 1);
@@ -61,7 +61,7 @@ export async function GET(req: NextRequest) {
   // No tag filter
   let query = db
     .from('resources')
-    .select('id, type, name, description, url, domain, preview_image_url, created_at')
+    .select('id, type, name, description, url, domain, preview_image_url, created_by, created_by_url, created_at')
     .order('created_at', { ascending: false })
     .range(offset, offset + PAGE_SIZE - 1);
 

@@ -7,6 +7,7 @@ const TYPES: { label: string; value: ResourceType | '' }[] = [
   { label: 'Tools', value: 'tool' },
   { label: 'Learning', value: 'learning' },
   { label: 'Projects', value: 'project' },
+  { label: 'MCP Servers', value: 'mcp' },
 ];
 
 interface FilterBarProps {
