@@ -20,9 +20,11 @@ export default function AdminPanel({ adminPassword }: AdminPanelProps) {
   const fetchResources = async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/resources');
+      const res = await fetch('/api/admin/resources', {
+        headers: { 'x-admin-password': adminPassword },
+      });
       const data = await res.json();
-      setResources(data.items || []);
+      setResources(Array.isArray(data) ? data : []);
     } catch {
       // silent
     } finally {

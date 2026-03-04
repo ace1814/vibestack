@@ -33,6 +33,27 @@ function dbError(err: unknown): NextResponse {
   return NextResponse.json({ error: msg }, { status: 500 });
 }
 
+export async function GET(req: NextRequest) {
+  if (!checkAdminAuth(req)) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  const db = getSupabaseAdmin();
+
+  try {
+    const { data, error } = await db
+      .from('resources')
+      .select('id, type, name, description, url, domain, preview_image_url, created_by, created_by_url, created_at')
+      .order('created_at', { ascending: false });
+
+    if (error) return dbError(error);
+
+    return NextResponse.json(data || []);
+  } catch (err) {
+    return dbError(err);
+  }
+}
+
 export async function POST(req: NextRequest) {
   if (!checkAdminAuth(req)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
