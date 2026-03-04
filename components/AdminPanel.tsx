@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import useSWR, { mutate as globalMutate } from 'swr';
 import ResourceForm from './ResourceForm';
 import { Resource, Tag } from '@/lib/types';
 
@@ -8,68 +9,102 @@ interface AdminPanelProps {
   adminPassword: string;
 }
 
+interface AdminResourcesPage {
+  items: Resource[];
+  total: number;
+  page: number;
+  pageSize: number;
+  totalPages: number;
+}
+
+/** SWR fetcher that passes the admin password header */
+const adminFetcher = ([url, password]: [string, string]) =>
+  fetch(url, { headers: { 'x-admin-password': password } }).then((r) => r.json());
+
+const tagsFetcher = (url: string) => fetch(url).then((r) => r.json());
+
 export default function AdminPanel({ adminPassword }: AdminPanelProps) {
-  const [resources, setResources] = useState<Resource[]>([]);
-  const [allTags, setAllTags] = useState<Tag[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
   const [showAddForm, setShowAddForm] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [rescrapingId, setRescrapingId] = useState<string | null>(null);
 
-  const fetchResources = async () => {
-    setLoading(true);
-    try {
-      const res = await fetch('/api/admin/resources', {
-        headers: { 'x-admin-password': adminPassword },
-      });
-      const data = await res.json();
-      setResources(Array.isArray(data) ? data : []);
-    } catch {
-      // silent
-    } finally {
-      setLoading(false);
-    }
-  };
+  // SWR key includes page — each page is independently cached
+  const resourceKey: [string, string] = [
+    `/api/admin/resources?page=${currentPage}`,
+    adminPassword,
+  ];
 
-  const fetchTags = async () => {
-    try {
-      const res = await fetch('/api/tags');
-      const data = await res.json();
-      setAllTags(Array.isArray(data) ? data : []);
-    } catch {
-      // silent
-    }
-  };
+  const {
+    data: resourceData,
+    isLoading: loading,
+    mutate: revalidatePage,
+  } = useSWR<AdminResourcesPage>(resourceKey, adminFetcher, {
+    revalidateOnFocus: false,
+    dedupingInterval: 10_000,   // 10 s in-memory dedup
+  });
 
-  useEffect(() => {
-    fetchResources();
-    fetchTags();
-  }, []);
+  const { data: allTags = [] } = useSWR<Tag[]>('/api/tags', tagsFetcher, {
+    revalidateOnFocus: false,
+    dedupingInterval: 60_000,
+  });
 
-  const handleAddSuccess = (resource: Resource) => {
-    setResources((prev) => [resource, ...prev]);
+  const resources = resourceData?.items ?? [];
+  const total = resourceData?.total ?? 0;
+  const totalPages = resourceData?.totalPages ?? 1;
+
+  /** Bust every cached admin resources page so counts stay accurate */
+  const revalidateAllPages = () =>
+    globalMutate(
+      (key: unknown) =>
+        Array.isArray(key) &&
+        typeof key[0] === 'string' &&
+        key[0].startsWith('/api/admin/resources'),
+      undefined,
+      { revalidate: true },
+    );
+
+  // ─── CRUD handlers ──────────────────────────────────────────────────────────
+
+  const handleAddSuccess = (_resource: Resource) => {
     setShowAddForm(false);
-    fetchTags(); // refresh tags in case new ones were created
+    setCurrentPage(1);
+    revalidateAllPages();
+    globalMutate('/api/tags');
   };
 
   const handleEditSuccess = (updated: Resource) => {
-    setResources((prev) =>
-      prev.map((r) => (r.id === updated.id ? updated : r))
-    );
     setEditingId(null);
-    fetchTags(); // refresh tags in case new ones were created
+    // Optimistically update the cached page, no extra network request
+    revalidatePage(
+      (prev) =>
+        prev
+          ? { ...prev, items: prev.items.map((r) => (r.id === updated.id ? updated : r)) }
+          : prev,
+      { revalidate: false },
+    );
+    globalMutate('/api/tags');
   };
 
   const handleDelete = async (id: string) => {
     if (!confirm('Delete this resource? This cannot be undone.')) return;
     setDeletingId(id);
     try {
-      await fetch(`/api/admin/resources/${id}`, {
+      const res = await fetch(`/api/admin/resources/${id}`, {
         method: 'DELETE',
         headers: { 'x-admin-password': adminPassword },
       });
-      setResources((prev) => prev.filter((r) => r.id !== id));
+      if (!res.ok) throw new Error('Delete failed');
+      // Optimistic remove, then revalidate so totals/pages stay consistent
+      revalidatePage(
+        (prev) =>
+          prev
+            ? { ...prev, items: prev.items.filter((r) => r.id !== id), total: prev.total - 1 }
+            : prev,
+        { revalidate: false },
+      );
+      revalidateAllPages();
     } catch {
       alert('Failed to delete. Try again.');
     } finally {
@@ -80,13 +115,9 @@ export default function AdminPanel({ adminPassword }: AdminPanelProps) {
   const handleRescrape = async (resource: Resource) => {
     setRescrapingId(resource.id);
     try {
-      // Fetch fresh OG image
       const scrapeRes = await fetch('/api/admin/scrape-og', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-admin-password': adminPassword,
-        },
+        headers: { 'Content-Type': 'application/json', 'x-admin-password': adminPassword },
         body: JSON.stringify({ url: resource.url }),
       });
       const scrapeData = await scrapeRes.json();
@@ -96,13 +127,9 @@ export default function AdminPanel({ adminPassword }: AdminPanelProps) {
         return;
       }
 
-      // Patch the resource with the new image
       const patchRes = await fetch(`/api/admin/resources/${resource.id}`, {
         method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-admin-password': adminPassword,
-        },
+        headers: { 'Content-Type': 'application/json', 'x-admin-password': adminPassword },
         body: JSON.stringify({ preview_image_url: scrapeData.previewImageUrl }),
       });
       const updated = await patchRes.json();
@@ -112,8 +139,19 @@ export default function AdminPanel({ adminPassword }: AdminPanelProps) {
         return;
       }
 
-      setResources((prev) =>
-        prev.map((r) => (r.id === resource.id ? { ...r, preview_image_url: scrapeData.previewImageUrl } : r))
+      revalidatePage(
+        (prev) =>
+          prev
+            ? {
+                ...prev,
+                items: prev.items.map((r) =>
+                  r.id === resource.id
+                    ? { ...r, preview_image_url: scrapeData.previewImageUrl }
+                    : r,
+                ),
+              }
+            : prev,
+        { revalidate: false },
       );
     } catch {
       alert('Re-scrape failed. Try again.');
@@ -122,6 +160,8 @@ export default function AdminPanel({ adminPassword }: AdminPanelProps) {
     }
   };
 
+  // ─── Styles ─────────────────────────────────────────────────────────────────
+
   const typeColors: Record<string, string> = {
     tool: 'bg-violet-100 text-violet-700',
     learning: 'bg-emerald-100 text-emerald-700',
@@ -129,8 +169,11 @@ export default function AdminPanel({ adminPassword }: AdminPanelProps) {
     mcp: 'bg-sky-100 text-sky-700',
   };
 
+  // ─── Render ─────────────────────────────────────────────────────────────────
+
   return (
     <div className="min-h-screen bg-slate-50">
+      {/* Header */}
       <header className="bg-white border-b border-slate-100 sticky top-0 z-10">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
           <div>
@@ -140,31 +183,20 @@ export default function AdminPanel({ adminPassword }: AdminPanelProps) {
             </h1>
           </div>
           <button
-            onClick={() => {
-              setShowAddForm(true);
-              setEditingId(null);
-            }}
+            onClick={() => { setShowAddForm(true); setEditingId(null); }}
             className="flex items-center gap-2 px-4 py-2 bg-violet-600 text-white rounded-full text-sm font-medium hover:bg-violet-700 transition-colors"
           >
-            <svg
-              className="w-4 h-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 4v16m8-8H4"
-              />
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
             </svg>
             Add resource
           </button>
         </div>
       </header>
 
+      {/* Main */}
       <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8">
+
         {/* Add form */}
         {showAddForm && (
           <div className="bg-white rounded-2xl border border-violet-200 shadow-sm p-6 mb-6">
@@ -178,18 +210,39 @@ export default function AdminPanel({ adminPassword }: AdminPanelProps) {
           </div>
         )}
 
-        {/* Resources list */}
+        {/* Resource list */}
         {loading ? (
-          <div className="text-center py-20 text-slate-400">Loading…</div>
-        ) : resources.length === 0 ? (
+          /* Skeleton */
+          <div className="space-y-3">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <div key={i} className="bg-white rounded-2xl border border-slate-100 shadow-sm p-4 flex items-start gap-4 animate-pulse">
+                <div className="w-20 h-14 rounded-lg bg-slate-100 flex-shrink-0" />
+                <div className="flex-1 space-y-2">
+                  <div className="h-4 bg-slate-100 rounded w-1/3" />
+                  <div className="h-3 bg-slate-100 rounded w-2/3" />
+                  <div className="h-3 bg-slate-100 rounded w-1/4" />
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : total === 0 ? (
           <div className="text-center py-20 text-slate-400">
             No resources yet. Add one above!
           </div>
         ) : (
           <div className="space-y-3">
+
+            {/* Count + page info */}
             <p className="text-sm text-slate-500 mb-4">
-              {resources.length} resource{resources.length !== 1 ? 's' : ''}
+              {total} resource{total !== 1 ? 's' : ''}
+              {totalPages > 1 && (
+                <span className="text-slate-400 ml-1">
+                  · page {currentPage} of {totalPages}
+                </span>
+              )}
             </p>
+
+            {/* Resource rows */}
             {resources.map((resource) => (
               <div key={resource.id}>
                 {editingId === resource.id ? (
@@ -214,9 +267,7 @@ export default function AdminPanel({ adminPassword }: AdminPanelProps) {
                         src={resource.preview_image_url}
                         alt={resource.name}
                         className="w-20 h-14 object-cover rounded-lg flex-shrink-0 bg-slate-100"
-                        onError={(e) => {
-                          (e.target as HTMLImageElement).style.display = 'none';
-                        }}
+                        onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
                       />
                     ) : (
                       <div className="w-20 h-14 rounded-lg bg-slate-100 flex-shrink-0 flex items-center justify-center text-2xl">
@@ -224,12 +275,12 @@ export default function AdminPanel({ adminPassword }: AdminPanelProps) {
                       </div>
                     )}
 
+                    {/* Meta */}
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-1">
                         <span
                           className={`text-xs font-semibold px-2 py-0.5 rounded-full ${
-                            typeColors[resource.type] ||
-                            'bg-slate-100 text-slate-600'
+                            typeColors[resource.type] || 'bg-slate-100 text-slate-600'
                           }`}
                         >
                           {resource.type}
@@ -244,6 +295,7 @@ export default function AdminPanel({ adminPassword }: AdminPanelProps) {
                       <p className="text-xs text-slate-400">{resource.domain}</p>
                     </div>
 
+                    {/* Actions */}
                     <div className="flex items-center gap-2 flex-shrink-0">
                       <button
                         onClick={() => handleRescrape(resource)}
@@ -254,8 +306,8 @@ export default function AdminPanel({ adminPassword }: AdminPanelProps) {
                         {rescrapingId === resource.id ? (
                           <>
                             <svg className="w-3 h-3 animate-spin" viewBox="0 0 24 24" fill="none">
-                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
-                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"/>
+                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
                             </svg>
                             Fetching…
                           </>
@@ -286,6 +338,45 @@ export default function AdminPanel({ adminPassword }: AdminPanelProps) {
                 )}
               </div>
             ))}
+
+            {/* Pagination controls */}
+            {totalPages > 1 && (
+              <div className="flex items-center justify-between pt-6">
+                <button
+                  onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                  disabled={currentPage <= 1}
+                  className="flex items-center gap-1.5 px-4 py-2 text-sm border border-slate-200 rounded-lg text-slate-600 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                >
+                  ← Previous
+                </button>
+
+                {/* Page number pills */}
+                <div className="flex items-center gap-1">
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
+                    <button
+                      key={p}
+                      onClick={() => setCurrentPage(p)}
+                      className={`w-8 h-8 rounded-lg text-sm font-medium transition-colors ${
+                        p === currentPage
+                          ? 'bg-violet-600 text-white'
+                          : 'text-slate-500 hover:bg-slate-100'
+                      }`}
+                    >
+                      {p}
+                    </button>
+                  ))}
+                </div>
+
+                <button
+                  onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                  disabled={currentPage >= totalPages}
+                  className="flex items-center gap-1.5 px-4 py-2 text-sm border border-slate-200 rounded-lg text-slate-600 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                >
+                  Next →
+                </button>
+              </div>
+            )}
+
           </div>
         )}
       </main>

@@ -33,22 +33,61 @@ function dbError(err: unknown): NextResponse {
   return NextResponse.json({ error: msg }, { status: 500 });
 }
 
+const ADMIN_PAGE_SIZE = 20;
+
 export async function GET(req: NextRequest) {
   if (!checkAdminAuth(req)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
+  const { searchParams } = new URL(req.url);
+  const page = Math.max(1, parseInt(searchParams.get('page') || '1', 10));
+  const offset = (page - 1) * ADMIN_PAGE_SIZE;
+
   const db = getSupabaseAdmin();
 
   try {
+    // Total count (exact) — needed for pagination UI
+    const { count, error: countError } = await db
+      .from('resources')
+      .select('*', { count: 'exact', head: true });
+
+    if (countError) return dbError(countError);
+
+    // Paginated resources
     const { data, error } = await db
       .from('resources')
       .select('id, type, name, description, url, domain, preview_image_url, created_by, created_by_url, created_at')
-      .order('created_at', { ascending: false });
+      .order('created_at', { ascending: false })
+      .range(offset, offset + ADMIN_PAGE_SIZE - 1);
 
     if (error) return dbError(error);
 
-    return NextResponse.json(data || []);
+    // Fetch tags for the returned resources
+    const resourceIds = (data || []).map((r) => r.id);
+    const tagsMap: Record<string, string[]> = {};
+
+    if (resourceIds.length > 0) {
+      const { data: rtData } = await db
+        .from('resource_tags')
+        .select('resource_id, tags(slug)')
+        .in('resource_id', resourceIds);
+
+      for (const rt of rtData || []) {
+        const rid = (rt as { resource_id: string; tags: { slug: string } | null }).resource_id;
+        const slug = (rt as { resource_id: string; tags: { slug: string } | null }).tags?.slug;
+        if (slug) tagsMap[rid] = [...(tagsMap[rid] || []), slug];
+      }
+    }
+
+    const items = (data || []).map((r) => ({ ...r, tags: tagsMap[r.id] || [] }));
+    const total = count ?? 0;
+    const totalPages = Math.max(1, Math.ceil(total / ADMIN_PAGE_SIZE));
+
+    return NextResponse.json(
+      { items, total, page, pageSize: ADMIN_PAGE_SIZE, totalPages },
+      { headers: { 'Cache-Control': 'no-store' } },
+    );
   } catch (err) {
     return dbError(err);
   }
