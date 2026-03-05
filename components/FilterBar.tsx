@@ -1,6 +1,5 @@
 'use client';
 
-import { useRef } from 'react';
 import { Tag, ResourceType } from '@/lib/types';
 
 const TYPES: { label: string; value: ResourceType | '' }[] = [
@@ -19,10 +18,7 @@ interface FilterBarProps {
   onTagChange: (tag: string) => void;
   viewMode: 'grid' | 'list';
   onViewModeChange: (mode: 'grid' | 'list') => void;
-  // Search
-  searchQuery: string;
-  onSearchChange: (q: string) => void;
-  onSearchCommit: (q: string) => void;
+  activeSearch: string;
   onSearchClear: () => void;
 }
 
@@ -34,18 +30,14 @@ export default function FilterBar({
   onTagChange,
   viewMode,
   onViewModeChange,
-  searchQuery,
-  onSearchChange,
-  onSearchCommit,
+  activeSearch,
   onSearchClear,
 }: FilterBarProps) {
-  const inputRef = useRef<HTMLInputElement>(null);
-
   return (
     <div className="sticky top-0 z-10 bg-white/90 dark:bg-zinc-950/90 backdrop-blur-md border-b border-black/8 dark:border-white/8">
       <div className="px-4 sm:px-14 py-2.5 flex items-center gap-2">
 
-        {/* Scrollable filter pills — flex-1 so search + toggle never shrink */}
+        {/* Scrollable filter pills */}
         <div className="flex items-center gap-2 overflow-x-auto scrollbar-none pb-0.5 flex-1 min-w-0">
           <span className="text-[11px] font-semibold text-black/30 dark:text-white/30 uppercase tracking-widest flex-shrink-0">
             Type
@@ -88,55 +80,24 @@ export default function FilterBar({
               {tag.label}
             </button>
           ))}
-        </div>
 
-        {/* Compact inline search — same height as pills, never scrolls */}
-        <div className="flex-shrink-0 relative flex items-center">
-          {/* Search icon */}
-          <svg
-            onClick={() => inputRef.current?.focus()}
-            className="absolute left-2.5 w-3.5 h-3.5 text-black/35 dark:text-white/35 pointer-events-none"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
-          >
-            <circle cx="11" cy="11" r="8" />
-            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35" />
-          </svg>
-
-          <input
-            ref={inputRef}
-            type="text"
-            value={searchQuery}
-            onChange={(e) => onSearchChange(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') onSearchCommit(searchQuery);
-              if (e.key === 'Escape') { onSearchClear(); inputRef.current?.blur(); }
-            }}
-            placeholder="Search… ↵"
-            className={`
-              h-[34px] pl-8 text-sm bg-black/5 dark:bg-white/6
-              text-black dark:text-white
-              placeholder:text-black/30 dark:placeholder:text-white/30
-              rounded-full border border-transparent
-              focus:border-black/12 dark:focus:border-white/12 focus:outline-none
-              transition-all duration-200
-              ${searchQuery ? 'w-44 sm:w-52 pr-7' : 'w-32 sm:w-40 pr-3'}
-            `}
-          />
-
-          {/* Clear button — only when there's a query */}
-          {searchQuery && (
-            <button
-              onClick={() => { onSearchClear(); inputRef.current?.focus(); }}
-              aria-label="Clear search"
-              className="absolute right-2 flex items-center justify-center w-4 h-4 rounded-full text-black/35 dark:text-white/35 hover:text-black/60 dark:hover:text-white/60 transition-colors"
-            >
-              <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
+          {/* Active search chip */}
+          {activeSearch && (
+            <>
+              <div className="h-4 w-px bg-black/10 dark:bg-white/10 mx-1 flex-shrink-0" />
+              <span className="flex-shrink-0 flex items-center gap-1.5 pl-3 pr-2 py-1.5 rounded-full text-sm font-medium bg-black/8 dark:bg-white/8 text-black/70 dark:text-white/70 whitespace-nowrap">
+                &ldquo;{activeSearch}&rdquo;
+                <button
+                  onClick={onSearchClear}
+                  aria-label="Clear search"
+                  className="flex items-center justify-center w-3.5 h-3.5 rounded-full text-black/35 dark:text-white/35 hover:text-black/60 dark:hover:text-white/60 transition-colors"
+                >
+                  <svg className="w-2.5 h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </span>
+            </>
           )}
         </div>
 

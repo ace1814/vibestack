@@ -1,12 +1,13 @@
 'use client';
 
-import { useState, useCallback, useRef, Suspense } from 'react';
+import { useState, useCallback, useRef, useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import useSWR, { mutate } from 'swr';
 import ResourceCard from '@/components/ResourceCard';
 import ResourceListRow from '@/components/ResourceListRow';
 import FilterBar from '@/components/FilterBar';
 import ThemeToggle from '@/components/ThemeToggle';
+import SearchPalette from '@/components/SearchPalette';
 import { Resource, Tag } from '@/lib/types';
 
 /** Returns a human-readable relative time string using the browser's local timezone */
@@ -40,6 +41,7 @@ function HomeContent() {
   const urlQ = searchParams.get('q') || '';
 
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [isPaletteOpen, setIsPaletteOpen] = useState(false);
 
   // searchInput: what's typed in the box (controlled)
   // activeSearch: the committed query that's actually in the SWR key / URL
@@ -91,6 +93,18 @@ function HomeContent() {
   const mounted = typeof window !== 'undefined';
   const isMounted = useRef(true);
 
+  // ⌘K / Ctrl+K keyboard shortcut
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        setIsPaletteOpen(true);
+      }
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, []);
+
   const handleTypeChange = (type: string) => {
     const params = new URLSearchParams(searchParams.toString());
     if (type) { params.set('type', type); } else { params.delete('type'); }
@@ -104,10 +118,11 @@ function HomeContent() {
     router.push(`/?${params.toString()}`);
   };
 
-  // Commits the search: updates activeSearch + URL
+  // Commits the search: updates activeSearch + URL + closes palette
   const handleSearchCommit = (value: string) => {
     const trimmed = value.trim();
     setActiveSearch(trimmed);
+    setIsPaletteOpen(false);
     const params = new URLSearchParams(searchParams.toString());
     if (trimmed.length >= 2) params.set('q', trimmed);
     else params.delete('q');
@@ -162,6 +177,19 @@ function HomeContent() {
               </span>
             )}
 
+            {/* Search trigger */}
+            <button
+              onClick={() => setIsPaletteOpen(true)}
+              aria-label="Search (⌘K)"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/5 hover:bg-black/10 dark:bg-white/5 dark:hover:bg-white/10 text-black/40 dark:text-white/40 text-xs font-medium transition-colors"
+            >
+              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <circle cx="11" cy="11" r="8" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35" />
+              </svg>
+              <span className="hidden sm:inline">⌘K</span>
+            </button>
+
             {/* Dark mode toggle */}
             <ThemeToggle />
 
@@ -198,10 +226,19 @@ function HomeContent() {
         onTagChange={handleTagChange}
         viewMode={viewMode}
         onViewModeChange={setViewMode}
+        activeSearch={activeSearch}
+        onSearchClear={handleSearchClear}
+      />
+
+      {/* ⌘K Search palette */}
+      <SearchPalette
+        isOpen={isPaletteOpen}
         searchQuery={searchInput}
+        activeSearch={activeSearch}
         onSearchChange={setSearchInput}
         onSearchCommit={handleSearchCommit}
         onSearchClear={handleSearchClear}
+        onClose={() => setIsPaletteOpen(false)}
       />
 
       {/* Main content */}
