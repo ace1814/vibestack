@@ -74,9 +74,15 @@ export async function GET(req: NextRequest) {
         .in('resource_id', resourceIds);
 
       for (const rt of rtData || []) {
-        const rid = (rt as { resource_id: string; tags: { slug: string } | null }).resource_id;
-        const slug = (rt as { resource_id: string; tags: { slug: string } | null }).tags?.slug;
-        if (slug) tagsMap[rid] = [...(tagsMap[rid] || []), slug];
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const row = rt as any;
+        const rid: string = row.resource_id;
+        const rawTags = row.tags;
+        // Supabase may return a single object or array depending on inference
+        const slug: string | undefined = Array.isArray(rawTags)
+          ? rawTags[0]?.slug
+          : rawTags?.slug;
+        if (rid && slug) tagsMap[rid] = [...(tagsMap[rid] || []), slug];
       }
     }
 
