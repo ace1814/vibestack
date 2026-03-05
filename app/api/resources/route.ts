@@ -9,8 +9,16 @@ export async function GET(req: NextRequest) {
   const type = searchParams.get('type');
   const tag = searchParams.get('tag');
   const cursor = searchParams.get('cursor');
+  // Strip PostgREST wildcard/special chars to prevent query manipulation
+  const rawQ = searchParams.get('q')?.trim() ?? '';
+  const q = rawQ.length >= 2 ? rawQ.replace(/[%_]/g, '') : '';
 
   const offset = cursor ? parseInt(cursor, 10) : 0;
+
+  // Longer CDN cache for search results (shared across users)
+  const cacheHeader = q
+    ? 'public, s-maxage=300, stale-while-revalidate=3600'
+    : 'public, s-maxage=60, stale-while-revalidate=300';
 
   if (tag) {
     // First find the tag id
@@ -47,6 +55,7 @@ export async function GET(req: NextRequest) {
       .range(offset, offset + PAGE_SIZE - 1);
 
     if (type) query = query.eq('type', type);
+    if (q) query = query.or(`name.ilike.%${q}%,description.ilike.%${q}%,created_by.ilike.%${q}%`);
 
     const { data, error } = await query;
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });
@@ -54,7 +63,7 @@ export async function GET(req: NextRequest) {
     const items = (data || []).map((r) => ({ ...r, tags: [tag.toLowerCase()] }));
     const nextCursor = items.length === PAGE_SIZE ? String(offset + PAGE_SIZE) : null;
     return NextResponse.json({ items, nextCursor }, {
-      headers: { 'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300' },
+      headers: { 'Cache-Control': cacheHeader },
     });
   }
 
@@ -66,6 +75,7 @@ export async function GET(req: NextRequest) {
     .range(offset, offset + PAGE_SIZE - 1);
 
   if (type) query = query.eq('type', type);
+  if (q) query = query.or(`name.ilike.%${q}%,description.ilike.%${q}%,created_by.ilike.%${q}%`);
 
   const { data, error } = await query;
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
@@ -74,6 +84,6 @@ export async function GET(req: NextRequest) {
   const nextCursor = items.length === PAGE_SIZE ? String(offset + PAGE_SIZE) : null;
 
   return NextResponse.json({ items, nextCursor }, {
-    headers: { 'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300' },
+    headers: { 'Cache-Control': cacheHeader },
   });
 }

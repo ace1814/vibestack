@@ -18,6 +18,11 @@ interface FilterBarProps {
   onTagChange: (tag: string) => void;
   viewMode: 'grid' | 'list';
   onViewModeChange: (mode: 'grid' | 'list') => void;
+  // Search
+  searchQuery: string;
+  onSearchChange: (q: string) => void;
+  onSearchCommit: (q: string) => void;
+  onSearchClear: () => void;
 }
 
 export default function FilterBar({
@@ -28,10 +33,61 @@ export default function FilterBar({
   onTagChange,
   viewMode,
   onViewModeChange,
+  searchQuery,
+  onSearchChange,
+  onSearchCommit,
+  onSearchClear,
 }: FilterBarProps) {
   return (
     <div className="sticky top-0 z-10 bg-white/90 dark:bg-zinc-950/90 backdrop-blur-md border-b border-black/8 dark:border-white/8">
-      <div className="px-4 sm:px-14 py-3">
+      <div className="px-4 sm:px-14 pt-3 pb-2">
+
+        {/* Search row */}
+        <div className="relative flex items-center mb-2.5">
+          {/* Search icon */}
+          <svg
+            className="absolute left-3 w-4 h-4 text-black/35 dark:text-white/35 flex-shrink-0 pointer-events-none"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+          >
+            <circle cx="11" cy="11" r="8" />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35" />
+          </svg>
+
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => onSearchChange(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') onSearchCommit(searchQuery);
+            }}
+            placeholder="Search tools, projects, MCP servers…"
+            className="w-full pl-9 pr-36 py-2 text-sm bg-black/4 dark:bg-white/6 text-black dark:text-white placeholder:text-black/35 dark:placeholder:text-white/35 rounded-xl border border-transparent focus:border-black/15 dark:focus:border-white/15 focus:outline-none transition-colors"
+          />
+
+          {/* Hint + clear */}
+          <div className="absolute right-2 flex items-center gap-1.5">
+            {searchQuery === '' ? (
+              <span className="hidden sm:inline text-[11px] text-black/25 dark:text-white/25 whitespace-nowrap select-none">
+                Press ↵ Enter to search
+              </span>
+            ) : (
+              <button
+                onClick={onSearchClear}
+                aria-label="Clear search"
+                className="flex items-center justify-center w-5 h-5 rounded-full bg-black/10 dark:bg-white/15 text-black/50 dark:text-white/50 hover:bg-black/20 dark:hover:bg-white/25 transition-colors"
+              >
+                <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            )}
+          </div>
+        </div>
+
+        {/* Filter pills row */}
         <div className="flex items-center gap-2">
 
           {/* Scrollable pills */}

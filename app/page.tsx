@@ -36,18 +36,27 @@ function HomeContent() {
 
   const selectedType = searchParams.get('type') || '';
   const selectedTag = searchParams.get('tag') || '';
+  // Initialise from URL so refresh/back navigation restores search state
+  const urlQ = searchParams.get('q') || '';
 
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+
+  // searchInput: what's typed in the box (controlled)
+  // activeSearch: the committed query that's actually in the SWR key / URL
+  const [searchInput, setSearchInput] = useState(urlQ);
+  const [activeSearch, setActiveSearch] = useState(urlQ);
 
   // Extra items loaded via "Load more" (cursor-based pagination)
   const [extraItems, setExtraItems] = useState<Resource[]>([]);
   const [nextCursor, setNextCursor] = useState<string | null>(null);
   const [loadingMore, setLoadingMore] = useState(false);
 
-  // Build the API key for the current filter combo
+  // Build the API key for the current filter + search combo
+  // Only activeSearch (committed) drives the key — never raw searchInput
   const resourceParams = new URLSearchParams();
   if (selectedType) resourceParams.set('type', selectedType);
   if (selectedTag) resourceParams.set('tag', selectedTag);
+  if (activeSearch.length >= 2) resourceParams.set('q', activeSearch);
   const resourceKey = `/api/resources?${resourceParams.toString()}`;
 
   // SWR: tags (long cache — rarely change)
@@ -95,6 +104,25 @@ function HomeContent() {
     router.push(`/?${params.toString()}`);
   };
 
+  // Commits the search: updates activeSearch + URL
+  const handleSearchCommit = (value: string) => {
+    const trimmed = value.trim();
+    setActiveSearch(trimmed);
+    const params = new URLSearchParams(searchParams.toString());
+    if (trimmed.length >= 2) params.set('q', trimmed);
+    else params.delete('q');
+    router.push(`/?${params.toString()}`, { scroll: false });
+  };
+
+  // Clears both the input and the active search
+  const handleSearchClear = () => {
+    setSearchInput('');
+    setActiveSearch('');
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete('q');
+    router.push(`/?${params.toString()}`, { scroll: false });
+  };
+
   const handleLoadMore = useCallback(async () => {
     if (!nextCursor || loadingMore) return;
     setLoadingMore(true);
@@ -102,6 +130,7 @@ function HomeContent() {
       const params = new URLSearchParams();
       if (selectedType) params.set('type', selectedType);
       if (selectedTag) params.set('tag', selectedTag);
+      if (activeSearch.length >= 2) params.set('q', activeSearch);
       params.set('cursor', nextCursor);
       const res = await fetch(`/api/resources?${params.toString()}`);
       const data = await res.json();
@@ -112,7 +141,7 @@ function HomeContent() {
     } catch { /* silent */ } finally {
       if (isMounted.current) setLoadingMore(false);
     }
-  }, [nextCursor, loadingMore, selectedType, selectedTag]);
+  }, [nextCursor, loadingMore, selectedType, selectedTag, activeSearch]);
 
   return (
     <div className="min-h-screen bg-white dark:bg-zinc-950 transition-colors duration-200">
@@ -169,6 +198,10 @@ function HomeContent() {
         onTagChange={handleTagChange}
         viewMode={viewMode}
         onViewModeChange={setViewMode}
+        searchQuery={searchInput}
+        onSearchChange={setSearchInput}
+        onSearchCommit={handleSearchCommit}
+        onSearchClear={handleSearchClear}
       />
 
       {/* Main content */}
@@ -214,8 +247,12 @@ function HomeContent() {
         ) : resources.length === 0 ? (
           <div className="py-20">
             <p className="text-5xl mb-4">🔍</p>
-            <p className="text-slate-500 dark:text-zinc-400 text-lg">No resources found.</p>
-            <p className="text-slate-400 dark:text-zinc-500 text-sm mt-1">Try removing a filter or check back later.</p>
+            <p className="text-slate-500 dark:text-zinc-400 text-lg">
+              {activeSearch ? `No matches for "${activeSearch}".` : 'No resources found.'}
+            </p>
+            <p className="text-slate-400 dark:text-zinc-500 text-sm mt-1">
+              {activeSearch ? 'Try a different keyword or clear the search.' : 'Try removing a filter or check back later.'}
+            </p>
           </div>
         ) : (
           <>
