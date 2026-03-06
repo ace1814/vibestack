@@ -6,22 +6,31 @@ import ResourceCard from '@/components/ResourceCard';
 import { Resource } from '@/lib/types';
 
 // ─── Layout constants ────────────────────────────────────────────────────────
-const CARD_W  = 280;
-const CARD_H  = 280; // slot height (card + gap)
-const GAP_X   = 48;
-const GAP_Y   = 48;
-const COLS    = 5;
+const CARD_W          = 320;
+const CARD_EST_H      = 298; // 320 * (9/16) = 180px image + ~118px text/padding
+const GAP             = 12;
+const NUM_COLS        = 5;
+const FRICTION        = 0.88; // momentum decay per frame
+const MIN_VELOCITY    = 0.4;  // px/frame — stop threshold
 
-/** Deterministic card position — no Math.random(), purely index-based */
-function cardPosition(i: number): { x: number; y: number } {
-  const col     = i % COLS;
-  const row     = Math.floor(i / COLS);
-  const stagger = row % 2 === 1 ? (CARD_W + GAP_X) / 2 : 0;
-  const microX  = ((i * 13) % 21) - 10; // −10…+10 px
-  const microY  = ((i * 7)  % 19) - 9;  // −9…+9 px
+/** Column-first masonry-style positions */
+function getCardPositions(count: number) {
+  return Array.from({ length: count }, (_, i) => {
+    const col = i % NUM_COLS;
+    const row = Math.floor(i / NUM_COLS);
+    return {
+      x: col * (CARD_W + GAP),
+      y: row * (CARD_EST_H + GAP),
+    };
+  });
+}
+
+/** Total canvas dimensions */
+function canvasSize(count: number) {
+  const rows = Math.ceil(count / NUM_COLS);
   return {
-    x: col * (CARD_W + GAP_X) + stagger + microX,
-    y: row * (CARD_H + GAP_Y) + microY,
+    w: NUM_COLS * (CARD_W + GAP) - GAP,
+    h: rows    * (CARD_EST_H + GAP) - GAP,
   };
 }
 
@@ -32,34 +41,32 @@ interface BoardViewProps {
   onClose: () => void;
 }
 
-interface DragRef {
-  startX: number;
-  startY: number;
-  ox: number;
-  oy: number;
-}
-
 // ─── Component ───────────────────────────────────────────────────────────────
 export default function BoardView({ isOpen, resources, onClose }: BoardViewProps) {
-  const [offset, setOffset]   = useState({ x: 0, y: 0 });
+  const [offset,   setOffset]   = useState({ x: 0, y: 0 });
   const [dragging, setDragging] = useState(false);
-  const dragRef  = useRef<DragRef | null>(null);
-  const backdropRef = useRef<HTMLDivElement>(null);
 
-  // Centre the cluster when the board opens
+  const dragRef     = useRef<{ startX: number; startY: number; ox: number; oy: number } | null>(null);
+  const velRef      = useRef({ x: 0, y: 0 });
+  const prevMoveRef = useRef<{ x: number; y: number; t: number } | null>(null);
+  const rafRef      = useRef<number | null>(null);
+  const offsetRef   = useRef({ x: 0, y: 0 }); // mirror for RAF access without stale closure
+
+  // Centre on open
   useEffect(() => {
-    if (isOpen) {
-      const totalW = COLS * (CARD_W + GAP_X);
-      setOffset({
-        x: (window.innerWidth - totalW) / 2,
-        y: 80,
-      });
-      setDragging(false);
-      dragRef.current = null;
-    }
-  }, [isOpen]);
+    if (!isOpen) return;
+    const { w } = canvasSize(resources.length);
+    const initX = (window.innerWidth  - w) / 2;
+    const initY = 56; // below header
+    setOffset({ x: initX, y: initY });
+    offsetRef.current = { x: initX, y: initY };
+    setDragging(false);
+    dragRef.current  = null;
+    velRef.current   = { x: 0, y: 0 };
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
+  }, [isOpen, resources.length]);
 
-  // Lock body scroll while open
+  // Body scroll lock
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -70,98 +77,123 @@ export default function BoardView({ isOpen, resources, onClose }: BoardViewProps
   // Esc to close
   useEffect(() => {
     if (!isOpen) return;
-    const handler = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
-    window.addEventListener('keydown', handler);
-    return () => window.removeEventListener('keydown', handler);
+    const h = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', h);
+    return () => window.removeEventListener('keydown', h);
   }, [isOpen, onClose]);
 
-  // ─── Drag handlers ─────────────────────────────────────────────────────────
+  // Cancel inertia on close
+  useEffect(() => {
+    if (!isOpen && rafRef.current) {
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
+    }
+  }, [isOpen]);
+
+  // ─── Drag + inertia ────────────────────────────────────────────────────────
   const handlePointerDown = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
-    // Only pan on primary button; ignore if clicking on a card link
     if (e.button !== 0) return;
-    dragRef.current = {
-      startX: e.clientX,
-      startY: e.clientY,
-      ox: offset.x,
-      oy: offset.y,
-    };
+    if (rafRef.current) { cancelAnimationFrame(rafRef.current); rafRef.current = null; }
+    velRef.current   = { x: 0, y: 0 };
+    prevMoveRef.current = { x: e.clientX, y: e.clientY, t: Date.now() };
+    dragRef.current  = { startX: e.clientX, startY: e.clientY, ox: offsetRef.current.x, oy: offsetRef.current.y };
     setDragging(true);
     (e.currentTarget as HTMLDivElement).setPointerCapture(e.pointerId);
-  }, [offset]);
+  }, []);
 
   const handlePointerMove = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
     if (!dragRef.current) return;
-    const dx = e.clientX - dragRef.current.startX;
-    const dy = e.clientY - dragRef.current.startY;
-    setOffset({ x: dragRef.current.ox + dx, y: dragRef.current.oy + dy });
+    const now = Date.now();
+    if (prevMoveRef.current) {
+      const dt = Math.max(1, now - prevMoveRef.current.t);
+      velRef.current = {
+        x: ((e.clientX - prevMoveRef.current.x) / dt) * 16,
+        y: ((e.clientY - prevMoveRef.current.y) / dt) * 16,
+      };
+    }
+    prevMoveRef.current = { x: e.clientX, y: e.clientY, t: now };
+    const nx = dragRef.current.ox + (e.clientX - dragRef.current.startX);
+    const ny = dragRef.current.oy + (e.clientY - dragRef.current.startY);
+    setOffset({ x: nx, y: ny });
+    offsetRef.current = { x: nx, y: ny };
   }, []);
 
   const handlePointerUp = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
-    dragRef.current = null;
+    dragRef.current    = null;
+    prevMoveRef.current = null;
     setDragging(false);
     (e.currentTarget as HTMLDivElement).releasePointerCapture(e.pointerId);
+
+    // Kick off inertia
+    const animate = () => {
+      const vx = velRef.current.x * FRICTION;
+      const vy = velRef.current.y * FRICTION;
+      velRef.current = { x: vx, y: vy };
+      if (Math.abs(vx) < MIN_VELOCITY && Math.abs(vy) < MIN_VELOCITY) {
+        rafRef.current = null;
+        return;
+      }
+      const nx = offsetRef.current.x + vx;
+      const ny = offsetRef.current.y + vy;
+      offsetRef.current = { x: nx, y: ny };
+      setOffset({ x: nx, y: ny });
+      rafRef.current = requestAnimationFrame(animate);
+    };
+    rafRef.current = requestAnimationFrame(animate);
   }, []);
 
   if (!isOpen) return null;
 
-  // Dark mode: read from document.documentElement class
-  const isDark = typeof document !== 'undefined' &&
-    document.documentElement.classList.contains('dark');
-
-  const dotColor = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.10)';
-  const bgColor  = isDark ? '#111111' : '#f5f5f5';
+  const positions = getCardPositions(resources.length);
 
   const content = (
-    <div
-      className="fixed inset-0 z-40 overflow-hidden"
-      style={{
-        backgroundColor: bgColor,
-        backgroundImage: `radial-gradient(circle, ${dotColor} 1.5px, transparent 1.5px)`,
-        backgroundSize: '28px 28px',
-      }}
-    >
-      {/* ── Header bar ── */}
-      <div className="absolute top-0 left-0 right-0 z-10 h-12 flex items-center justify-between px-6 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-sm border-b border-black/8 dark:border-white/8">
-        <div className="flex items-center gap-2.5">
+    <div className="fixed inset-0 z-40 overflow-hidden bg-white dark:bg-[#0f0f0f]">
+
+      {/* ── Header ── */}
+      <div className="absolute top-0 left-0 right-0 z-10 h-12 flex items-center justify-between px-5 bg-white/90 dark:bg-[#0f0f0f]/90 backdrop-blur-sm border-b border-black/6 dark:border-white/6">
+        <div className="flex items-center gap-2">
           {/* Grid icon */}
-          <svg className="w-4 h-4 text-black/40 dark:text-white/40" fill="currentColor" viewBox="0 0 16 16">
-            <rect x="1" y="1" width="6" height="6" rx="1" />
-            <rect x="9" y="1" width="6" height="6" rx="1" />
-            <rect x="1" y="9" width="6" height="6" rx="1" />
-            <rect x="9" y="9" width="6" height="6" rx="1" />
+          <svg className="w-3.5 h-3.5 text-black/35 dark:text-white/35" fill="currentColor" viewBox="0 0 16 16">
+            <rect x="1" y="1" width="6" height="6" rx="1.2" />
+            <rect x="9" y="1" width="6" height="6" rx="1.2" />
+            <rect x="1" y="9" width="6" height="6" rx="1.2" />
+            <rect x="9" y="9" width="6" height="6" rx="1.2" />
           </svg>
-          <span className="text-sm font-medium text-black/55 dark:text-white/55">
-            Board View
+          <span className="text-sm font-medium text-black/40 dark:text-white/40 tracking-tight">
+            Board
+          </span>
+          <span className="text-black/20 dark:text-white/20 text-sm">·</span>
+          <span className="text-sm text-black/30 dark:text-white/30">
+            {resources.length} resources
           </span>
         </div>
 
-        <div className="flex items-center gap-4">
-          <span className="hidden sm:block text-xs text-black/30 dark:text-white/30">
+        <div className="flex items-center gap-3">
+          <span className="hidden sm:block text-xs text-black/25 dark:text-white/20">
             Drag to explore &middot; <kbd className="font-mono">⌘B</kbd> to exit
           </span>
           <button
             onClick={onClose}
             aria-label="Close board"
-            className="flex items-center justify-center w-8 h-8 rounded-full text-black/35 dark:text-white/35 hover:text-black/60 dark:hover:text-white/60 bg-black/5 dark:bg-white/6 hover:bg-black/10 dark:hover:bg-white/10 transition-colors"
+            className="flex items-center justify-center w-7 h-7 rounded-full text-black/35 dark:text-white/35 hover:text-black/70 dark:hover:text-white/70 hover:bg-black/6 dark:hover:bg-white/8 transition-colors"
           >
-            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+            <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
         </div>
       </div>
 
-      {/* ── Pan-able backdrop ── */}
+      {/* ── Pan backdrop ── */}
       <div
-        ref={backdropRef}
         className="absolute inset-0 pt-12"
-        style={{ cursor: dragging ? 'grabbing' : 'grab', touchAction: 'none' }}
+        style={{ cursor: dragging ? 'grabbing' : 'grab', touchAction: 'none', userSelect: 'none' }}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
         onPointerCancel={handlePointerUp}
       >
-        {/* ── Canvas (transforms on pan) ── */}
+        {/* ── Canvas ── */}
         <div
           style={{
             position: 'absolute',
@@ -170,7 +202,7 @@ export default function BoardView({ isOpen, resources, onClose }: BoardViewProps
           }}
         >
           {resources.map((resource, i) => {
-            const { x, y } = cardPosition(i);
+            const { x, y } = positions[i];
             return (
               <div
                 key={resource.id}
@@ -179,7 +211,6 @@ export default function BoardView({ isOpen, resources, onClose }: BoardViewProps
                   left: x,
                   top: y,
                   width: CARD_W,
-                  // Disable pointer events during drag to prevent accidental navigation
                   pointerEvents: dragging ? 'none' : 'auto',
                 }}
               >
@@ -194,7 +225,7 @@ export default function BoardView({ isOpen, resources, onClose }: BoardViewProps
       {resources.length === 0 && (
         <div className="absolute inset-0 pt-12 flex items-center justify-center">
           <p className="text-sm text-black/30 dark:text-white/30">
-            No resources loaded yet — go back and let the page load first.
+            No resources yet — go back and let the page load first.
           </p>
         </div>
       )}
