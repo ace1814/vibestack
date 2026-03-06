@@ -49,3 +49,13 @@ CREATE POLICY "Public can read tags" ON tags FOR SELECT USING (true);
 CREATE POLICY "Public can read resource_tags" ON resource_tags FOR SELECT USING (true);
 
 -- Writes are done only via service role key (admin API), so no insert/update/delete policies needed for anon.
+
+-- Subscribers table (email capture — storing only, no sending infra yet)
+CREATE TABLE subscribers (
+  id            UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  email         TEXT UNIQUE NOT NULL,
+  subscribed_at TIMESTAMP WITH TIME ZONE DEFAULT now()
+);
+
+-- Inserts are done via service role key (server route), no anon insert policy needed.
+-- No public read needed either.

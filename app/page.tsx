@@ -46,6 +46,11 @@ function HomeContent() {
   const [searchInput, setSearchInput] = useState('');
   const [activeSearch, setActiveSearch] = useState('');
 
+  // Email subscription state
+  const [subEmail, setSubEmail]     = useState('');
+  const [subStatus, setSubStatus]   = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [subError, setSubError]     = useState('');
+
   // Extra items loaded via "Load more" (cursor-based pagination)
   const [extraItems, setExtraItems] = useState<Resource[]>([]);
   const [nextCursor, setNextCursor] = useState<string | null>(null);
@@ -129,6 +134,30 @@ function HomeContent() {
     setActiveSearch('');
   };
 
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (subStatus === 'loading' || subStatus === 'success') return;
+    setSubStatus('loading');
+    setSubError('');
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: subEmail }),
+      });
+      const data = await res.json();
+      if (data.ok) {
+        setSubStatus('success');
+      } else {
+        setSubError(data.error || 'Something went wrong.');
+        setSubStatus('error');
+      }
+    } catch {
+      setSubError('Network error — please try again.');
+      setSubStatus('error');
+    }
+  };
+
   const handleLoadMore = useCallback(async () => {
     if (!nextCursor || loadingMore) return;
     setLoadingMore(true);
@@ -205,6 +234,39 @@ function HomeContent() {
           <p className="font-sans font-normal text-[clamp(13px,1vw,17px)] leading-[1.6] text-black/60 dark:text-white/50 mt-3 max-w-[800px]">
             Handpicked tools, resources and real projects so you don&apos;t waste time.
           </p>
+
+          {/* Email subscription */}
+          <div className="mt-6">
+            {subStatus === 'success' ? (
+              <p className="text-sm text-black/50 dark:text-white/40">
+                ✓ You&apos;re in — we&apos;ll keep you posted.
+              </p>
+            ) : (
+              <form onSubmit={handleSubscribe} className="flex items-center gap-2 max-w-sm">
+                <input
+                  type="email"
+                  required
+                  placeholder="your@email.com"
+                  value={subEmail}
+                  onChange={(e) => {
+                    setSubEmail(e.target.value);
+                    if (subStatus === 'error') setSubStatus('idle');
+                  }}
+                  className="flex-1 h-9 px-4 rounded-full text-sm bg-black/5 dark:bg-white/8 text-black dark:text-white placeholder:text-black/30 dark:placeholder:text-white/30 border border-transparent focus:outline-none focus:border-black/15 dark:focus:border-white/15 transition-colors"
+                />
+                <button
+                  type="submit"
+                  disabled={subStatus === 'loading'}
+                  className="h-9 px-4 rounded-full text-sm font-medium bg-black text-white dark:bg-white dark:text-black hover:bg-neutral-800 dark:hover:bg-neutral-100 disabled:opacity-50 transition-all whitespace-nowrap active:scale-95"
+                >
+                  {subStatus === 'loading' ? 'Subscribing…' : 'Notify me'}
+                </button>
+              </form>
+            )}
+            {subStatus === 'error' && (
+              <p className="mt-1.5 text-xs text-red-500 dark:text-red-400">{subError}</p>
+            )}
+          </div>
         </div>
       </header>
 
