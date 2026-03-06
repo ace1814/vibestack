@@ -37,16 +37,14 @@ function HomeContent() {
 
   const selectedType = searchParams.get('type') || '';
   const selectedTag = searchParams.get('tag') || '';
-  // Initialise from URL so refresh/back navigation restores search state
-  const urlQ = searchParams.get('q') || '';
 
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [isPaletteOpen, setIsPaletteOpen] = useState(false);
 
-  // searchInput: what's typed in the box (controlled)
-  // activeSearch: the committed query that's actually in the SWR key / URL
-  const [searchInput, setSearchInput] = useState(urlQ);
-  const [activeSearch, setActiveSearch] = useState(urlQ);
+  // searchInput: what's typed in the palette (controlled)
+  // activeSearch: committed query that drives the SWR key — cleared on refresh
+  const [searchInput, setSearchInput] = useState('');
+  const [activeSearch, setActiveSearch] = useState('');
 
   // Extra items loaded via "Load more" (cursor-based pagination)
   const [extraItems, setExtraItems] = useState<Resource[]>([]);
@@ -118,24 +116,17 @@ function HomeContent() {
     router.push(`/?${params.toString()}`);
   };
 
-  // Commits the search: updates activeSearch + URL + closes palette
+  // Commits the search: updates in-memory state only (no URL sync — clears on refresh)
   const handleSearchCommit = (value: string) => {
     const trimmed = value.trim();
     setActiveSearch(trimmed);
     setIsPaletteOpen(false);
-    const params = new URLSearchParams(searchParams.toString());
-    if (trimmed.length >= 2) params.set('q', trimmed);
-    else params.delete('q');
-    router.push(`/?${params.toString()}`, { scroll: false });
   };
 
   // Clears both the input and the active search
   const handleSearchClear = () => {
     setSearchInput('');
     setActiveSearch('');
-    const params = new URLSearchParams(searchParams.toString());
-    params.delete('q');
-    router.push(`/?${params.toString()}`, { scroll: false });
   };
 
   const handleLoadMore = useCallback(async () => {

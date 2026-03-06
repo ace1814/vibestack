@@ -63,7 +63,7 @@ export default function SearchPalette({
     >
       {/* Palette card */}
       <div
-        className="w-full max-w-lg bg-white dark:bg-zinc-900 rounded-2xl shadow-2xl border border-black/8 dark:border-white/8 overflow-hidden"
+        className="w-full max-w-xl bg-white dark:bg-zinc-900 rounded-2xl shadow-2xl border border-black/8 dark:border-white/8 overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Input row */}
