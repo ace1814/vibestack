@@ -1,17 +1,45 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupabaseAdmin } from '@/lib/supabase';
 import { scrapeOGMeta } from '@/lib/og-scraper';
+import { validateScrapeUrl } from '@/lib/ssrf-guard';
+import { rateLimit, getIp } from '@/lib/rate-limit';
 import { CreateResourceBody } from '@/lib/types';
 
-function checkAdminAuth(req: NextRequest): boolean {
+const ALLOWED_TYPES = ['tool', 'learning', 'project', 'mcp'] as const;
+const TAG_RE = /^[a-z0-9-]+$/;
+
+/** Returns a 429 if the IP has failed admin auth too many times (5 / 15 min). */
+function checkAdminAuth(req: NextRequest): { ok: true } | NextResponse {
+  const ip = getIp(req);
   const authHeader = req.headers.get('x-admin-password');
-  return authHeader === process.env.ADMIN_PASS;
+
+  if (authHeader !== process.env.ADMIN_PASS) {
+    // Only count failures against the rate limit
+    const { allowed, retryAfterSec } = rateLimit(`admin-auth-fail:${ip}`, 5, 15 * 60 * 1000);
+    if (!allowed) {
+      return NextResponse.json(
+        { error: 'Too many failed attempts — try again later.' },
+        { status: 429, headers: { 'Retry-After': String(retryAfterSec) } }
+      );
+    }
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  return { ok: true };
+}
+
+function validateHttpUrl(value: unknown, fieldName: string): string | NextResponse {
+  if (typeof value !== 'string' || !value.trim()) return '';
+  const check = validateScrapeUrl(value);
+  if (!check.ok) {
+    return NextResponse.json({ error: `${fieldName}: ${check.reason}` }, { status: 400 });
+  }
+  return value.trim();
 }
 
 function dbError(err: unknown): NextResponse {
   const msg = err instanceof Error ? err.message : String(err);
 
-  // Surface helpful messages for common Supabase failures
   if (msg.toLowerCase().includes('fetch failed') || msg.toLowerCase().includes('enotfound')) {
     return NextResponse.json(
       {
@@ -36,9 +64,8 @@ function dbError(err: unknown): NextResponse {
 const ADMIN_PAGE_SIZE = 20;
 
 export async function GET(req: NextRequest) {
-  if (!checkAdminAuth(req)) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+  const auth = checkAdminAuth(req);
+  if (auth instanceof NextResponse) return auth;
 
   const { searchParams } = new URL(req.url);
   const page = Math.max(1, parseInt(searchParams.get('page') || '1', 10));
@@ -47,14 +74,12 @@ export async function GET(req: NextRequest) {
   const db = getSupabaseAdmin();
 
   try {
-    // Total count (exact) — needed for pagination UI
     const { count, error: countError } = await db
       .from('resources')
       .select('*', { count: 'exact', head: true });
 
     if (countError) return dbError(countError);
 
-    // Paginated resources
     const { data, error } = await db
       .from('resources')
       .select('id, type, name, description, url, domain, preview_image_url, created_by, created_by_url, created_at')
@@ -63,7 +88,6 @@ export async function GET(req: NextRequest) {
 
     if (error) return dbError(error);
 
-    // Fetch tags for the returned resources
     const resourceIds = (data || []).map((r) => r.id);
     const tagsMap: Record<string, string[]> = {};
 
@@ -78,7 +102,6 @@ export async function GET(req: NextRequest) {
         const row = rt as any;
         const rid: string = row.resource_id;
         const rawTags = row.tags;
-        // Supabase may return a single object or array depending on inference
         const slug: string | undefined = Array.isArray(rawTags)
           ? rawTags[0]?.slug
           : rawTags?.slug;
@@ -100,9 +123,8 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  if (!checkAdminAuth(req)) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+  const auth = checkAdminAuth(req);
+  if (auth instanceof NextResponse) return auth;
 
   let body: CreateResourceBody;
   try {
@@ -122,24 +144,83 @@ export async function POST(req: NextRequest) {
     created_by_url,
   } = body;
 
+  // --- Input validation ---
+
   if (!type || !name || !url) {
+    return NextResponse.json({ error: 'type, name, and url are required' }, { status: 400 });
+  }
+
+  // type enum
+  if (!ALLOWED_TYPES.includes(type as typeof ALLOWED_TYPES[number])) {
     return NextResponse.json(
-      { error: 'type, name, and url are required' },
+      { error: `type must be one of: ${ALLOWED_TYPES.join(', ')}` },
       { status: 400 }
     );
   }
 
-  // Validate URL format
-  try {
-    new URL(url);
-  } catch {
-    return NextResponse.json({ error: 'Invalid URL format' }, { status: 400 });
+  // name
+  if (typeof name !== 'string' || name.trim().length === 0) {
+    return NextResponse.json({ error: 'name is required' }, { status: 400 });
+  }
+  if (name.length > 200) {
+    return NextResponse.json({ error: 'name must be ≤ 200 characters' }, { status: 400 });
+  }
+
+  // description
+  if (description !== undefined && description !== null && typeof description === 'string' && description.length > 2000) {
+    return NextResponse.json({ error: 'description must be ≤ 2000 characters' }, { status: 400 });
+  }
+
+  // url — SSRF guard
+  const urlCheck = validateScrapeUrl(url);
+  if (!urlCheck.ok) {
+    return NextResponse.json({ error: `url: ${urlCheck.reason}` }, { status: 400 });
+  }
+
+  // created_by
+  if (created_by !== undefined && created_by !== null && typeof created_by === 'string' && created_by.length > 100) {
+    return NextResponse.json({ error: 'created_by must be ≤ 100 characters' }, { status: 400 });
+  }
+
+  // created_by_url
+  if (created_by_url) {
+    const byUrlResult = validateHttpUrl(created_by_url, 'created_by_url');
+    if (byUrlResult instanceof NextResponse) return byUrlResult;
+  }
+
+  // preview_image_url
+  if (manualImageUrl) {
+    const imgCheck = validateScrapeUrl(manualImageUrl);
+    if (!imgCheck.ok) {
+      return NextResponse.json({ error: `preview_image_url: ${imgCheck.reason}` }, { status: 400 });
+    }
+  }
+
+  // tags
+  if (tags !== undefined) {
+    if (!Array.isArray(tags)) {
+      return NextResponse.json({ error: 'tags must be an array' }, { status: 400 });
+    }
+    if (tags.length > 20) {
+      return NextResponse.json({ error: 'Maximum 20 tags allowed' }, { status: 400 });
+    }
+    for (const t of tags) {
+      const slug = String(t).toLowerCase().trim();
+      if (slug.length > 50) {
+        return NextResponse.json({ error: 'Each tag must be ≤ 50 characters' }, { status: 400 });
+      }
+      if (!TAG_RE.test(slug)) {
+        return NextResponse.json(
+          { error: `Tag "${slug}" contains invalid characters (use a-z, 0-9, hyphens only)` },
+          { status: 400 }
+        );
+      }
+    }
   }
 
   const db = getSupabaseAdmin();
 
   try {
-    // Prevent duplicates
     const { data: existing, error: dupError } = await db
       .from('resources')
       .select('id')
@@ -155,9 +236,8 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Use manual image if provided, otherwise scrape
     let finalImageUrl: string | null = manualImageUrl || null;
-    let domain = new URL(url).hostname.replace(/^www\./, '');
+    let domain = urlCheck.url.hostname.replace(/^www\./, '');
 
     if (!finalImageUrl) {
       const scraped = await scrapeOGMeta(url);
@@ -165,18 +245,17 @@ export async function POST(req: NextRequest) {
       domain = scraped.domain;
     }
 
-    // Insert resource
     const { data: resource, error: insertError } = await db
       .from('resources')
       .insert({
         type,
-        name,
-        description,
+        name: name.trim(),
+        description: description?.trim() ?? null,
         url,
         domain,
         preview_image_url: finalImageUrl,
-        ...(created_by ? { created_by } : {}),
-        ...(created_by_url ? { created_by_url } : {}),
+        ...(created_by ? { created_by: String(created_by).trim() } : {}),
+        ...(created_by_url ? { created_by_url: String(created_by_url).trim() } : {}),
       })
       .select()
       .single();
@@ -184,7 +263,6 @@ export async function POST(req: NextRequest) {
     if (insertError) return dbError(insertError);
     if (!resource) return NextResponse.json({ error: 'Insert failed' }, { status: 500 });
 
-    // Handle tags
     const tagSlugs = (tags || [])
       .map((t: string) => t.toLowerCase().trim())
       .filter(Boolean);

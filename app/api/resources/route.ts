@@ -2,18 +2,34 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getSupabaseAdmin } from '@/lib/supabase';
 
 const PAGE_SIZE = 12;
+const ALLOWED_TYPES = new Set(['tool', 'learning', 'project', 'mcp']);
 
 export async function GET(req: NextRequest) {
   const db = getSupabaseAdmin();
   const { searchParams } = new URL(req.url);
-  const type = searchParams.get('type');
-  const tag = searchParams.get('tag');
-  const cursor = searchParams.get('cursor');
-  // Strip PostgREST wildcard/special chars to prevent query manipulation
-  const rawQ = searchParams.get('q')?.trim() ?? '';
-  const q = rawQ.length >= 2 ? rawQ.replace(/[%_]/g, '') : '';
 
-  const offset = cursor ? parseInt(cursor, 10) : 0;
+  // --- Query param hardening ---
+
+  // type: must be an allowed value or empty
+  const rawType = searchParams.get('type') ?? '';
+  const type = ALLOWED_TYPES.has(rawType) ? rawType : '';
+
+  // tag: max 50 chars, only lowercase alphanumeric + hyphens
+  const rawTag = searchParams.get('tag') ?? '';
+  const tag = rawTag
+    .toLowerCase()
+    .replace(/[^a-z0-9-]/g, '')
+    .slice(0, 50);
+
+  // cursor: must be a non-negative integer
+  const rawCursor = searchParams.get('cursor');
+  const offset = rawCursor
+    ? Math.max(0, isNaN(parseInt(rawCursor, 10)) ? 0 : parseInt(rawCursor, 10))
+    : 0;
+
+  // q: max 100 chars, then strip PostgREST wildcards, then require ≥2 chars
+  const rawQ = (searchParams.get('q') ?? '').trim().slice(0, 100);
+  const q = rawQ.length >= 2 ? rawQ.replace(/[%_]/g, '') : '';
 
   // Longer CDN cache for search results (shared across users)
   const cacheHeader = q
@@ -25,7 +41,7 @@ export async function GET(req: NextRequest) {
     const { data: tagRow } = await db
       .from('tags')
       .select('id')
-      .eq('slug', tag.toLowerCase())
+      .eq('slug', tag)
       .maybeSingle();
 
     if (!tagRow) {
@@ -60,7 +76,7 @@ export async function GET(req: NextRequest) {
     const { data, error } = await query;
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });
 
-    const items = (data || []).map((r) => ({ ...r, tags: [tag.toLowerCase()] }));
+    const items = (data || []).map((r) => ({ ...r, tags: [tag] }));
     const nextCursor = items.length === PAGE_SIZE ? String(offset + PAGE_SIZE) : null;
     return NextResponse.json({ items, nextCursor }, {
       headers: { 'Cache-Control': cacheHeader },

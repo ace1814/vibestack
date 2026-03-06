@@ -1,5 +1,6 @@
 import * as cheerio from 'cheerio';
 import './dns-fix';
+import { validateScrapeUrl } from './ssrf-guard';
 
 export interface ScrapedMeta {
   previewImageUrl: string | null;
@@ -95,9 +96,16 @@ function extractOGFromHTML(html: string, baseUrl: string): string | null {
 }
 
 export async function scrapeOGMeta(url: string): Promise<ScrapedMeta> {
+  // SSRF guard — reject private/internal addresses before fetching
+  const check = validateScrapeUrl(url);
+  if (!check.ok) {
+    console.warn('[og-scraper] Blocked URL:', url, '—', check.reason);
+    return { previewImageUrl: null, domain: 'unknown' };
+  }
+
   let domain = 'unknown';
   try {
-    domain = new URL(url).hostname.replace(/^www\./, '');
+    domain = check.url.hostname.replace(/^www\./, '');
   } catch {
     return { previewImageUrl: null, domain: 'unknown' };
   }

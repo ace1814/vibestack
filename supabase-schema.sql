@@ -57,5 +57,6 @@ CREATE TABLE subscribers (
   subscribed_at TIMESTAMP WITH TIME ZONE DEFAULT now()
 );
 
--- Inserts are done via service role key (server route), no anon insert policy needed.
--- No public read needed either.
+-- Lock down subscribers: service role key only (all anon access denied)
+ALTER TABLE subscribers ENABLE ROW LEVEL SECURITY;
+-- No public read, insert, update, or delete policies — service role bypasses RLS automatically.
