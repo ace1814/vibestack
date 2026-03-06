@@ -9,6 +9,7 @@ import FilterBar from '@/components/FilterBar';
 import ThemeToggle from '@/components/ThemeToggle';
 import SearchPalette from '@/components/SearchPalette';
 import SubscribeModal from '@/components/SubscribeModal';
+import BoardView from '@/components/BoardView';
 import { Resource, Tag } from '@/lib/types';
 
 /** Returns a human-readable relative time string using the browser's local timezone */
@@ -42,6 +43,7 @@ function HomeContent() {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [isPaletteOpen, setIsPaletteOpen] = useState(false);
   const [isSubscribeOpen, setIsSubscribeOpen] = useState(false);
+  const [isBoardOpen, setIsBoardOpen] = useState(false);
 
   // searchInput: what's typed in the palette (controlled)
   // activeSearch: committed query that drives the SWR key — cleared on refresh
@@ -98,12 +100,26 @@ function HomeContent() {
   const mounted = typeof window !== 'undefined';
   const isMounted = useRef(true);
 
-  // ⌘K / Ctrl+K keyboard shortcut
+  // ⌘K / Ctrl+K — search palette
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
         setIsPaletteOpen(true);
+      }
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, []);
+
+  // ⌘B / Ctrl+B — board view toggle (skip if focus is in an input)
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      const tag = (e.target as HTMLElement).tagName;
+      if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+      if ((e.metaKey || e.ctrlKey) && e.key === 'b') {
+        e.preventDefault();
+        setIsBoardOpen((prev) => !prev);
       }
     };
     window.addEventListener('keydown', handler);
@@ -280,6 +296,13 @@ function HomeContent() {
         onSearchCommit={handleSearchCommit}
         onSearchClear={handleSearchClear}
         onClose={() => setIsPaletteOpen(false)}
+      />
+
+      {/* Board view (⌘B Easter egg) */}
+      <BoardView
+        isOpen={isBoardOpen}
+        resources={resources}
+        onClose={() => setIsBoardOpen(false)}
       />
 
       {/* Subscribe modal */}
