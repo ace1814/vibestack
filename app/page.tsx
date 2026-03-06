@@ -8,6 +8,7 @@ import ResourceListRow from '@/components/ResourceListRow';
 import FilterBar from '@/components/FilterBar';
 import ThemeToggle from '@/components/ThemeToggle';
 import SearchPalette from '@/components/SearchPalette';
+import SubscribeModal from '@/components/SubscribeModal';
 import { Resource, Tag } from '@/lib/types';
 
 /** Returns a human-readable relative time string using the browser's local timezone */
@@ -40,6 +41,7 @@ function HomeContent() {
 
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [isPaletteOpen, setIsPaletteOpen] = useState(false);
+  const [isSubscribeOpen, setIsSubscribeOpen] = useState(false);
 
   // searchInput: what's typed in the palette (controlled)
   // activeSearch: committed query that drives the SWR key — cleared on refresh
@@ -158,6 +160,15 @@ function HomeContent() {
     }
   };
 
+  const handleSubscribeClose = () => {
+    setIsSubscribeOpen(false);
+    // Reset error so re-opening the modal gives a clean form; keep 'success' state for the session
+    if (subStatus === 'error') {
+      setSubStatus('idle');
+      setSubError('');
+    }
+  };
+
   const handleLoadMore = useCallback(async () => {
     if (!nextCursor || loadingMore) return;
     setLoadingMore(true);
@@ -235,37 +246,14 @@ function HomeContent() {
             Handpicked tools, resources and real projects so you don&apos;t waste time.
           </p>
 
-          {/* Email subscription */}
+          {/* Subscribe trigger */}
           <div className="mt-6">
-            {subStatus === 'success' ? (
-              <p className="text-sm text-black/50 dark:text-white/40">
-                ✓ You&apos;re in — we&apos;ll keep you posted.
-              </p>
-            ) : (
-              <form onSubmit={handleSubscribe} className="flex items-center gap-2 max-w-sm">
-                <input
-                  type="email"
-                  required
-                  placeholder="your@email.com"
-                  value={subEmail}
-                  onChange={(e) => {
-                    setSubEmail(e.target.value);
-                    if (subStatus === 'error') setSubStatus('idle');
-                  }}
-                  className="flex-1 h-9 px-4 rounded-full text-sm bg-black/5 dark:bg-white/8 text-black dark:text-white placeholder:text-black/30 dark:placeholder:text-white/30 border border-transparent focus:outline-none focus:border-black/15 dark:focus:border-white/15 transition-colors"
-                />
-                <button
-                  type="submit"
-                  disabled={subStatus === 'loading'}
-                  className="h-9 px-4 rounded-full text-sm font-medium bg-black text-white dark:bg-white dark:text-black hover:bg-neutral-800 dark:hover:bg-neutral-100 disabled:opacity-50 transition-all whitespace-nowrap active:scale-95"
-                >
-                  {subStatus === 'loading' ? 'Subscribing…' : 'Notify me'}
-                </button>
-              </form>
-            )}
-            {subStatus === 'error' && (
-              <p className="mt-1.5 text-xs text-red-500 dark:text-red-400">{subError}</p>
-            )}
+            <button
+              onClick={() => setIsSubscribeOpen(true)}
+              className="h-9 px-5 rounded-full text-sm font-medium bg-black text-white dark:bg-white dark:text-black hover:bg-neutral-800 dark:hover:bg-neutral-100 active:scale-95 transition-all"
+            >
+              Subscribe now
+            </button>
           </div>
         </div>
       </header>
@@ -292,6 +280,17 @@ function HomeContent() {
         onSearchCommit={handleSearchCommit}
         onSearchClear={handleSearchClear}
         onClose={() => setIsPaletteOpen(false)}
+      />
+
+      {/* Subscribe modal */}
+      <SubscribeModal
+        isOpen={isSubscribeOpen}
+        subEmail={subEmail}
+        subStatus={subStatus}
+        subError={subError}
+        onEmailChange={(v) => { setSubEmail(v); if (subStatus === 'error') setSubStatus('idle'); }}
+        onSubmit={handleSubscribe}
+        onClose={handleSubscribeClose}
       />
 
       {/* Main content */}
