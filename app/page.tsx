@@ -9,7 +9,6 @@ import FilterBar from '@/components/FilterBar';
 import ThemeToggle from '@/components/ThemeToggle';
 import SearchPalette from '@/components/SearchPalette';
 import SubscribeModal from '@/components/SubscribeModal';
-import BoardView from '@/components/BoardView';
 import { Resource, Tag } from '@/lib/types';
 
 /** Returns a human-readable relative time string using the browser's local timezone */
@@ -43,7 +42,6 @@ function HomeContent() {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [isPaletteOpen, setIsPaletteOpen] = useState(false);
   const [isSubscribeOpen, setIsSubscribeOpen] = useState(false);
-  const [isBoardOpen, setIsBoardOpen] = useState(false);
 
   // searchInput: what's typed in the palette (controlled)
   // activeSearch: committed query that drives the SWR key — cleared on refresh
@@ -106,20 +104,6 @@ function HomeContent() {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
         setIsPaletteOpen(true);
-      }
-    };
-    window.addEventListener('keydown', handler);
-    return () => window.removeEventListener('keydown', handler);
-  }, []);
-
-  // ⌘B / Ctrl+B — board view toggle (skip if focus is in an input)
-  useEffect(() => {
-    const handler = (e: KeyboardEvent) => {
-      const tag = (e.target as HTMLElement).tagName;
-      if (tag === 'INPUT' || tag === 'TEXTAREA') return;
-      if ((e.metaKey || e.ctrlKey) && e.key === 'b') {
-        e.preventDefault();
-        setIsBoardOpen((prev) => !prev);
       }
     };
     window.addEventListener('keydown', handler);
@@ -224,17 +208,29 @@ function HomeContent() {
               </span>
             )}
 
-            {/* Search trigger */}
+            {/* Search trigger — fake search bar */}
             <button
               onClick={() => setIsPaletteOpen(true)}
               aria-label="Search (⌘K)"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/5 hover:bg-black/10 dark:bg-white/5 dark:hover:bg-white/10 text-black/40 dark:text-white/40 text-xs font-medium transition-colors"
+              className="hidden sm:flex items-center gap-2.5 pl-3.5 pr-3 py-2 rounded-full bg-black/5 hover:bg-black/8 dark:bg-white/6 dark:hover:bg-white/10 text-black/35 dark:text-white/35 text-sm transition-colors w-56 lg:w-72"
             >
-              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <svg className="w-3.5 h-3.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <circle cx="11" cy="11" r="8" />
                 <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35" />
               </svg>
-              <span className="hidden sm:inline">⌘K</span>
+              <span className="flex-1 text-left text-sm">Search resources…</span>
+              <kbd className="flex-shrink-0 text-[11px] font-medium bg-black/8 dark:bg-white/10 text-black/35 dark:text-white/35 rounded px-1.5 py-0.5 font-mono">⌘K</kbd>
+            </button>
+            {/* Mobile — icon only */}
+            <button
+              onClick={() => setIsPaletteOpen(true)}
+              aria-label="Search (⌘K)"
+              className="sm:hidden flex items-center justify-center w-8 h-8 rounded-full bg-black/5 hover:bg-black/10 dark:bg-white/5 dark:hover:bg-white/10 text-black/40 dark:text-white/40 transition-colors"
+            >
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <circle cx="11" cy="11" r="8" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35" />
+              </svg>
             </button>
 
             {/* Dark mode toggle */}
@@ -296,13 +292,6 @@ function HomeContent() {
         onSearchCommit={handleSearchCommit}
         onSearchClear={handleSearchClear}
         onClose={() => setIsPaletteOpen(false)}
-      />
-
-      {/* Board view (⌘B Easter egg) */}
-      <BoardView
-        isOpen={isBoardOpen}
-        resources={resources}
-        onClose={() => setIsBoardOpen(false)}
       />
 
       {/* Subscribe modal */}
