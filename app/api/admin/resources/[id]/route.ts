@@ -108,7 +108,8 @@ export async function PATCH(
       return NextResponse.json({ error: 'Maximum 20 tags allowed' }, { status: 400 });
     }
     for (const t of body.tags as unknown[]) {
-      const slug = String(t).toLowerCase().trim();
+      // Normalise spaces → hyphens before validation so "AI Agents" → "ai-agents"
+      const slug = String(t).toLowerCase().trim().replace(/\s+/g, '-');
       if (slug.length > 50) {
         return NextResponse.json({ error: 'Each tag must be ≤ 50 characters' }, { status: 400 });
       }
@@ -166,7 +167,7 @@ export async function PATCH(
     await getSupabaseAdmin().from('resource_tags').delete().eq('resource_id', id);
 
     const tagSlugs = (body.tags as string[])
-      .map((t) => t.toLowerCase().trim())
+      .map((t) => t.toLowerCase().trim().replace(/\s+/g, '-'))
       .filter(Boolean);
     const resolvedTagIds: string[] = [];
 

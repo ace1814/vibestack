@@ -14,12 +14,12 @@ export async function GET(req: NextRequest) {
   const rawType = searchParams.get('type') ?? '';
   const type = ALLOWED_TYPES.has(rawType) ? rawType : '';
 
-  // tag: max 50 chars, only lowercase alphanumeric + hyphens
+  // tag: lowercase + trim + length cap only — no char stripping.
+  // Value goes into .eq('slug', tag) which PostgREST parameterises, so it's
+  // injection-safe regardless of content. Stripping broke tags whose slugs
+  // were stored with spaces (e.g. "ai agents").
   const rawTag = searchParams.get('tag') ?? '';
-  const tag = rawTag
-    .toLowerCase()
-    .replace(/[^a-z0-9-]/g, '')
-    .slice(0, 50);
+  const tag = rawTag.toLowerCase().trim().slice(0, 50);
 
   // cursor: must be a non-negative integer
   const rawCursor = searchParams.get('cursor');
