@@ -67,6 +67,27 @@ function createPost({ title, description = '', slug: customSlug, type = 'guide',
   console.log(`  ✓ Created: content/blog/${filename}`);
 }
 
+// Parse a single CSV line respecting quoted fields
+function parseCsvLine(line) {
+  const fields = [];
+  let current = '';
+  let inQuotes = false;
+  for (let i = 0; i < line.length; i++) {
+    const ch = line[i];
+    if (ch === '"') {
+      if (inQuotes && line[i + 1] === '"') { current += '"'; i++; }
+      else inQuotes = !inQuotes;
+    } else if (ch === ',' && !inQuotes) {
+      fields.push(current.trim());
+      current = '';
+    } else {
+      current += ch;
+    }
+  }
+  fields.push(current.trim());
+  return fields;
+}
+
 function fromCsv(csvPath) {
   const abs = path.resolve(csvPath);
   if (!fs.existsSync(abs)) {
@@ -75,7 +96,7 @@ function fromCsv(csvPath) {
   }
 
   const lines = fs.readFileSync(abs, 'utf-8').trim().split('\n');
-  const headers = lines[0].split(',').map((h) => h.trim().toLowerCase());
+  const headers = parseCsvLine(lines[0]).map((h) => h.toLowerCase());
 
   const col = (row, name) => {
     const i = headers.indexOf(name);
@@ -84,7 +105,7 @@ function fromCsv(csvPath) {
 
   let created = 0;
   for (let i = 1; i < lines.length; i++) {
-    const row = lines[i].split(',');
+    const row = parseCsvLine(lines[i]);
     const title = col(row, 'title');
     if (!title) continue;
 
