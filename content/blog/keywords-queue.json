@@ -1,0 +1,409 @@
+{
+  "queue": [
+    {
+      "keyword": "vibe coding project ideas",
+      "title": "25 vibe coding project ideas you can actually ship this weekend",
+      "slug": "vibe-coding-project-ideas",
+      "type": "roundup",
+      "tags": ["vibe-coding", "beginners", "projects"],
+      "status": "done",
+      "publishedAt": "2026-03-26"
+    },
+    {
+      "keyword": "best MCP servers for designers",
+      "title": "Best MCP servers for designers in 2026",
+      "slug": "best-mcp-servers-for-designers",
+      "type": "roundup",
+      "tags": ["mcp", "designers", "claude"],
+      "status": "done",
+      "publishedAt": "2026-03-26"
+    },
+    {
+      "keyword": "v0 vs Bolt",
+      "title": "v0 vs Bolt: which AI app builder should you use in 2026?",
+      "slug": "v0-vs-bolt",
+      "type": "comparison",
+      "tags": ["v0", "bolt", "comparison"],
+      "status": "done",
+      "publishedAt": "2026-03-26"
+    },
+    {
+      "keyword": "Replit vs Claude Code",
+      "title": "Replit vs Claude Code: which should you use for vibe coding?",
+      "slug": "replit-vs-claude-code",
+      "type": "comparison",
+      "tags": ["replit", "claude-code", "comparison"],
+      "status": "done",
+      "publishedAt": "2026-03-26"
+    },
+    {
+      "keyword": "vibe coding for product managers",
+      "title": "Vibe coding for product managers: build your own tools without a developer",
+      "slug": "vibe-coding-for-product-managers",
+      "type": "guide",
+      "tags": ["vibe-coding", "product-managers"],
+      "status": "done",
+      "publishedAt": "2026-03-26"
+    },
+    {
+      "keyword": "vibe coding vs no-code",
+      "title": "Vibe coding vs no-code tools: which should you use?",
+      "slug": "vibe-coding-vs-nocode",
+      "type": "comparison",
+      "tags": ["vibe-coding", "no-code", "comparison"],
+      "status": "pending"
+    },
+    {
+      "keyword": "Claude Code for designers",
+      "title": "Claude Code for designers: vibe code without switching tools",
+      "slug": "claude-code-for-designers",
+      "type": "guide",
+      "tags": ["claude-code", "designers"],
+      "status": "pending"
+    },
+    {
+      "keyword": "Claude Code tutorial beginners",
+      "title": "Claude Code tutorial: getting started from scratch",
+      "slug": "claude-code-tutorial-beginners",
+      "type": "guide",
+      "tags": ["claude-code", "tutorial", "beginners"],
+      "status": "pending"
+    },
+    {
+      "keyword": "Claude Code build website",
+      "title": "Claude Code: how to build a website from a single prompt",
+      "slug": "claude-code-build-website",
+      "type": "guide",
+      "tags": ["claude-code", "tutorial"],
+      "status": "pending"
+    },
+    {
+      "keyword": "vibe coding for designers",
+      "title": "Vibe coding for designers: the complete guide",
+      "slug": "vibe-coding-for-designers",
+      "type": "guide",
+      "tags": ["vibe-coding", "designers"],
+      "status": "pending"
+    },
+    {
+      "keyword": "Lovable vs Replit",
+      "title": "Lovable vs Replit: which is better for beginners?",
+      "slug": "lovable-vs-replit",
+      "type": "comparison",
+      "tags": ["lovable", "replit", "comparison"],
+      "status": "pending"
+    },
+    {
+      "keyword": "Figma Make vs v0",
+      "title": "Figma Make vs v0: which is better for designers?",
+      "slug": "figma-make-vs-v0",
+      "type": "comparison",
+      "tags": ["figma-make", "v0", "comparison", "designers"],
+      "status": "pending"
+    },
+    {
+      "keyword": "Figma MCP Claude setup",
+      "title": "How to set up Figma MCP with Claude: step by step",
+      "slug": "figma-mcp-claude-setup",
+      "type": "guide",
+      "tags": ["figma", "mcp", "claude", "tutorial"],
+      "status": "pending"
+    },
+    {
+      "keyword": "Webflow MCP tutorial",
+      "title": "Webflow MCP: update your site by chatting with AI",
+      "slug": "webflow-mcp-tutorial",
+      "type": "guide",
+      "tags": ["webflow", "mcp", "tutorial"],
+      "status": "pending"
+    },
+    {
+      "keyword": "Framer MCP guide",
+      "title": "Framer MCP: edit your designs with Claude and Cursor",
+      "slug": "framer-mcp-guide",
+      "type": "guide",
+      "tags": ["framer", "mcp", "claude"],
+      "status": "pending"
+    },
+    {
+      "keyword": "Blender MCP Claude",
+      "title": "Blender MCP: control Blender with Claude AI",
+      "slug": "blender-mcp-claude",
+      "type": "guide",
+      "tags": ["blender", "mcp", "claude", "3d"],
+      "status": "pending"
+    },
+    {
+      "keyword": "what is an MCP server for designers",
+      "title": "What is an MCP server? Explained for designers and non-coders",
+      "slug": "what-is-mcp-server-designers",
+      "type": "guide",
+      "tags": ["mcp", "designers", "beginners"],
+      "status": "pending"
+    },
+    {
+      "keyword": "Figma Make tutorial",
+      "title": "Figma Make tutorial for beginners: build your first app",
+      "slug": "figma-make-tutorial-beginners",
+      "type": "guide",
+      "tags": ["figma-make", "tutorial", "beginners"],
+      "status": "pending"
+    },
+    {
+      "keyword": "Paper design tool AI",
+      "title": "Paper design tool: AI-powered design for agents reviewed",
+      "slug": "paper-design-tool-review",
+      "type": "guide",
+      "tags": ["paper", "design", "ai-tools"],
+      "status": "pending"
+    },
+    {
+      "keyword": "Google Stitch vs Figma Make",
+      "title": "Google Stitch vs Figma Make: AI design tools compared",
+      "slug": "google-stitch-vs-figma-make",
+      "type": "comparison",
+      "tags": ["google-stitch", "figma-make", "comparison"],
+      "status": "pending"
+    },
+    {
+      "keyword": "best AI app builder non-coders",
+      "title": "Best AI app builders for non-coders in 2026",
+      "slug": "best-ai-app-builders-non-coders",
+      "type": "roundup",
+      "tags": ["ai-tools", "non-coders", "app-builders"],
+      "status": "pending"
+    },
+    {
+      "keyword": "build SaaS without coding AI",
+      "title": "How to build a SaaS without coding using AI",
+      "slug": "build-saas-without-coding-ai",
+      "type": "guide",
+      "tags": ["saas", "no-code", "vibe-coding"],
+      "status": "pending"
+    },
+    {
+      "keyword": "turn idea into app AI",
+      "title": "How to turn your idea into an app using AI",
+      "slug": "turn-idea-into-app-ai",
+      "type": "guide",
+      "tags": ["ai-tools", "vibe-coding", "beginners"],
+      "status": "pending"
+    },
+    {
+      "keyword": "build automation no code Opal",
+      "title": "Build automation without coding using Opal by Google",
+      "slug": "build-automation-opal-google",
+      "type": "guide",
+      "tags": ["opal", "google", "automation", "no-code"],
+      "status": "pending"
+    },
+    {
+      "keyword": "vibe coding for founders",
+      "title": "Vibe coding for solo founders: idea to MVP without developers",
+      "slug": "vibe-coding-for-founders",
+      "type": "guide",
+      "tags": ["vibe-coding", "founders", "mvp"],
+      "status": "pending"
+    },
+    {
+      "keyword": "AI tools designers who code",
+      "title": "Best AI tools for designers who want to code in 2026",
+      "slug": "ai-tools-designers-who-code",
+      "type": "roundup",
+      "tags": ["ai-tools", "designers", "vibe-coding"],
+      "status": "pending"
+    },
+    {
+      "keyword": "AI tools PMs build prototypes",
+      "title": "Best AI tools for PMs to build and test prototypes",
+      "slug": "ai-tools-pms-build-prototypes",
+      "type": "roundup",
+      "tags": ["ai-tools", "product-managers", "prototypes"],
+      "status": "pending"
+    },
+    {
+      "keyword": "Claude Code Skills 2.0 designers",
+      "title": "Claude Code Skills 2.0 for designers: practical setup guide",
+      "slug": "claude-code-skills-2-designers",
+      "type": "guide",
+      "tags": ["claude-code", "designers", "skills"],
+      "status": "pending"
+    },
+    {
+      "keyword": "enterprise chatbot Claude Code",
+      "title": "How an indie hacker built an enterprise chatbot with Claude Code",
+      "slug": "enterprise-chatbot-claude-code",
+      "type": "guide",
+      "tags": ["claude-code", "chatbot", "indie-hacker"],
+      "status": "pending"
+    },
+    {
+      "keyword": "Claude use cases non-coders",
+      "title": "8 practical Claude use cases for non-coders",
+      "slug": "claude-use-cases-non-coders",
+      "type": "roundup",
+      "tags": ["claude", "non-coders", "use-cases"],
+      "status": "pending"
+    },
+    {
+      "keyword": "vibe coded SaaS examples",
+      "title": "Vibe coded SaaS examples: real products built without a dev team",
+      "slug": "vibe-coded-saas-examples",
+      "type": "roundup",
+      "tags": ["vibe-coding", "saas", "examples"],
+      "status": "pending"
+    },
+    {
+      "keyword": "real vibe coded app examples",
+      "title": "10 real apps built with vibe coding (with tools and results)",
+      "slug": "real-vibe-coded-app-examples",
+      "type": "roundup",
+      "tags": ["vibe-coding", "examples", "apps"],
+      "status": "pending"
+    },
+    {
+      "keyword": "run Ollama Mac setup",
+      "title": "How to run Ollama on your Mac: complete setup guide",
+      "slug": "run-ollama-mac-setup",
+      "type": "guide",
+      "tags": ["ollama", "mac", "local-ai", "tutorial"],
+      "status": "pending"
+    },
+    {
+      "keyword": "Ollama tutorial beginners",
+      "title": "Ollama tutorial for beginners: local AI in 10 minutes",
+      "slug": "ollama-tutorial-beginners",
+      "type": "guide",
+      "tags": ["ollama", "tutorial", "beginners", "local-ai"],
+      "status": "pending"
+    },
+    {
+      "keyword": "Ollama vs OpenRouter",
+      "title": "Ollama vs OpenRouter: which should you use?",
+      "slug": "ollama-vs-openrouter",
+      "type": "comparison",
+      "tags": ["ollama", "openrouter", "comparison", "local-ai"],
+      "status": "pending"
+    },
+    {
+      "keyword": "run AI locally no API cost",
+      "title": "How to run AI locally with no API costs using Ollama",
+      "slug": "run-ai-locally-no-api-cost",
+      "type": "guide",
+      "tags": ["ollama", "local-ai", "free", "privacy"],
+      "status": "pending"
+    },
+    {
+      "keyword": "Ollama vibe coding",
+      "title": "How to use Ollama for vibe coding projects",
+      "slug": "ollama-vibe-coding",
+      "type": "guide",
+      "tags": ["ollama", "vibe-coding", "local-ai"],
+      "status": "pending"
+    },
+    {
+      "keyword": "Opal by Google vs n8n",
+      "title": "Opal by Google vs n8n: which automation tool should you use?",
+      "slug": "opal-google-vs-n8n",
+      "type": "comparison",
+      "tags": ["opal", "google", "n8n", "automation", "comparison"],
+      "status": "pending"
+    },
+    {
+      "keyword": "Google Stitch tutorial designers",
+      "title": "Google Stitch tutorial for designers who don't code",
+      "slug": "google-stitch-tutorial-designers",
+      "type": "guide",
+      "tags": ["google-stitch", "designers", "tutorial"],
+      "status": "pending"
+    },
+    {
+      "keyword": "Google AI tools developers 2026",
+      "title": "All Google AI tools for vibe coding in 2026",
+      "slug": "google-ai-tools-vibe-coding-2026",
+      "type": "roundup",
+      "tags": ["google", "ai-tools", "vibe-coding", "2026"],
+      "status": "pending"
+    },
+    {
+      "keyword": "build website with AI no code",
+      "title": "How to build a website with AI and no coding experience",
+      "slug": "build-website-ai-no-code",
+      "type": "guide",
+      "tags": ["website", "no-code", "ai-tools", "beginners"],
+      "status": "pending"
+    },
+    {
+      "keyword": "vibe coding for non-coders",
+      "title": "Vibe coding for non-coders: where to start in 2026",
+      "slug": "vibe-coding-for-non-coders",
+      "type": "guide",
+      "tags": ["vibe-coding", "non-coders", "beginners"],
+      "status": "pending"
+    },
+    {
+      "keyword": "build chatbot AI no code",
+      "title": "How to build a chatbot with AI and no coding skills",
+      "slug": "build-chatbot-ai-no-code",
+      "type": "guide",
+      "tags": ["chatbot", "no-code", "ai-tools"],
+      "status": "pending"
+    },
+    {
+      "keyword": "designer built app without developer",
+      "title": "How I built a full app as a designer without a single developer",
+      "slug": "designer-built-app-without-developer",
+      "type": "guide",
+      "tags": ["designers", "vibe-coding", "story"],
+      "status": "pending"
+    },
+    {
+      "keyword": "vibe coding for marketers",
+      "title": "Vibe coding for marketers: build landing pages and tools without engineering",
+      "slug": "vibe-coding-for-marketers",
+      "type": "guide",
+      "tags": ["vibe-coding", "marketers", "no-code"],
+      "status": "pending"
+    },
+    {
+      "keyword": "Bolt vs Replit",
+      "title": "Bolt vs Replit: which AI builder is right for your project?",
+      "slug": "bolt-vs-replit",
+      "type": "comparison",
+      "tags": ["bolt", "replit", "comparison"],
+      "status": "pending"
+    },
+    {
+      "keyword": "Jules Google vs Claude Code",
+      "title": "Jules by Google vs Claude Code: which coding agent wins?",
+      "slug": "jules-google-vs-claude-code",
+      "type": "comparison",
+      "tags": ["jules", "google", "claude-code", "comparison"],
+      "status": "pending"
+    },
+    {
+      "keyword": "Figma Make vs Lovable",
+      "title": "Figma Make vs Lovable: design-first vs chat-first building",
+      "slug": "figma-make-vs-lovable",
+      "type": "comparison",
+      "tags": ["figma-make", "lovable", "comparison"],
+      "status": "pending"
+    },
+    {
+      "keyword": "best Ollama models open source",
+      "title": "Best open-source models to run with Ollama for vibe coding",
+      "slug": "best-ollama-models-vibe-coding",
+      "type": "roundup",
+      "tags": ["ollama", "open-source", "models", "local-ai"],
+      "status": "pending"
+    },
+    {
+      "keyword": "build portfolio website AI",
+      "title": "Build a portfolio website with AI in under an hour",
+      "slug": "build-portfolio-website-ai",
+      "type": "guide",
+      "tags": ["portfolio", "ai-tools", "lovable", "tutorial"],
+      "status": "pending"
+    }
+  ]
+}
