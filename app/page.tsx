@@ -189,6 +189,19 @@ function HomeContent() {
     }
   }, [nextCursor, loadingMore, selectedType, selectedTag, activeSearch]);
 
+  // Sentinel ref for auto-loading when user scrolls near the bottom
+  const sentinelRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = sentinelRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) handleLoadMore(); },
+      { rootMargin: '200px' }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [handleLoadMore]);
+
   return (
     <div className="min-h-screen bg-white dark:bg-zinc-950 transition-colors duration-200">
 
@@ -371,17 +384,12 @@ function HomeContent() {
               </div>
             )}
 
-            {nextCursor && (
-              <div className="flex justify-start mt-10">
-                <button
-                  onClick={handleLoadMore}
-                  disabled={loadingMore}
-                  className="px-6 py-2.5 bg-black text-white dark:bg-white dark:text-black rounded-full font-medium text-sm hover:bg-neutral-800 dark:hover:bg-neutral-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                >
-                  {loadingMore ? 'Loading...' : 'Load more'}
-                </button>
-              </div>
-            )}
+            {/* Sentinel: triggers auto-load when scrolled into view (200px before bottom) */}
+            <div ref={sentinelRef} className="mt-10 flex justify-center h-8">
+              {loadingMore && (
+                <span className="text-sm text-neutral-400 dark:text-neutral-500">Loading…</span>
+              )}
+            </div>
           </>
         )}
       </main>
