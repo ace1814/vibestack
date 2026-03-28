@@ -103,7 +103,7 @@ export default async function BlogPostPage({
           </p>
 
           {/* MDX content */}
-          <div className="prose prose-zinc dark:prose-invert max-w-none prose-headings:font-bold prose-a:text-black dark:prose-a:text-white prose-a:underline-offset-2 prose-img:rounded-xl">
+          <div className="prose prose-zinc dark:prose-invert max-w-none prose-base leading-7 prose-headings:font-bold prose-headings:tracking-tight prose-headings:text-black dark:prose-headings:text-white prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4 prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3 prose-h4:text-lg prose-h4:mt-6 prose-h4:mb-2 prose-p:text-black/80 dark:prose-p:text-white/80 prose-p:leading-7 prose-p:my-4 prose-a:text-black dark:prose-a:text-white prose-a:font-medium prose-a:underline-offset-2 prose-a:decoration-black/30 dark:prose-a:decoration-white/30 prose-strong:text-black dark:prose-strong:text-white prose-strong:font-semibold prose-ul:my-5 prose-ul:pl-6 prose-li:my-1.5 prose-li:text-black/80 dark:prose-li:text-white/80 prose-ol:my-5 prose-ol:pl-6 prose-blockquote:border-l-4 prose-blockquote:border-black/20 dark:prose-blockquote:border-white/20 prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:text-black/60 dark:prose-blockquote:text-white/60 prose-blockquote:my-6 prose-code:text-sm prose-code:bg-black/6 dark:prose-code:bg-white/8 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:font-mono prose-code:before:content-none prose-code:after:content-none prose-pre:bg-zinc-950 dark:prose-pre:bg-zinc-900 prose-pre:rounded-xl prose-pre:p-5 prose-pre:my-6 prose-hr:border-black/10 dark:prose-hr:border-white/10 prose-hr:my-10 prose-img:rounded-xl prose-img:my-8">
             <MDXRemote source={post.content} />
           </div>
 
