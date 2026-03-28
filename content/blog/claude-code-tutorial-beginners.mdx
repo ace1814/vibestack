@@ -1,0 +1,172 @@
+---
+title: "Claude Code tutorial: getting started from scratch"
+description: "A beginner-friendly guide to setting up and using Claude Code — the AI coding assistant that works directly in your terminal. No coding experience needed."
+slug: "claude-code-tutorial-beginners"
+type: "guide"
+tags: ["claude-code", "tutorial", "beginners"]
+publishedAt: "2026-03-28"
+---
+
+Claude Code is an AI assistant that lives in your terminal and writes, edits, and runs code on your behalf — and getting started is easier than you think, even if you've never opened a terminal in your life. In this tutorial I'll walk you through everything: what Claude Code is, how to install it, and how to use it to build your first real project.
+
+By the end of this guide you'll have Claude Code running and you'll know how to give it tasks that actually produce useful results.
+
+## What is Claude Code?
+
+Claude Code is a tool built by Anthropic (the company behind the Claude AI). Unlike using Claude in a browser, Claude Code runs in your terminal and has access to your actual project files. That means it can:
+
+- Read your files to understand your existing project
+- Write new code and create new files
+- Run commands and see their output
+- Edit existing code based on your instructions
+
+Think of it as a very capable developer sitting next to you, ready to build whatever you describe — except it works 10x faster and doesn't need a coffee break.
+
+## What you'll need before you start
+
+You don't need coding experience, but you do need a few things:
+
+- A **Mac or Windows computer** (Mac is slightly easier for this setup)
+- An **Anthropic account** and API key (free to create, pay-as-you-go pricing)
+- **Node.js installed** on your computer (I'll explain how to get this)
+
+Let's go through each one.
+
+## Step 1: Install Node.js
+
+Node.js is a piece of software that Claude Code needs to run. To check if you already have it, open your terminal (on Mac, press `Cmd + Space`, type "Terminal", and hit Enter) and type:
+
+```
+node --version
+```
+
+If you see a version number (like `v20.0.0`), you're good. If you get an error, go to [nodejs.org](https://nodejs.org) and download the LTS version. Install it like any other application.
+
+## Step 2: Get an Anthropic API key
+
+Claude Code uses the Anthropic API, which means you need an API key. Here's how to get one:
+
+1. Go to [console.anthropic.com](https://console.anthropic.com) and create an account
+2. Once logged in, go to **API Keys** in the sidebar
+3. Click **Create Key**, give it a name (like "Claude Code"), and copy it somewhere safe
+
+You'll also need to add some credit to your account — a few dollars is enough to start. Usage is pay-as-you-go and very affordable for typical use.
+
+## Step 3: Install Claude Code
+
+Open your terminal and run this command:
+
+```
+npm install -g @anthropic-ai/claude-code
+```
+
+This installs Claude Code globally on your computer. It should take about a minute.
+
+Next, tell Claude Code your API key:
+
+```
+export ANTHROPIC_API_KEY=your-key-here
+```
+
+Replace `your-key-here` with your actual API key. (On Mac, you can add this line to your `~/.zshrc` file so you don't have to set it every time you open a new terminal window.)
+
+## Step 4: Start your first session
+
+Navigate to a folder where you want to work. On Mac, you can do this by typing `cd` followed by the path to your folder:
+
+```
+cd ~/Desktop/my-project
+```
+
+Then start Claude Code:
+
+```
+claude
+```
+
+You'll see a prompt. Now you can start talking to it.
+
+## Step 5: Your first prompt
+
+Let's build something real. Try this prompt:
+
+```
+Create a simple webpage that shows a countdown timer to New Year's Day 2027.
+Make it centered on the screen, use a dark background, and show the days, hours,
+minutes and seconds remaining. Style it simply with a modern font.
+```
+
+Claude Code will think for a moment, then start writing files. Watch what it does — it'll typically create an `index.html` file, add the HTML structure, write the CSS for styling, and add the JavaScript to make the timer work.
+
+When it's done, open the `index.html` file in your browser. You should have a working countdown timer.
+
+## How to give good prompts
+
+The biggest difference between frustrating Claude Code sessions and productive ones is prompt quality. Here's what works:
+
+### Be specific about what you want
+
+Instead of: "Make a form"
+
+Try: "Create a contact form with fields for name, email, and message. Add basic validation so the form won't submit if fields are empty. Style it cleanly with a white background, subtle borders, and a blue submit button."
+
+### Tell it the context
+
+Instead of: "Add a button"
+
+Try: "I'm building a portfolio site for a freelance photographer. Add a 'Book a Session' button to the hero section that opens a modal with a simple enquiry form."
+
+### Ask for one thing at a time
+
+Huge multi-part prompts often produce messy results. Start with the core structure, then add features one by one.
+
+## Useful things to try as a beginner
+
+Here are some beginner-friendly projects that work really well with Claude Code:
+
+**Portfolio website.** "Build me a one-page portfolio site with a header, about section, work gallery, and contact form. Use a clean minimal design with lots of white space."
+
+**Tool for a specific task.** "Create a tool that takes a list of hex colour codes I paste in and shows me what they look like with their names alongside."
+
+**Data visualiser.** "Build a simple bar chart that reads from a CSV file and displays the data visually in the browser."
+
+**Browser extension.** "Create a Chrome extension that saves the current page's URL and title to a list I can view later."
+
+For more project ideas, [browse the vibe coding project guide on Vibestack](https://vibestack.in/guides/vibe-coding-project-ideas) — it's full of beginner-friendly ideas with enough detail to get you started.
+
+## When Claude Code gets it wrong
+
+Claude Code makes mistakes — it's part of the process. When something doesn't work:
+
+1. **Tell it what went wrong.** "The timer isn't counting down, it just shows zeros." Claude Code will diagnose and fix the issue.
+
+2. **Be specific about the error.** If you see an error message in the terminal or browser console, paste it in. Claude Code can read error messages and fix the underlying problem.
+
+3. **Start fresh if needed.** Sometimes it's faster to start over with a clearer brief than to fix a tangled mess.
+
+## Where to go next
+
+Once you're comfortable with the basics, you can start exploring more advanced things like connecting Claude Code to APIs, working with databases, or building more complex multi-page apps.
+
+Vibestack has a growing library of guides and tool recommendations for every level — [check out our full collection of Claude Code guides](https://vibestack.in/tools/claude-code) to see what's possible.
+
+---
+
+## Ready to build?
+
+Claude Code opens up a completely different way of working — one where ideas can become real products in hours, not weeks. The best way to learn is to just start. Pick something small you've been wanting to build and try it today.
+
+[Discover more AI tools for builders on Vibestack →](https://vibestack.in)
+
+---
+
+## FAQ
+
+**How much does Claude Code cost to use?**
+Claude Code itself is free to install. You pay for the Anthropic API calls it makes. For a beginner building small projects, expect to spend $1–10/month depending on how much you build. Costs are very reasonable for casual use.
+
+**Can I use Claude Code on Windows?**
+Yes. Claude Code works on Mac, Windows, and Linux. The setup process is slightly different on Windows — you'll use PowerShell or Command Prompt instead of Terminal — but the installation steps are the same.
+
+**What if I don't know how to use a terminal at all?**
+That's okay. The terminal is simpler than it looks — you're just typing commands instead of clicking buttons. The four or five commands you need for Claude Code are easy to learn. If you're nervous, try looking at [Vibestack's beginner tool guides](https://vibestack.in/guides) — several cover the basics of working in a terminal from scratch.

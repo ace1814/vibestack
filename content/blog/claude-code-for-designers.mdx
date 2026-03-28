@@ -1,0 +1,110 @@
+---
+title: "Claude Code for designers: vibe code without switching tools"
+description: "Claude Code lets designers build real, working products without switching to a dev environment. Here's how to get started and what it can actually do."
+slug: "claude-code-for-designers"
+type: "guide"
+tags: ["claude-code", "designers"]
+publishedAt: "2026-03-28"
+---
+
+Claude Code is a command-line AI assistant that writes, edits, and runs code — and it's become one of my favourite tools as a designer who wants to build things without relying on a developer. Instead of going back and forth in Slack or waiting for sprint cycles, I can describe what I want, and Claude Code figures out how to build it.
+
+This guide is for designers who've heard about Claude Code and want to understand what it actually does, whether it's right for them, and how to get started without getting overwhelmed.
+
+## What is Claude Code?
+
+Claude Code is a tool made by Anthropic that lives in your terminal. You open it, describe a task in plain English, and it reads your files, writes code, runs commands, and does the work. It's different from using Claude in a chat window because it has full access to your project files — it can see everything in your folder and make changes directly.
+
+For designers, this means you can say things like:
+- "Add a hover animation to all the card components in this project"
+- "Build me a simple page that shows all our brand colours with hex codes"
+- "Create a working prototype of this navigation with real scroll behaviour"
+
+And it just does it. Not a code snippet you need to paste somewhere — actual working code in your actual project.
+
+## Why should designers care?
+
+I'll be honest: I was sceptical at first. I'm a Figma person. I live in components and auto-layout. Why would I want to mess around in a terminal?
+
+The answer is that Claude Code fills a gap that no design tool does. It lets you go from a Figma design to a working prototype with real interactivity, real data, and real responsiveness — without handing off to a developer or learning React from scratch.
+
+It also changes your relationship with prototyping. Instead of building high-fidelity mockups that need to be rebuilt in code anyway, you can use Claude Code to build the actual thing, then iterate on it visually.
+
+### Things designers actually use it for
+
+**Building real prototypes.** Not InVision-style click-throughs, but actual web pages with working interactions.
+
+**Automating repetitive tasks.** Resizing images in bulk, renaming files according to a convention, extracting data from CSVs — Claude Code handles these in seconds.
+
+**Building design tools.** I've seen designers use it to build colour palette generators, contrast checkers, and icon browsers customised to their specific brand.
+
+**Shipping small features.** If you work at a small company without a lot of dev support, Claude Code can help you ship minor updates to a website without waiting for engineering time.
+
+## How to get started with Claude Code as a designer
+
+You don't need to know how to code to use Claude Code, but you do need to be comfortable with a few basic things.
+
+### Step 1: Set up Claude Code
+
+Claude Code requires a terminal (Mac has one built in — it's called Terminal) and an Anthropic API key. You install it with a single command:
+
+```
+npm install -g @anthropic-ai/claude-code
+```
+
+If that sentence made you nervous, check out [our step-by-step beginner guide to Claude Code on Vibestack](https://vibestack.in/guides/claude-code-tutorial-beginners) — it walks through the setup in plain English.
+
+### Step 2: Start with a small project
+
+Don't try to build a full app on day one. Pick something small and concrete:
+
+- A single web page based on one of your Figma designs
+- A colour palette tool for your brand
+- A simple form with validation
+
+Give Claude Code a clear brief in plain English. The more specific you are, the better the output.
+
+### Step 3: Think like a briefer, not a coder
+
+The skill Claude Code unlocks for designers isn't coding — it's briefing. You're essentially a creative director and Claude Code is an extremely fast junior developer. The quality of what it builds depends entirely on how well you describe what you want.
+
+Good brief: "Build a responsive card component with a 16:9 image at the top, a title in 20px semibold, a description in 14px regular, and a subtle box shadow. Use CSS variables for the colours."
+
+Bad brief: "Make a card."
+
+## What Claude Code is not great at (yet)
+
+It's worth being honest about the limitations.
+
+**Visual design judgment.** Claude Code can write CSS but it won't make beautiful design decisions on its own. It needs to be directed. If you say "make it look good," the results will be mediocre. If you say "use a monochromatic palette based on #2D3748 with generous whitespace and Inter font," you'll get something much more useful.
+
+**Complex design systems.** If you have an intricate component library with lots of tokens, Claude Code can work with it, but you'll need to give it context — paste in your variables, explain the conventions.
+
+**Pixel-perfect accuracy from Figma.** Don't expect Claude Code to look at your Figma file and produce code that matches it perfectly. It's getting better at this (especially with the Figma MCP), but it still requires iteration. Check out [our guide to using Figma MCP with Claude](https://vibestack.in/guides/figma-mcp-claude-setup) if that's what you're after.
+
+## The honest verdict
+
+Claude Code is a genuinely useful tool for designers who want to build things, not just design them. It's not magic — it requires good briefing and some iteration — but it dramatically reduces the gap between "I designed this in Figma" and "this exists on the internet."
+
+If you're a designer at a startup, a freelancer who occasionally needs to ship code, or someone who just wants to stop being blocked by dev bandwidth, Claude Code is worth your time.
+
+---
+
+## Start building today
+
+The vibe coding tools landscape is growing fast. [Explore the full directory at Vibestack](https://vibestack.in) to find the right tools for your workflow — from Claude Code to visual alternatives like Lovable and v0.
+
+[Browse all AI tools for designers on Vibestack →](https://vibestack.in/tools?audience=designers)
+
+---
+
+## FAQ
+
+**Do I need to know how to code to use Claude Code?**
+No. You describe what you want in plain English and Claude Code writes the code. That said, having a basic understanding of how the web works (HTML, CSS, the idea of components) will help you give better briefs and understand when something has gone wrong.
+
+**Is Claude Code free?**
+Claude Code requires an Anthropic API key, which means you pay for what you use. For light personal use — building a few prototypes or small projects — costs are usually under $10/month. Heavy daily use can cost more. There's no free tier for API access, but costs are very manageable for occasional use.
+
+**How is Claude Code different from using Claude in a browser?**
+When you use Claude in a browser (claude.ai), it's a chat interface — it can answer questions and generate code snippets, but it can't access your files or run code. Claude Code runs in your terminal and has full access to your project folder, so it can read files, write code, run commands, and see the results — all without you copying and pasting.

@@ -1,0 +1,171 @@
+---
+title: "Claude Code: how to build a website from a single prompt"
+description: "Learn how to use Claude Code to build a complete, deployable website just by describing what you want. A practical guide for non-coders and designers."
+slug: "claude-code-build-website"
+type: "guide"
+tags: ["claude-code", "tutorial"]
+publishedAt: "2026-03-28"
+---
+
+You can build a complete, working website with Claude Code using nothing but a description of what you want — no coding experience required, no templates to wrestle with, and no developer to wait for. I've done this more times than I can count, and in this guide I'll show you exactly how it works, what to say to get good results, and how to get your site live on the internet.
+
+This is a practical, hands-on guide. By the end you'll have a working website you've built yourself.
+
+## What you're actually doing when you use Claude Code
+
+Claude Code is an AI assistant that runs in your terminal. When you describe a website to it, it writes the actual HTML, CSS, and JavaScript files that make up that site. You're not using a template or a drag-and-drop builder — you're producing real code that you own and can host anywhere.
+
+This is what makes Claude Code different from website builders like Squarespace or Webflow. With those tools, your site lives on their platform. With Claude Code, the output is yours completely.
+
+## Before you start: what you'll need
+
+You'll need Claude Code installed and an Anthropic API key set up. If you haven't done that yet, [follow our step-by-step setup guide on Vibestack](https://vibestack.in/guides/claude-code-tutorial-beginners) — it takes about 15 minutes and you don't need any technical knowledge.
+
+Once that's done, open your terminal, create a new folder for your project, navigate to it, and type `claude` to start.
+
+## The anatomy of a great website prompt
+
+The single biggest lever for getting a great website out of Claude Code is your initial prompt. Most people go too vague and get mediocre results. Here's the structure I use:
+
+**1. The type of site and its purpose**
+Tell Claude Code exactly what kind of site this is and what it needs to do.
+
+**2. The sections and content**
+List every section you want, with the content that goes in each one.
+
+**3. The visual style**
+Describe the look: colour palette, fonts, mood, references if you have them.
+
+**4. Any specific functionality**
+Contact forms, animations, interactive elements — spell them out.
+
+### A good example prompt
+
+Here's a real prompt I'd use to build a freelance photographer's portfolio site:
+
+```
+Build me a one-page portfolio website for a freelance photographer. Include these sections:
+
+1. Hero: Full-width with name "Sofia Reyes Photography" and tagline "Documentary portraits
+   and editorial work." A subtle text animation on load.
+
+2. Work: A masonry photo grid with 12 placeholder images (use picsum.photos).
+   Clicking an image opens a lightbox.
+
+3. About: Two-column layout — photo on left (placeholder), bio text on right.
+   Include social links for Instagram and LinkedIn.
+
+4. Contact: Simple form with name, email, project type dropdown, and message.
+   No backend needed — just show a success message on submit.
+
+Visual style: clean and minimal, mostly white with a warm off-white background (#FAF9F7).
+Typography: use Google Fonts — Playfair Display for headings, Inter for body.
+Dark navy (#1a1f2e) for text. Generous whitespace. Subtle fade-in animations on scroll.
+
+Make it fully responsive for mobile.
+```
+
+When I run a prompt like this, Claude Code produces a proper, polished website — not a rough draft.
+
+## Building the site, section by section
+
+If your site is complex, a better approach is to build it in stages. Start with the structure and get that right, then add styling, then add interactivity.
+
+### Stage 1: Structure
+
+```
+Create the HTML structure for a portfolio site with these sections:
+nav, hero, work grid, about, and contact. Use semantic HTML5 elements.
+Don't add any styling yet.
+```
+
+### Stage 2: Styling
+
+```
+Now add CSS to style this site. I want:
+- A sticky navigation with the logo on the left and links on the right
+- A full-viewport hero with large centred text
+- A 3-column photo grid that collapses to 1 column on mobile
+- Clean typography using Inter from Google Fonts
+- A colour palette of white, #F5F0EB (light warm background), and #1D1D1F (text)
+```
+
+### Stage 3: Interactivity
+
+```
+Add JavaScript to:
+1. Make the navigation highlight the active section as the user scrolls
+2. Add a smooth fade-in animation when each section enters the viewport
+3. Open a lightbox when a photo in the grid is clicked
+```
+
+Breaking it into stages gives you much more control and makes it easier to course-correct if something isn't right.
+
+## Reviewing and iterating
+
+When Claude Code finishes, open the HTML file in your browser (usually `open index.html` in the terminal on Mac). Look at what you've got and tell Claude Code what needs to change.
+
+Good feedback looks like:
+
+- "The navigation feels too cramped — add more padding and make the links a bit larger"
+- "The hero section font is too small on mobile, increase it to 36px on screens under 768px"
+- "The contact form submit button should be full-width and match the nav colour"
+
+Be specific and Claude Code will nail the changes. Vague feedback ("make it better") leads to vague results.
+
+## Adding your real content
+
+Once the structure looks right, swap in your actual content:
+
+```
+Replace all the placeholder text in this site with the following content:
+[paste your actual text here]
+```
+
+For images, you can either:
+- Link to images hosted elsewhere (Cloudinary, your own server, etc.)
+- Tell Claude Code to use specific local image files you've added to the project folder
+
+## Getting your site live
+
+When you're happy with the site, it's time to deploy. The easiest options for a static site (which is what Claude Code typically produces):
+
+**Netlify Drop.** Go to [app.netlify.com/drop](https://app.netlify.com/drop), drag your project folder in, and your site is live in seconds. Free tier is very generous.
+
+**Vercel.** Create an account at vercel.com, connect your project folder, and deploy with one click.
+
+**GitHub Pages.** Free hosting for any GitHub repository. Good if you want version control too.
+
+For a plain HTML/CSS/JS site, any of these work perfectly. Claude Code can also help you set up the deployment:
+
+```
+Help me prepare this project for deployment on Netlify.
+What do I need to do and are there any files I should add?
+```
+
+## More than a one-pager
+
+Once you're comfortable with single-page sites, Claude Code can handle much more. Multi-page sites, blogs with dynamic content, sites that fetch data from APIs — the same prompting approach works, just with more complexity.
+
+For inspiration and more build ideas, browse [the vibe coding project guide on Vibestack](https://vibestack.in/guides/vibe-coding-project-ideas) — it has dozens of real project ideas with notes on which AI tools work best for each.
+
+---
+
+## Build your site today
+
+The gap between "I have an idea" and "this exists on the internet" has never been smaller. Claude Code puts that power in your hands without requiring years of learning to code.
+
+[Explore all vibe coding tools on Vibestack →](https://vibestack.in)
+
+---
+
+## FAQ
+
+**Can Claude Code build sites with a CMS or dynamic content?**
+Yes, though it gets more complex. Claude Code can set up a simple JSON-based content system, or help you integrate with a headless CMS like Contentful or Sanity. For a straightforward portfolio or marketing site, a static HTML approach is usually the simplest and most reliable option.
+
+**Will the site Claude Code builds look professional?**
+It depends on how detailed your prompt is. With specific design direction — fonts, colours, spacing — Claude Code produces genuinely polished results. Without it, you'll get something functional but bland. The more you invest in describing the visual style, the better the output.
+
+**Can I update the site later without using Claude Code?**
+Yes. Because Claude Code produces real files, you can edit them with any text editor, or bring Claude Code back in to help with updates. You're not locked into any tool.

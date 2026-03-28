@@ -1,0 +1,135 @@
+---
+title: "Vibe coding for designers: the complete guide"
+description: "A practical guide to vibe coding for designers — what it is, which tools to use, and how to go from Figma designs to real working products without a developer."
+slug: "vibe-coding-for-designers"
+type: "guide"
+tags: ["vibe-coding", "designers"]
+publishedAt: "2026-03-28"
+---
+
+Vibe coding is the practice of building software by describing what you want in plain English and letting an AI write the code — and for designers, it's one of the most significant shifts in how we can work. Instead of handing designs off to a developer and waiting, you can now go from Figma to a live product yourself, in hours, without writing a single line of code.
+
+I'm a designer, not a developer. But I've been vibe coding for over a year now, and I've shipped real products this way — tools I use in my own work, freelance projects for clients, and side experiments that would never have happened if I'd needed a developer to build them. This guide covers everything I've learned.
+
+## What vibe coding actually means for designers
+
+Vibe coding isn't really about coding at all. It's about being able to describe what you want to build and having an AI turn that description into working software. As a designer, your skills translate remarkably well to this:
+
+- You're used to describing things precisely (because you brief developers all the time)
+- You have strong visual taste, which means you can identify when an AI has made bad design decisions
+- You think in systems and components, which maps closely to how code is structured
+
+The missing piece has always been the execution. Vibe coding hands you the execution.
+
+## The tools designers are using for vibe coding
+
+There are several categories of vibe coding tools, and different ones suit different types of design work.
+
+### Visual builders with AI (easiest to start)
+
+**Lovable** — you describe an app and it builds it, with a visual preview you can see updating in real time. Great for full web apps. The interface feels the most "designed" of any vibe coding tool.
+
+**v0 by Vercel** — excellent for building UI components. You describe a component — a dashboard, a card, a modal — and v0 generates it in React with Tailwind CSS. The output quality is very high for design-focused work.
+
+**Bolt** — similar to Lovable but slightly more technical in its output. Good for full-stack projects.
+
+### Terminal-based AI coding (more powerful, steeper curve)
+
+**Claude Code** — runs in your terminal and has full access to your project files. More powerful than visual builders, but requires you to be comfortable with a terminal. The output is real, production-ready code.
+
+**Cursor** — an AI-powered code editor. If you're comfortable with design tools like Figma, the interface is actually approachable. You can open files, see the code, and ask the AI to make changes.
+
+For most designers just starting out, I'd recommend beginning with Lovable or v0. They're the most immediately rewarding. Once you're comfortable, Claude Code opens up much more power.
+
+[Explore all vibe coding tools with reviews on Vibestack](https://vibestack.in) — the directory has notes on who each tool is best suited for.
+
+## How to approach your first vibe coding project
+
+The biggest mistake I see designers make is starting with something too complex. Your first project should be small, focused, and personally useful.
+
+### Good first projects for designers
+
+**A brand colour palette tool.** Input your brand hex codes, and see them displayed beautifully with names, tints, and contrast ratios. Takes 20 minutes to build.
+
+**A type specimen page.** A page that shows your brand typography in action — sizes, weights, combinations — that you can share with clients or teams.
+
+**A simple portfolio site.** A one-page site with your work, bio, and contact form. Real and deployable.
+
+**A Figma presentation tool.** An app where you can paste text or copy from Figma and see it formatted and ready to share with a client.
+
+### The workflow
+
+1. **Describe your project clearly** — what it does, who it's for, what it should look like
+2. **Start with the core.** Get the main functionality working before worrying about polish
+3. **Iterate visually.** Once you have something running, describe what looks off and how to fix it
+4. **Add your design sensibility.** This is where your skills shine — tell the AI about spacing, typography, colour relationships, and you'll get better results than most developers would produce
+5. **Ship it.** Deploy to Netlify or Vercel. It takes about two minutes.
+
+## Working from your Figma designs
+
+One of the most powerful combinations right now is Figma + vibe coding. The workflow I use:
+
+1. Design the component or page in Figma (or at least sketch it out)
+2. Screenshot or export specific sections
+3. Describe the design to the AI in detail, referencing your design decisions
+
+If you want to get even closer to Figma-to-code, look into the Figma MCP — a plugin that lets Claude (the AI) read your Figma files directly. [We have a guide on setting up Figma MCP with Claude](https://vibestack.in/guides/figma-mcp-claude-setup) on Vibestack.
+
+The key insight: your job isn't to not design things. It's to use your design skills to direct the AI toward better outputs. You're still the creative director.
+
+## Prompting for design quality
+
+The biggest difference between vibe coding outputs that look great and ones that look mediocre is how specifically you describe the design. Here's how I think about it:
+
+### Always specify typography
+
+Don't just say "use a nice font." Say: "Use Inter for body text at 16px with a line-height of 1.6. Headings in Fraunces at 40px with tight letter-spacing of -0.02em."
+
+### Reference colours precisely
+
+"Use a warm off-white (#FAF8F5) as the background, charcoal (#1C1C1E) for body text, and a dusty rose (#D4856A) as the accent colour."
+
+### Describe spacing and layout
+
+"Use generous whitespace — at least 80px vertical padding between sections on desktop. The main content should be constrained to 720px wide on large screens."
+
+### Give it visual direction
+
+"The overall vibe is calm, editorial, Scandinavian minimalism. Think Kinfolk magazine or Arc browser's landing page."
+
+When you give Claude or Lovable this level of detail, the output is genuinely good.
+
+## The mindset shift
+
+Vibe coding changes something fundamental about how designers can work. The bottleneck is no longer "can I build this" — it's "what should I build." That's a bottleneck designers are uniquely equipped to handle.
+
+It also changes how you prototype. Instead of building high-fidelity mockups in Figma that someone else then rebuilds in code, you can build the real thing and iterate on the real thing. The feedback loop tightens dramatically.
+
+And honestly? There's something deeply satisfying about pressing deploy and watching something you designed appear on the actual internet. I've been doing it for a year and it still feels a bit magic.
+
+## Where to go from here
+
+The best place to explore the landscape of vibe coding tools as a designer is [Vibestack's curated directory](https://vibestack.in) — it's specifically built for designers, PMs, and founders who want to build with AI, not for developers.
+
+For specific guides, we have detailed walkthroughs on the most popular tools, including [how to get started with Claude Code](https://vibestack.in/guides/claude-code-tutorial-beginners) and comparisons like [Lovable vs Bolt](https://vibestack.in/comparisons/v0-vs-bolt) to help you pick the right tool for your project.
+
+---
+
+## Start your first project today
+
+You don't need a tutorial to start. Pick a small thing you've been wanting to build, open Lovable or v0, and start describing it. You'll learn faster by doing than by reading.
+
+[Browse vibe coding tools for designers on Vibestack →](https://vibestack.in/tools?audience=designers)
+
+---
+
+## FAQ
+
+**Do I need to understand code at all to vibe code as a designer?**
+Not to get started. You can produce working products without reading a single line of code. That said, having a basic mental model of how the web works — what HTML, CSS, and JavaScript do at a conceptual level — will help you write better prompts and understand when something has gone wrong. Even a few hours of browsing CSS documentation will pay dividends.
+
+**Can I use vibe coding for client work?**
+Absolutely. Many designers are already using it to deliver faster, cheaper prototypes and MVPs for clients. The main consideration is ownership — make sure you're delivering the source code to clients, not just a hosted version. Vibe coding tools produce real code you can hand over.
+
+**What's the best vibe coding tool for a designer with no terminal experience?**
+Start with Lovable or v0. Both have polished interfaces that feel more like design tools than developer tools. You don't need a terminal or any setup. Once you outgrow them, Claude Code and Cursor offer more power with a slightly steeper learning curve.
