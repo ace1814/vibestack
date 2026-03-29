@@ -249,14 +249,12 @@ function HomeContent() {
             {/* Dark mode toggle */}
             <ThemeToggle />
 
-            <a
-              href="https://docs.google.com/forms/d/e/1FAIpQLSd7aHdgM1mEpaHS3zQNRw6_JN3T5GNYYvbn9QuX2YvNz-8-WA/viewform?usp=dialog"
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              onClick={() => setIsSubscribeOpen(true)}
               className="px-4 py-2 bg-black text-white text-sm font-medium rounded-full hover:bg-neutral-800 dark:bg-white dark:text-black dark:hover:bg-neutral-100 active:scale-95 transition-all whitespace-nowrap"
             >
-              Share Suggestions
-            </a>
+              Subscribe
+            </button>
           </div>
         </div>
 
@@ -271,15 +269,32 @@ function HomeContent() {
             Handpicked tools, resources and real projects so you don&apos;t waste time.
           </p>
 
-          {/* Subscribe trigger */}
-          <div className="mt-6">
-            <button
-              onClick={() => setIsSubscribeOpen(true)}
-              className="h-9 px-5 rounded-full text-sm font-medium bg-black text-white dark:bg-white dark:text-black hover:bg-neutral-800 dark:hover:bg-neutral-100 active:scale-95 transition-all"
-            >
-              Subscribe now
-            </button>
+          {/* Intent chips */}
+          <div className="flex flex-wrap gap-2 mt-5">
+            {([
+              { label: 'Build something',    emoji: '🛠', type: 'tool'     },
+              { label: 'Learn vibe coding',  emoji: '📚', type: 'learning' },
+              { label: 'Find an MCP server', emoji: '⚡', type: 'mcp'      },
+            ] as const).map(({ label, emoji, type }) => (
+              <button
+                key={type}
+                onClick={() => {
+                  handleTypeChange(selectedType === type ? '' : type);
+                  document.getElementById('resource-grid')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                  selectedType === type
+                    ? 'bg-black/8 dark:bg-white/10 text-black dark:text-white ring-1 ring-black/15 dark:ring-white/15'
+                    : 'bg-black/4 dark:bg-white/6 text-black/55 dark:text-white/55 hover:bg-black/7 dark:hover:bg-white/9 hover:text-black/80 dark:hover:text-white/80'
+                }`}
+              >
+                <span>{emoji}</span>
+                {label}
+                <span className="opacity-40 text-[10px]">→</span>
+              </button>
+            ))}
           </div>
+
         </div>
       </header>
 
@@ -305,6 +320,8 @@ function HomeContent() {
         onSearchCommit={handleSearchCommit}
         onSearchClear={handleSearchClear}
         onClose={() => setIsPaletteOpen(false)}
+        onTypeChange={handleTypeChange}
+        onTagChange={handleTagChange}
       />
 
       {/* Subscribe modal */}
@@ -319,7 +336,7 @@ function HomeContent() {
       />
 
       {/* Main content */}
-      <main className="px-4 sm:px-14 py-8 bg-white dark:bg-zinc-950">
+      <main id="resource-grid" className="px-4 sm:px-14 py-8 bg-white dark:bg-zinc-950">
         {loading ? (
           viewMode === 'grid' ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
