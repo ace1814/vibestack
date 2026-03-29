@@ -2,13 +2,85 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import SubscribeModal from '@/components/SubscribeModal';
 
+/* ─── Reusable inline email form ─────────────────────────────────────────── */
+function InlineEmailForm({
+  theme = 'light',
+  subEmail,
+  subStatus,
+  subError,
+  onEmailChange,
+  onSubmit,
+  buttonLabel = 'Get the free kit →',
+}: {
+  theme?: 'light' | 'dark';
+  subEmail: string;
+  subStatus: 'idle' | 'loading' | 'success' | 'error';
+  subError: string;
+  onEmailChange: (v: string) => void;
+  onSubmit: (e: React.FormEvent) => void;
+  buttonLabel?: string;
+}) {
+  if (subStatus === 'success') {
+    return (
+      <div className={`flex items-center gap-2.5 text-base font-sans ${theme === 'dark' ? 'text-white/80' : 'text-black/70'}`}>
+        <svg className="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+        </svg>
+        You&apos;re in. Check your inbox.
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <form
+        onSubmit={onSubmit}
+        className="flex flex-col sm:flex-row gap-3 w-full"
+      >
+        <input
+          type="email"
+          value={subEmail}
+          onChange={(e) => onEmailChange(e.target.value)}
+          placeholder="your@email.com"
+          required
+          className={`flex-1 min-w-0 px-4 py-3 rounded-full text-base focus:outline-none transition-colors ${
+            theme === 'dark'
+              ? 'bg-white/10 border border-white/15 text-white placeholder:text-white/35 focus:border-white/35'
+              : 'bg-white border border-black/15 text-black placeholder:text-black/30 focus:border-black/30'
+          }`}
+        />
+        <button
+          type="submit"
+          disabled={subStatus === 'loading'}
+          className={`flex-shrink-0 px-6 py-3 rounded-full font-sans font-semibold text-base active:scale-[0.98] transition-all disabled:opacity-60 whitespace-nowrap ${
+            theme === 'dark'
+              ? 'bg-white text-black hover:bg-neutral-100'
+              : 'bg-black text-white hover:bg-neutral-800'
+          }`}
+        >
+          {subStatus === 'loading' ? 'Sending…' : buttonLabel}
+        </button>
+      </form>
+      {subError && (
+        <p className={`mt-2 text-sm font-sans ${theme === 'dark' ? 'text-red-400' : 'text-red-500'}`}>
+          {subError}
+        </p>
+      )}
+    </div>
+  );
+}
+
+/* ─── Main component ──────────────────────────────────────────────────────── */
 export default function DesignersLanding() {
-  const [isSubscribeOpen, setIsSubscribeOpen] = useState(false);
   const [subEmail, setSubEmail] = useState('');
   const [subStatus, setSubStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [subError, setSubError] = useState('');
+
+  const handleEmailChange = (v: string) => {
+    setSubEmail(v);
+    if (subStatus === 'error') setSubStatus('idle');
+  };
 
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,77 +106,63 @@ export default function DesignersLanding() {
     }
   };
 
-  const handleSubscribeClose = () => {
-    setIsSubscribeOpen(false);
-    if (subStatus === 'error') {
-      setSubStatus('idle');
-      setSubError('');
-    }
+  const formProps = {
+    subEmail,
+    subStatus,
+    subError,
+    onEmailChange: handleEmailChange,
+    onSubmit: handleSubscribe,
   };
-
-  const openModal = () => setIsSubscribeOpen(true);
 
   return (
     <div className="min-h-screen bg-white dark:bg-zinc-950">
-      <SubscribeModal
-        isOpen={isSubscribeOpen}
-        subEmail={subEmail}
-        subStatus={subStatus}
-        subError={subError}
-        onEmailChange={(v) => {
-          setSubEmail(v);
-          if (subStatus === 'error') setSubStatus('idle');
-        }}
-        onSubmit={handleSubscribe}
-        onClose={handleSubscribeClose}
-      />
 
       {/* ── Minimal fixed header ── */}
-      <header className="fixed top-0 left-0 right-0 z-40 px-6 py-4 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-sm border-b border-black/6 dark:border-white/6">
+      <header className="fixed top-0 left-0 right-0 z-40 px-6 py-4 bg-white/90 dark:bg-zinc-950/90 backdrop-blur-sm border-b border-black/6 dark:border-white/6">
         <Link
           href="/"
-          className="font-sans font-light text-base tracking-[-0.04em] text-black dark:text-white hover:opacity-70 transition-opacity"
+          className="font-sans font-light text-base tracking-[-0.04em] text-black dark:text-white hover:opacity-60 transition-opacity"
         >
           vibestack
         </Link>
       </header>
 
-      {/* ── Section 1: Hero (always dark) ── */}
-      <section className="bg-zinc-950 pt-32 pb-24 sm:pt-40 sm:pb-32 px-6">
-        <div className="max-w-3xl mx-auto text-center">
-          <span className="inline-block px-3 py-1 rounded-full bg-white/10 text-white/55 text-xs font-sans tracking-wide uppercase mb-8">
+      {/* ══════════════════════════════════════════════════
+          SECTION 1 — HERO (light, editorial)
+      ══════════════════════════════════════════════════ */}
+      <section className="bg-white dark:bg-zinc-950 pt-32 pb-20 sm:pt-40 sm:pb-28 px-6 border-b border-black/6 dark:border-white/6">
+        <div className="max-w-3xl mx-auto">
+          <span className="inline-block px-3 py-1 rounded-full bg-black/5 dark:bg-white/8 text-black/45 dark:text-white/45 text-xs font-sans tracking-wide uppercase mb-8">
             Free resource for designers
           </span>
 
-          <h1 className="font-serif font-normal text-[clamp(32px,5.5vw,72px)] leading-[1.08] tracking-[-0.03em] text-white mb-6">
+          <h1 className="font-serif font-normal text-[clamp(36px,5.5vw,76px)] leading-[1.06] tracking-[-0.03em] text-black dark:text-white mb-6">
             How Designers Are Shipping
             <br />
             <em>Real Products in 48 Hours</em>
-            <br className="hidden sm:block" />
-            {' '}— Without Writing a Single
-            <br className="hidden sm:block" />
-            {' '}Line of Code
+            <br />
+            — Without Writing a Single
+            <br />
+            Line of Code
           </h1>
 
-          <p className="font-sans text-[clamp(15px,1.4vw,20px)] leading-[1.6] text-white/50 max-w-xl mx-auto mb-10">
+          <p className="font-sans text-[clamp(15px,1.4vw,20px)] leading-[1.6] text-black/50 dark:text-white/50 max-w-xl mb-10">
             The tools, workflows, and mindset shift that let designers finally build — without waiting on a dev team.
           </p>
 
-          <button
-            onClick={openModal}
-            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-white text-black font-sans font-semibold text-base hover:bg-neutral-100 active:scale-[0.98] transition-all"
-          >
-            Get the free kit →
-          </button>
-
-          <p className="mt-5 text-xs text-white/30 font-sans">
-            Free. Instant. No credit card. Joined by 300+ designers.
-          </p>
+          <div className="max-w-md">
+            <InlineEmailForm {...formProps} theme="light" buttonLabel="Get the free kit →" />
+            <p className="mt-3 text-xs text-black/30 dark:text-white/25 font-sans">
+              Free. Instant. No credit card.
+            </p>
+          </div>
         </div>
       </section>
 
-      {/* ── Section 2: Pain Agitation (light) ── */}
-      <section className="bg-white dark:bg-zinc-950 py-20 sm:py-28 px-6 border-b border-black/6 dark:border-white/6">
+      {/* ══════════════════════════════════════════════════
+          SECTION 2 — PAIN AGITATION
+      ══════════════════════════════════════════════════ */}
+      <section className="bg-zinc-50 dark:bg-zinc-900 py-20 sm:py-28 px-6">
         <div className="max-w-3xl mx-auto">
           <h2 className="font-serif font-normal text-[clamp(28px,3.8vw,52px)] leading-[1.12] tracking-[-0.03em] text-black dark:text-white mb-10">
             You have ideas.
@@ -132,14 +190,16 @@ export default function DesignersLanding() {
         </div>
       </section>
 
-      {/* ── Section 3: Dream Outcome (always dark) ── */}
-      <section className="bg-zinc-950 py-20 sm:py-28 px-6">
+      {/* ══════════════════════════════════════════════════
+          SECTION 3 — DREAM OUTCOME
+      ══════════════════════════════════════════════════ */}
+      <section className="bg-white dark:bg-zinc-950 py-20 sm:py-28 px-6 border-y border-black/6 dark:border-white/6">
         <div className="max-w-3xl mx-auto">
-          <h2 className="font-serif font-normal text-[clamp(24px,3.5vw,48px)] leading-[1.15] tracking-[-0.03em] text-white mb-12">
+          <h2 className="font-serif font-normal text-[clamp(24px,3.5vw,48px)] leading-[1.15] tracking-[-0.03em] text-black dark:text-white mb-12">
             What happens after this weekend:
           </h2>
 
-          <div className="space-y-0 divide-y divide-white/8">
+          <div className="divide-y divide-black/8 dark:divide-white/8">
             {[
               {
                 number: '01',
@@ -158,14 +218,14 @@ export default function DesignersLanding() {
               },
             ].map(({ number, headline, body }) => (
               <div key={number} className="flex gap-6 sm:gap-10 items-start py-8 first:pt-0 last:pb-0">
-                <span className="font-serif text-[clamp(28px,3vw,42px)] text-white/20 leading-none flex-shrink-0 w-10 sm:w-14 pt-1">
+                <span className="font-serif text-[clamp(28px,3vw,42px)] text-black/15 dark:text-white/20 leading-none flex-shrink-0 w-10 sm:w-14 pt-1">
                   {number}
                 </span>
                 <div>
-                  <h3 className="font-serif font-normal text-xl sm:text-2xl text-white leading-snug mb-2">
+                  <h3 className="font-serif font-normal text-xl sm:text-2xl text-black dark:text-white leading-snug mb-2">
                     {headline}
                   </h3>
-                  <p className="font-sans text-base leading-relaxed text-white/50">
+                  <p className="font-sans text-base leading-relaxed text-black/50 dark:text-white/50">
                     {body}
                   </p>
                 </div>
@@ -175,30 +235,45 @@ export default function DesignersLanding() {
         </div>
       </section>
 
-      {/* ── Section 4: Proof (tinted) ── */}
-      <section className="bg-zinc-100 dark:bg-zinc-900 py-20 sm:py-28 px-6">
+      {/* ══════════════════════════════════════════════════
+          SECTION 4 — PROOF
+      ══════════════════════════════════════════════════ */}
+      <section className="bg-zinc-50 dark:bg-zinc-900 py-20 sm:py-28 px-6">
         <div className="max-w-3xl mx-auto">
-          <span className="inline-block px-3 py-1 rounded-full bg-black/8 dark:bg-white/10 text-black/50 dark:text-white/50 text-xs font-sans uppercase tracking-wide mb-8">
+          <span className="inline-block px-3 py-1 rounded-full bg-black/6 dark:bg-white/10 text-black/45 dark:text-white/45 text-xs font-sans uppercase tracking-wide mb-8">
             The origin story
           </span>
 
-          <h2 className="font-serif font-normal text-[clamp(24px,3.5vw,48px)] leading-[1.15] tracking-[-0.03em] text-black dark:text-white mb-8">
+          <h2 className="font-serif font-normal text-[clamp(24px,3.5vw,48px)] leading-[1.15] tracking-[-0.03em] text-black dark:text-white mb-10">
             Designer. Zero code.
             <br />
             <em>Built VibeStack in 2 nights.</em>
           </h2>
 
-          {/* Screenshot */}
-          <div className="rounded-2xl overflow-hidden border border-black/8 dark:border-white/8 shadow-xl mb-10 bg-zinc-200 dark:bg-zinc-800 aspect-[16/9] relative">
-            <img
-              src="https://www.vibestack.in/og-image.png"
-              alt="Screenshot of vibestack.in — a curated AI tools directory built by a designer in 2 nights"
-              className="w-full h-full object-cover object-top"
-              loading="lazy"
-            />
+          {/* Creator bio — add your real photo at public/creator-photo.jpg */}
+          <div className="flex items-start gap-5 mb-12 p-5 rounded-2xl bg-white dark:bg-zinc-800 border border-black/6 dark:border-white/8">
+            {/* Photo — replace src with your actual photo path */}
+            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full flex-shrink-0 overflow-hidden border-2 border-black/8 dark:border-white/10 bg-zinc-200 dark:bg-zinc-700">
+              {/* TODO: replace with <img src="/creator-photo.jpg" alt="Your name" className="w-full h-full object-cover" /> */}
+              <div className="w-full h-full flex items-center justify-center text-black/20 dark:text-white/20">
+                <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
+                </svg>
+              </div>
+            </div>
+            <div>
+              {/* TODO: fill in your real name and background */}
+              <p className="font-sans font-semibold text-black dark:text-white text-sm mb-1">
+                Your Name — Founder, VibeStack
+              </p>
+              <p className="font-sans text-sm leading-relaxed text-black/55 dark:text-white/50">
+                {/* TODO: replace with your actual background */}
+                Product designer. Previously at [Company]. Never written production code in my life.
+              </p>
+            </div>
           </div>
 
-          <div className="max-w-2xl space-y-4 font-sans text-[clamp(15px,1.2vw,18px)] leading-[1.75] text-black/60 dark:text-white/55">
+          <div className="max-w-2xl space-y-4 font-sans text-[clamp(15px,1.2vw,18px)] leading-[1.75] text-black/60 dark:text-white/55 mb-12">
             <p>
               I&apos;m a designer. I&apos;ve never written a line of production code in my life. Two nights after discovering the right stack of AI tools, I shipped VibeStack — a live, working product with a real database, search, and a subscribe flow.
             </p>
@@ -206,63 +281,99 @@ export default function DesignersLanding() {
               I didn&apos;t get lucky. I used a specific set of tools in a specific order, with a workflow that&apos;s repeatable. This kit is that workflow, documented.
             </p>
           </div>
+
+          {/* Evidence grid — replace placeholder boxes with real screenshots */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {[
+              {
+                label: 'Vercel deployment — night 2',
+                note: 'Replace with screenshot of your Vercel dashboard showing the deploy timestamp',
+              },
+              {
+                label: 'Supabase — live data',
+                note: 'Replace with screenshot of your Supabase dashboard showing real rows',
+              },
+              {
+                label: 'GitHub commit history',
+                note: 'Replace with screenshot of the commit timeline showing 2-night build',
+              },
+              {
+                label: 'The live product',
+                note: 'Replace with a screenshot of vibestack.in in the browser',
+              },
+            ].map(({ label, note }) => (
+              <div
+                key={label}
+                className="rounded-xl overflow-hidden border border-black/8 dark:border-white/8 bg-white dark:bg-zinc-800 aspect-video relative flex flex-col items-center justify-center gap-2 p-4"
+              >
+                {/* TODO: replace this div with: <img src="/proof/..." alt={label} className="w-full h-full object-cover absolute inset-0" /> */}
+                <svg className="w-6 h-6 text-black/15 dark:text-white/15" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <p className="font-sans text-xs font-medium text-black/40 dark:text-white/35 text-center">{label}</p>
+                <p className="font-sans text-[10px] text-black/25 dark:text-white/20 text-center leading-relaxed">{note}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* ── Section 5: What's Inside (light) ── */}
-      <section className="bg-white dark:bg-zinc-950 py-20 sm:py-28 px-6">
+      {/* ══════════════════════════════════════════════════
+          SECTION 5 — WHAT'S INSIDE (outcome language)
+      ══════════════════════════════════════════════════ */}
+      <section className="bg-white dark:bg-zinc-950 py-20 sm:py-28 px-6 border-y border-black/6 dark:border-white/6">
         <div className="max-w-3xl mx-auto">
           <h2 className="font-serif font-normal text-[clamp(24px,3.5vw,48px)] leading-[1.15] tracking-[-0.03em] text-black dark:text-white mb-3">
             Here&apos;s exactly what you get:
           </h2>
           <p className="font-sans text-base text-black/40 dark:text-white/35 mb-12">
-            Not vague tips. Actual deliverables you use the same weekend.
+            Not topics. Outcomes — things you&apos;ll actually be able to do.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {[
               {
                 tag: 'Tool Stack',
-                headline: 'The curated 6-tool AI stack',
-                body: 'The exact setup used to build VibeStack — with notes on what each tool does and why it belongs in the stack.',
+                headline: 'The exact 6 tools — in the order you use them — that take you from idea to deployed URL',
+                body: 'Not a list of AI tools. A sequence. Tool A hands off to Tool B. You use each one at the right moment.',
               },
               {
                 tag: 'Workflow',
-                headline: 'The 48-hour workflow breakdown',
-                body: 'A step-by-step sequence: from blank canvas to deployed URL. No ambiguity, no skipped steps.',
+                headline: 'A 48-hour sequence with zero ambiguity — you\'ll know exactly what to do at hour 1, hour 12, and hour 47',
+                body: 'No "figure it out as you go." Every stage mapped. Blockers pre-answered. You follow the sequence.',
               },
               {
                 tag: 'Prompts',
-                headline: 'Prompt patterns that actually work',
-                body: 'The specific prompt structures that get AI to write production-quality code from a designer\'s descriptions.',
+                headline: 'The prompts that get AI to write production-quality code from a designer\'s description — not a developer\'s',
+                body: 'Describing UI in design language. Getting clean, working output. Not wrestling with hallucinations.',
               },
               {
                 tag: 'MCP Servers',
-                headline: 'The MCP server shortlist',
-                body: 'The 5 Model Context Protocol servers that let AI read your files, run commands, and iterate at speed.',
+                headline: '5 MCP servers that give AI the ability to actually build — not just suggest',
+                body: 'AI that can read your files, run commands, check for errors, and iterate without you copy-pasting anything.',
               },
               {
                 tag: 'Mental Model',
-                headline: 'The designer\'s mental model for building',
-                body: 'How to think about components, data, and state — without needing to understand any of the code underneath.',
+                headline: 'How to think about your product like a builder — without ever needing to read code',
+                body: 'Components, state, data — explained in the spatial language designers already think in.',
               },
               {
                 tag: 'Quick Wins',
-                headline: '3 weekend project ideas to start with',
-                body: 'Scoped projects sized for a first build — chosen because they showcase design skills and ship in under 2 days.',
+                headline: '3 project ideas you can ship in a weekend — chosen specifically because they reward design thinking',
+                body: 'Scoped, achievable, and impressive. Each one ships in under 48 hours and shows your design skills.',
               },
             ].map(({ tag, headline, body }) => (
               <div
                 key={tag}
                 className="p-6 rounded-2xl border border-black/8 dark:border-white/8 bg-white dark:bg-zinc-900 hover:border-black/15 dark:hover:border-white/15 transition-colors"
               >
-                <span className="inline-block px-2.5 py-0.5 rounded-full bg-black/5 dark:bg-white/8 text-xs font-sans text-black/45 dark:text-white/40 mb-3">
+                <span className="inline-block px-2.5 py-0.5 rounded-full bg-black/5 dark:bg-white/8 text-xs font-sans text-black/40 dark:text-white/35 mb-3">
                   {tag}
                 </span>
-                <h3 className="font-serif font-normal text-lg text-black dark:text-white mb-2 leading-snug">
+                <h3 className="font-serif font-normal text-base sm:text-[17px] text-black dark:text-white mb-2 leading-snug">
                   {headline}
                 </h3>
-                <p className="font-sans text-sm leading-relaxed text-black/50 dark:text-white/45">
+                <p className="font-sans text-sm leading-relaxed text-black/45 dark:text-white/40">
                   {body}
                 </p>
               </div>
@@ -271,7 +382,9 @@ export default function DesignersLanding() {
         </div>
       </section>
 
-      {/* ── Section 6: Objection Crush (tinted) ── */}
+      {/* ══════════════════════════════════════════════════
+          SECTION 6 — OBJECTION CRUSH
+      ══════════════════════════════════════════════════ */}
       <section className="bg-zinc-50 dark:bg-zinc-900 py-20 sm:py-28 px-6">
         <div className="max-w-3xl mx-auto">
           <h2 className="font-serif font-normal text-[clamp(24px,3.5vw,48px)] leading-[1.15] tracking-[-0.03em] text-black dark:text-white mb-12">
@@ -314,8 +427,62 @@ export default function DesignersLanding() {
         </div>
       </section>
 
-      {/* ── Section 7: The Offer (always dark) ── */}
-      <section className="bg-zinc-950 py-20 sm:py-28 px-6">
+      {/* ══════════════════════════════════════════════════
+          SECTION 6b — WHO THIS IS / IS NOT FOR
+      ══════════════════════════════════════════════════ */}
+      <section className="bg-white dark:bg-zinc-950 py-20 sm:py-28 px-6 border-y border-black/6 dark:border-white/6">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="font-serif font-normal text-[clamp(24px,3.5vw,48px)] leading-[1.15] tracking-[-0.03em] text-black dark:text-white mb-12">
+            Is this for you?
+          </h2>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-16">
+            {/* For you */}
+            <div>
+              <p className="font-sans text-xs font-semibold uppercase tracking-widest text-black/30 dark:text-white/30 mb-5">
+                This is for you if…
+              </p>
+              <ul className="space-y-4">
+                {[
+                  "You're a designer with ideas you've never been able to ship.",
+                  "You're comfortable describing what you want — you just can't build it yet.",
+                  "You have a weekend free and want to have a live product by Sunday.",
+                  "You've watched non-designers ship things and wondered how.",
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-3 font-sans text-sm sm:text-base leading-relaxed text-black/65 dark:text-white/60">
+                    <span className="text-emerald-500 mt-0.5 flex-shrink-0 font-bold">✓</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Not for you */}
+            <div>
+              <p className="font-sans text-xs font-semibold uppercase tracking-widest text-black/30 dark:text-white/30 mb-5">
+                This is NOT for you if…
+              </p>
+              <ul className="space-y-4">
+                {[
+                  "You're looking for a shortcut that requires learning absolutely nothing.",
+                  "You want someone else to build it for you.",
+                  "You're already shipping products with code.",
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-3 font-sans text-sm sm:text-base leading-relaxed text-black/50 dark:text-white/45">
+                    <span className="text-black/25 dark:text-white/25 mt-0.5 flex-shrink-0 font-bold">✗</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════
+          SECTION 7 — THE OFFER (dark, climax)
+      ══════════════════════════════════════════════════ */}
+      <section id="offer" className="bg-zinc-950 py-20 sm:py-28 px-6">
         <div className="max-w-3xl mx-auto text-center">
           <span className="inline-block px-3 py-1 rounded-full bg-white/10 text-white/50 text-xs font-sans uppercase tracking-wide mb-8">
             The kit
@@ -333,12 +500,12 @@ export default function DesignersLanding() {
 
           <ul className="text-left max-w-sm mx-auto space-y-3 mb-12">
             {[
-              'The curated 6-tool AI stack',
-              '48-hour workflow breakdown',
+              'The 6-tool stack in order of use',
+              '48-hour workflow — hour by hour',
               'Prompt patterns for production code',
-              'MCP server shortlist',
+              '5 MCP servers that replace whole dev workflows',
               "Designer's mental model for building",
-              '3 weekend project ideas to start now',
+              '3 weekend projects to start with',
             ].map((item) => (
               <li key={item} className="flex items-start gap-3 font-sans text-sm text-white/65">
                 <svg
@@ -355,36 +522,24 @@ export default function DesignersLanding() {
             ))}
           </ul>
 
-          <button
-            onClick={openModal}
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-white text-black font-sans font-semibold text-lg hover:bg-neutral-100 active:scale-[0.98] transition-all shadow-[0_0_40px_rgba(255,255,255,0.12)]"
-          >
-            Get the kit — it&apos;s free
-          </button>
-
-          <p className="mt-4 text-xs text-white/25 font-sans">
-            Unsubscribe anytime. No spam.
-          </p>
+          <div className="max-w-md mx-auto">
+            <InlineEmailForm
+              {...formProps}
+              theme="dark"
+              buttonLabel="Get the kit — it's free"
+            />
+            <p className="mt-4 text-xs text-white/25 font-sans">
+              Unsubscribe anytime. No spam.
+            </p>
+          </div>
         </div>
       </section>
 
-      {/* ── Section 8: Final CTA (light) ── */}
+      {/* ══════════════════════════════════════════════════
+          SECTION 8 — FINAL CTA
+      ══════════════════════════════════════════════════ */}
       <section className="bg-white dark:bg-zinc-950 py-20 sm:py-28 px-6 border-t border-black/6 dark:border-white/6">
         <div className="max-w-3xl mx-auto text-center">
-          {/* Social proof */}
-          <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-black/5 dark:bg-white/8 mb-10">
-            <div className="flex -space-x-1.5">
-              {['bg-violet-400', 'bg-sky-400', 'bg-emerald-400'].map((c) => (
-                <div
-                  key={c}
-                  className={`w-6 h-6 rounded-full ${c} border-2 border-white dark:border-zinc-950`}
-                />
-              ))}
-            </div>
-            <span className="font-sans text-sm text-black/60 dark:text-white/55">
-              <strong className="text-black dark:text-white font-semibold">300+</strong> designers have already downloaded this
-            </span>
-          </div>
 
           <h2 className="font-serif font-normal text-[clamp(24px,3.5vw,48px)] leading-[1.15] tracking-[-0.03em] text-black dark:text-white mb-4">
             Don&apos;t wait another quarter
@@ -396,27 +551,27 @@ export default function DesignersLanding() {
             The designers shipping products right now aren&apos;t more talented than you. They just found the right tools first.
           </p>
 
-          <button
-            onClick={openModal}
-            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-black dark:bg-white text-white dark:text-black font-sans font-semibold text-base hover:bg-neutral-800 dark:hover:bg-neutral-100 active:scale-[0.98] transition-all"
-          >
-            Get the free kit →
-          </button>
-
-          <p className="mt-5 text-xs text-black/30 dark:text-white/25 font-sans">
-            Free. Instant. No credit card.
-          </p>
+          <div className="max-w-md mx-auto">
+            <InlineEmailForm
+              {...formProps}
+              theme="light"
+              buttonLabel="Get the free kit →"
+            />
+            <p className="mt-4 text-xs text-black/25 dark:text-white/20 font-sans">
+              Be one of the first designers to get this.
+            </p>
+          </div>
         </div>
       </section>
 
       {/* ── Minimal Footer ── */}
       <footer className="border-t border-black/8 dark:border-white/8 px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-3">
-        <p className="font-sans text-sm text-black/35 dark:text-white/30">
+        <p className="font-sans text-sm text-black/30 dark:text-white/25">
           © 2025 VibeStack
         </p>
         <Link
           href="/"
-          className="font-sans text-sm text-black/50 dark:text-white/45 hover:text-black dark:hover:text-white transition-colors"
+          className="font-sans text-sm text-black/45 dark:text-white/40 hover:text-black dark:hover:text-white transition-colors"
         >
           ← Browse the directory
         </Link>
