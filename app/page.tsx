@@ -249,14 +249,12 @@ function HomeContent() {
             {/* Dark mode toggle */}
             <ThemeToggle />
 
-            <a
-              href="https://docs.google.com/forms/d/e/1FAIpQLSd7aHdgM1mEpaHS3zQNRw6_JN3T5GNYYvbn9QuX2YvNz-8-WA/viewform?usp=dialog"
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              onClick={() => setIsSubscribeOpen(true)}
               className="px-4 py-2 bg-black text-white text-sm font-medium rounded-full hover:bg-neutral-800 dark:bg-white dark:text-black dark:hover:bg-neutral-100 active:scale-95 transition-all whitespace-nowrap"
             >
-              Share Suggestions
-            </a>
+              Subscribe
+            </button>
           </div>
         </div>
 
@@ -297,15 +295,6 @@ function HomeContent() {
             ))}
           </div>
 
-          {/* Subscribe trigger */}
-          <div className="mt-4">
-            <button
-              onClick={() => setIsSubscribeOpen(true)}
-              className="h-9 px-5 rounded-full text-sm font-medium bg-black text-white dark:bg-white dark:text-black hover:bg-neutral-800 dark:hover:bg-neutral-100 active:scale-95 transition-all"
-            >
-              Subscribe now
-            </button>
-          </div>
         </div>
       </header>
 
