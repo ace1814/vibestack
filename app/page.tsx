@@ -271,26 +271,28 @@ function HomeContent() {
             Handpicked tools, resources and real projects so you don&apos;t waste time.
           </p>
 
-          {/* Intent pills */}
-          <div className="flex flex-wrap gap-2 mt-4">
+          {/* Intent chips */}
+          <div className="flex flex-wrap gap-2 mt-5">
             {([
-              { label: 'I want to build something',    type: 'tool'     },
-              { label: 'I want to learn vibe coding',  type: 'learning' },
-              { label: 'I want to find an MCP server', type: 'mcp'      },
-            ] as const).map(({ label, type }) => (
+              { label: 'Build something',    emoji: '🛠', type: 'tool'     },
+              { label: 'Learn vibe coding',  emoji: '📚', type: 'learning' },
+              { label: 'Find an MCP server', emoji: '⚡', type: 'mcp'      },
+            ] as const).map(({ label, emoji, type }) => (
               <button
                 key={type}
                 onClick={() => {
                   handleTypeChange(selectedType === type ? '' : type);
                   document.getElementById('resource-grid')?.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors border ${
+                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
                   selectedType === type
-                    ? 'bg-black text-white border-black dark:bg-white dark:text-black dark:border-white'
-                    : 'border-black/15 text-black/70 hover:border-black/30 hover:bg-black/5 dark:border-white/15 dark:text-white/70 dark:hover:border-white/30 dark:hover:bg-white/5'
+                    ? 'bg-black/8 dark:bg-white/10 text-black dark:text-white ring-1 ring-black/15 dark:ring-white/15'
+                    : 'bg-black/4 dark:bg-white/6 text-black/55 dark:text-white/55 hover:bg-black/7 dark:hover:bg-white/9 hover:text-black/80 dark:hover:text-white/80'
                 }`}
               >
+                <span>{emoji}</span>
                 {label}
+                <span className="opacity-40 text-[10px]">→</span>
               </button>
             ))}
           </div>
