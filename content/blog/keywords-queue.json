@@ -51,7 +51,8 @@
       "slug": "vibe-coding-vs-nocode",
       "type": "comparison",
       "tags": ["vibe-coding", "no-code", "comparison"],
-      "status": "pending"
+      "status": "done",
+      "publishedAt": "2026-03-29"
     },
     {
       "keyword": "Claude Code for designers",
@@ -59,7 +60,8 @@
       "slug": "claude-code-for-designers",
       "type": "guide",
       "tags": ["claude-code", "designers"],
-      "status": "pending"
+      "status": "done",
+      "publishedAt": "2026-03-29"
     },
     {
       "keyword": "Claude Code tutorial beginners",
@@ -67,7 +69,8 @@
       "slug": "claude-code-tutorial-beginners",
       "type": "guide",
       "tags": ["claude-code", "tutorial", "beginners"],
-      "status": "pending"
+      "status": "done",
+      "publishedAt": "2026-03-29"
     },
     {
       "keyword": "Claude Code build website",
@@ -75,7 +78,8 @@
       "slug": "claude-code-build-website",
       "type": "guide",
       "tags": ["claude-code", "tutorial"],
-      "status": "pending"
+      "status": "done",
+      "publishedAt": "2026-03-29"
     },
     {
       "keyword": "vibe coding for designers",
@@ -83,7 +87,8 @@
       "slug": "vibe-coding-for-designers",
       "type": "guide",
       "tags": ["vibe-coding", "designers"],
-      "status": "pending"
+      "status": "done",
+      "publishedAt": "2026-03-29"
     },
     {
       "keyword": "Lovable vs Replit",
