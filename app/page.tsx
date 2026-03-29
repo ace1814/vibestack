@@ -271,8 +271,32 @@ function HomeContent() {
             Handpicked tools, resources and real projects so you don&apos;t waste time.
           </p>
 
+          {/* Intent pills */}
+          <div className="flex flex-wrap gap-2 mt-4">
+            {([
+              { label: 'I want to build something',    type: 'tool'     },
+              { label: 'I want to learn vibe coding',  type: 'learning' },
+              { label: 'I want to find an MCP server', type: 'mcp'      },
+            ] as const).map(({ label, type }) => (
+              <button
+                key={type}
+                onClick={() => {
+                  handleTypeChange(selectedType === type ? '' : type);
+                  document.getElementById('resource-grid')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors border ${
+                  selectedType === type
+                    ? 'bg-black text-white border-black dark:bg-white dark:text-black dark:border-white'
+                    : 'border-black/15 text-black/70 hover:border-black/30 hover:bg-black/5 dark:border-white/15 dark:text-white/70 dark:hover:border-white/30 dark:hover:bg-white/5'
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+
           {/* Subscribe trigger */}
-          <div className="mt-6">
+          <div className="mt-4">
             <button
               onClick={() => setIsSubscribeOpen(true)}
               className="h-9 px-5 rounded-full text-sm font-medium bg-black text-white dark:bg-white dark:text-black hover:bg-neutral-800 dark:hover:bg-neutral-100 active:scale-95 transition-all"
@@ -305,6 +329,8 @@ function HomeContent() {
         onSearchCommit={handleSearchCommit}
         onSearchClear={handleSearchClear}
         onClose={() => setIsPaletteOpen(false)}
+        onTypeChange={handleTypeChange}
+        onTagChange={handleTagChange}
       />
 
       {/* Subscribe modal */}
@@ -319,7 +345,7 @@ function HomeContent() {
       />
 
       {/* Main content */}
-      <main className="px-4 sm:px-14 py-8 bg-white dark:bg-zinc-950">
+      <main id="resource-grid" className="px-4 sm:px-14 py-8 bg-white dark:bg-zinc-950">
         {loading ? (
           viewMode === 'grid' ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
