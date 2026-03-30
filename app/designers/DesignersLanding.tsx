@@ -27,7 +27,7 @@ function InlineEmailForm({
         <svg className="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
         </svg>
-        You&apos;re in. Check your inbox.
+        You&apos;re on the list. We&apos;ll email you the moment it launches.
       </div>
     );
   }
@@ -135,7 +135,7 @@ export default function DesignersLanding() {
         <div className="max-w-3xl mx-auto">
 
           <span className="inline-block px-3 py-1 rounded-full bg-black/6 text-neutral-500 text-xs font-sans tracking-wide uppercase mb-8">
-            The free kit for designers
+            Coming soon · Free for designers
           </span>
 
           <h1 className="font-serif font-normal text-[clamp(28px,3.8vw,54px)] leading-[1.08] tracking-[-0.03em] text-black mb-6">
@@ -172,10 +172,10 @@ export default function DesignersLanding() {
             href="#offer"
             className="inline-block px-7 py-4 rounded-full bg-black text-white font-sans font-semibold text-base hover:bg-neutral-800 active:scale-[0.98] transition-all"
           >
-            Get free access →
+            Get early access →
           </a>
           <p className="mt-4 font-sans text-xs text-neutral-400">
-            Free. Instant. No credit card.
+            Free. Be first when it launches.
           </p>
 
         </div>
@@ -376,10 +376,10 @@ export default function DesignersLanding() {
         <div className="max-w-3xl mx-auto">
 
           <h2 className="font-serif font-normal text-[clamp(22px,3vw,40px)] leading-[1.15] tracking-[-0.03em] text-black mb-3">
-            Here&apos;s exactly what you get:
+            Here&apos;s what&apos;s in the kit:
           </h2>
           <p className="font-sans text-base text-neutral-500 mb-12">
-            Not topics. Outcomes — things you&apos;ll actually be able to do.
+            Everything we&apos;re building into it — yours free when it launches.
           </p>
 
           <ul className="space-y-8 max-w-2xl">
@@ -561,19 +561,22 @@ export default function DesignersLanding() {
         <div className="max-w-3xl mx-auto text-center">
 
           <span className="inline-block px-3 py-1 rounded-full bg-white/10 text-white/60 text-xs font-sans uppercase tracking-wide mb-8">
-            The kit
+            Coming soon
           </span>
 
           <h2 className="font-serif font-normal text-[clamp(24px,3.5vw,46px)] leading-[1.1] tracking-[-0.03em] text-white mb-4">
-            Free. Instant access.
+            Launching soon.
             <br />
-            <em>No credit card.</em>
+            <em>Be the first to know.</em>
           </h2>
 
           <p className="font-sans text-base text-white/60 mb-10 max-w-md mx-auto leading-relaxed">
-            Everything you need to go from designer to builder — delivered to your inbox immediately.
+            Drop your email and you&apos;ll get a single notification the moment this launches. Nothing else.
           </p>
 
+          <p className="font-sans text-xs font-semibold uppercase tracking-widest text-white/35 mb-4 text-left max-w-sm mx-auto">
+            When it launches, you&apos;ll get:
+          </p>
           <ul className="text-left max-w-sm mx-auto space-y-3 mb-12">
             {[
               '🛠️  The 6-tool stack — in order of use',
@@ -593,8 +596,8 @@ export default function DesignersLanding() {
           </ul>
 
           <div className="max-w-md mx-auto">
-            <InlineEmailForm {...formProps} theme="dark" buttonLabel="Get the kit — it's free" />
-            <p className="mt-4 text-xs text-white/40 font-sans">Unsubscribe anytime. No spam.</p>
+            <InlineEmailForm {...formProps} theme="dark" buttonLabel="Notify me at launch" />
+            <p className="mt-4 text-xs text-white/40 font-sans">One email when it launches. That&apos;s it.</p>
           </div>
 
         </div>
@@ -613,13 +616,13 @@ export default function DesignersLanding() {
           </h2>
 
           <p className="font-sans text-base text-neutral-700 max-w-md mx-auto leading-relaxed mb-10">
-            The designers shipping products right now aren&apos;t more talented than you. They just found the right tools first.
+            The designers shipping products right now aren&apos;t more talented than you. They just found the right tools first. The kit is almost ready — get on the list and you&apos;ll be the first to know when it drops.
           </p>
 
           <div className="max-w-md mx-auto">
-            <InlineEmailForm {...formProps} theme="light" buttonLabel="Get the free kit →" />
+            <InlineEmailForm {...formProps} theme="light" buttonLabel="Get early access →" />
             <p className="mt-4 text-xs text-neutral-400 font-sans">
-              Be one of the first designers to get this.
+              You&apos;ll be first in line when it launches.
             </p>
           </div>
 
@@ -650,7 +653,7 @@ export default function DesignersLanding() {
           />
           <div className="relative bg-white rounded-t-2xl px-6 pt-6 pb-10">
             <div className="flex items-center justify-between mb-6">
-              <h3 className="font-serif text-xl text-black">Get the free kit</h3>
+              <h3 className="font-serif text-xl text-black">Get early access</h3>
               <button
                 onClick={() => setIsMobileCtaOpen(false)}
                 className="w-8 h-8 flex items-center justify-center rounded-full bg-neutral-100 text-neutral-500 text-sm leading-none"
@@ -658,8 +661,8 @@ export default function DesignersLanding() {
                 ✕
               </button>
             </div>
-            <InlineEmailForm {...formProps} theme="light" buttonLabel="Get the kit — it's free" />
-            <p className="mt-3 text-xs text-neutral-400 font-sans">Free. Instant. No credit card.</p>
+            <InlineEmailForm {...formProps} theme="light" buttonLabel="Notify me at launch" />
+            <p className="mt-3 text-xs text-neutral-400 font-sans">One email when it launches. That&apos;s it.</p>
           </div>
         </div>
       )}
@@ -680,7 +683,7 @@ export default function DesignersLanding() {
             onClick={() => setIsMobileCtaOpen(true)}
             className="w-full py-3.5 rounded-full bg-black text-white font-sans font-semibold text-base active:scale-[0.98] transition-all"
           >
-            Get the free kit — it&apos;s free
+            Get early access — it&apos;s free
           </button>
         )}
       </div>
