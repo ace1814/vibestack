@@ -1,0 +1,149 @@
+---
+title: "How to set up Figma MCP with Claude: step by step"
+description: "Connect Figma to Claude using the Figma MCP server and start generating code directly from your design files. A practical setup guide for designers."
+slug: "figma-mcp-claude-setup"
+type: "guide"
+tags: ["figma", "mcp", "claude", "tutorial"]
+publishedAt: "2026-03-31"
+---
+
+Setting up the Figma MCP with Claude lets you point Claude at your actual Figma files and generate code that matches your design — no copy-pasting specs, no translating manually. I've had this running in my workflow for a while now and it genuinely changes how fast you can go from design to working component. Here's the exact setup process.
+
+## What is the Figma MCP?
+
+MCP stands for Model Context Protocol — it's a standard that lets AI tools like Claude connect to external services. The Figma MCP is a server that sits between Claude and Figma's API, allowing Claude to read your design files, extract component details, colours, spacing, typography, and more.
+
+Once it's set up, you can say to Claude: "Read the card component in my Figma file and build me a React version" — and it'll actually look at your design rather than guessing.
+
+You can explore other MCP servers for designers at [vibestack.in/mcp-servers](https://vibestack.in/mcp-servers).
+
+## What you'll need
+
+Before starting, make sure you have:
+
+- A Figma account (any paid plan — the API access needed for MCP requires at least a professional plan)
+- A Figma Personal Access Token (we'll generate this in step 1)
+- Claude Code installed, or access to a Claude interface that supports MCP servers
+- Node.js installed on your computer
+
+## Step 1: Get your Figma Personal Access Token
+
+1. Open Figma and click your profile picture in the top left
+2. Go to **Settings**
+3. Scroll down to **Personal access tokens**
+4. Click **Generate new token**
+5. Name it something like "Claude MCP" and set an expiry if you want
+6. Copy the token — you won't see it again after closing the dialog
+
+Keep this token somewhere safe (a password manager is ideal).
+
+## Step 2: Install the Figma MCP server
+
+Open your terminal and run:
+
+```
+npm install -g figma-mcp
+```
+
+This installs the Figma MCP server globally on your machine. Once installed, verify it's there:
+
+```
+figma-mcp --version
+```
+
+## Step 3: Configure Claude to use the MCP server
+
+How you configure this depends on which Claude interface you're using.
+
+**For Claude Code (terminal):**
+
+Create or edit a file called `claude_desktop_config.json` in your Claude config directory. On Mac, that's typically `~/.config/claude/`. Add:
+
+```json
+{
+  "mcpServers": {
+    "figma": {
+      "command": "figma-mcp",
+      "env": {
+        "FIGMA_ACCESS_TOKEN": "your_token_here"
+      }
+    }
+  }
+}
+```
+
+Replace `your_token_here` with the token you generated in step 1.
+
+**For Claude Desktop app:**
+
+Go to Settings → MCP Servers → Add Server, and fill in the same details via the UI rather than editing the config file manually.
+
+## Step 4: Get your Figma file URL
+
+Navigate to the Figma file you want Claude to read. Copy the URL from your browser — it'll look something like:
+
+```
+https://www.figma.com/file/XXXXXXXXXX/My-Design-File
+```
+
+The part after `/file/` is your file key. You'll use this when talking to Claude.
+
+## Step 5: Test the connection
+
+Open Claude Code (or restart your Claude Desktop app to reload the MCP config) and try:
+
+> "Using the Figma MCP, read the file at [paste your Figma URL] and tell me what components are on the first page."
+
+If it's working, Claude will list the components it found in your file. If you get an error, double-check your token and that the MCP server is installed correctly.
+
+## What you can do once it's connected
+
+Here are some prompts that work well once the Figma MCP is running:
+
+**Generate a component from a design:**
+> "Read the Button component in my Figma file and build me a React component that matches it exactly, including hover and disabled states."
+
+**Extract a full page layout:**
+> "Look at the 'Home' page in my Figma file and build an HTML/CSS version that matches the layout and spacing."
+
+**Check design consistency:**
+> "Audit my Figma file for inconsistent font sizes or colours that don't match my defined styles."
+
+**Generate a design token file:**
+> "Extract all the colour, typography, and spacing variables from my Figma file and output them as a CSS custom properties file."
+
+## Tips for getting the best results
+
+**Use named components.** Claude works much better when your Figma components have clear, descriptive names rather than "Rectangle 23" or "Group 4."
+
+**Organise your file into pages.** If your Figma file is structured with clear pages (e.g., "Components", "Home", "Dashboard"), you can tell Claude exactly where to look.
+
+**Ask for one component at a time.** Don't try to convert an entire file in one go — start with one component, review the output, then move to the next.
+
+**Reference your design system.** If you have a Figma Variables setup with your design tokens, mention it explicitly: "Use the colours defined in my Figma Variables, not hardcoded hex values."
+
+## Troubleshooting common issues
+
+**"Cannot connect to Figma MCP"** — Check that Node.js is installed and the npm package installed without errors. Re-run `npm install -g figma-mcp`.
+
+**"Unauthorised"** — Your Figma token is incorrect or expired. Generate a new one and update your config file.
+
+**"File not found"** — Make sure you're using the full Figma URL, not just the file key. Also check that your Figma account has access to that specific file.
+
+## FAQ
+
+**Does the Figma MCP work with Figma Community files?**
+
+It works with any file your Figma account has access to, including duplicated Community files in your drafts.
+
+**Will Claude see my entire Figma file or just parts of it?**
+
+Claude reads what it needs based on your prompt. It can look at specific pages, frames, or components rather than the entire file at once.
+
+**Is it safe to give Claude my Figma access token?**
+
+The token is stored locally in your config file and used only to authenticate with Figma's API on your behalf. It's the same as giving any other tool API access. Use a token with minimal permissions (read-only) and rotate it periodically.
+
+---
+
+Once you've got the Figma MCP working, the gap between your designs and working code shrinks dramatically. For more MCP servers that connect your favourite design tools to AI, explore the full directory at [vibestack.in/mcp-servers](https://vibestack.in/mcp-servers) — and for everything else in the vibe coding world, head to [vibestack.in](https://vibestack.in).
