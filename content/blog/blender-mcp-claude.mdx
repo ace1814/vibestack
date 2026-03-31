@@ -1,0 +1,120 @@
+---
+title: "Blender MCP: control Blender with Claude AI"
+description: "Learn how to use Blender MCP with Claude AI to control 3D scenes using plain English — no scripting required."
+slug: "blender-mcp-claude"
+type: "guide"
+tags: ["blender", "mcp", "claude", "3d"]
+publishedAt: "2026-03-31"
+---
+
+Blender MCP lets you control Blender — the powerful open-source 3D tool — directly through Claude AI using plain conversational prompts. If you've ever wanted to create 3D scenes, models, or animations without learning Blender's notoriously steep interface, this is the setup that changes everything.
+
+I've been experimenting with Blender MCP for a few months now, and honestly, it's one of those tools that makes you feel like you unlocked a cheat code. Let me walk you through what it is, how to set it up, and what you can realistically do with it.
+
+## What is Blender MCP?
+
+MCP stands for Model Context Protocol — it's a way to connect AI assistants like Claude to external tools and apps. When you set up the Blender MCP server, Claude gains the ability to send commands directly into your Blender workspace. That means you can say things like "create a low-poly mountain scene with a sunset lighting setup" and Blender will actually execute it.
+
+It bridges two worlds: Claude's natural language intelligence and Blender's full 3D capabilities. The result is that you can describe what you want in plain English and watch it appear in 3D.
+
+If you're new to the concept of MCP, check out [our beginner's guide to MCP servers on Vibestack](https://vibestack.in/tools/mcp-servers) — it covers the basics before you dive into tool-specific setups.
+
+## Who is this actually for?
+
+Let's be real — Blender has always been incredible but deeply intimidating. Even experienced designers often bounce off it because the workflow is so different from tools like Figma or Illustrator.
+
+Blender MCP opens it up to:
+
+- **Designers** who want to create 3D assets without a six-week learning curve
+- **Founders and PMs** who need product mockups or 3D visuals for pitches
+- **Makers** building games, apps, or visual content who want speed over precision
+- **Vibe coders** who already use Claude for other tasks and want to extend its reach
+
+You won't replace a seasoned 3D artist with this setup. But you'll be surprised by how much you can create for prototyping, presentations, and social content.
+
+## Setting up Blender MCP with Claude
+
+### Step 1: Install Blender
+
+If you don't have Blender already, download it free from [blender.org](https://blender.org). Version 4.x works best with the MCP integration.
+
+### Step 2: Install the MCP server
+
+The Blender MCP server is an add-on you install inside Blender. Here's the process:
+
+1. Download the `blender-mcp` add-on from its GitHub repository (search "blender-mcp" on GitHub)
+2. In Blender, go to **Edit > Preferences > Add-ons > Install**
+3. Select the downloaded `.zip` file
+4. Enable the add-on by checking the box next to it
+5. You'll see a new "MCP" panel appear in the sidebar (press **N** to open the sidebar if it's hidden)
+
+### Step 3: Connect Claude
+
+In Claude's desktop app, go to Settings and add a new MCP server. Point it to the local address that the Blender add-on exposes (shown in the MCP panel inside Blender). Once connected, Claude will show Blender as an available tool in your conversation.
+
+### Step 4: Start prompting
+
+Open a new chat in Claude and try something like: *"In Blender, create a simple scene with a wooden table, a coffee mug, and soft morning lighting."*
+
+Watch your Blender viewport update in real time. It's genuinely one of those moments where you stop and go "wait, this is real?"
+
+## What can you actually do with it?
+
+Here's what I've used Blender MCP for personally:
+
+### Scene generation
+
+Describing environments works surprisingly well. Ask for a minimalist product display scene, a stylized landscape, or even an abstract background for a pitch deck. Claude handles the object placement, basic materials, and lighting setup.
+
+### Object manipulation
+
+You can move, rotate, scale, and duplicate objects via chat. Something like "move the sphere 2 units to the right and scale it up by 30%" just works. It's much faster than hunting for the right Blender shortcut when you're still learning.
+
+### Lighting and rendering setup
+
+Getting lighting right in Blender is one of the trickier parts. With MCP, you can describe the mood you want — "warm golden hour sunlight from the left" — and Claude will configure the light objects and settings to match. Not perfectly, but close enough to iterate from.
+
+### Material and color changes
+
+Changing materials or applying colors to objects is another strong use case. "Make the base object a matte dark green" is the kind of prompt that works well consistently.
+
+## Limitations to keep in mind
+
+Blender MCP is powerful but not magic. A few things to know:
+
+- Complex organic modelling (like detailed characters or intricate mechanical parts) is still hard to prompt accurately — you'll spend time iterating
+- Animations work but require more specific prompts about keyframes and timing
+- Render quality depends entirely on your Blender settings — Claude controls the scene, not the render engine parameters
+- The connection can occasionally drop if Blender crashes (it's Blender — it happens)
+
+For more complex workflows, it's worth combining this with Claude's coding capabilities. You can ask Claude to write a Python script for Blender if MCP commands alone aren't cutting it. Check out [how designers are using Claude Code for visual workflows on Vibestack](https://vibestack.in/tools/claude-code) for some inspiration there.
+
+## Tips for better results
+
+Start simple. Don't ask for a fully detailed cinematic scene in one prompt. Build it up: start with the main object, add lighting, then layer in background elements.
+
+Be specific about style. "Low-poly", "realistic", "stylized", "minimalist" — these style keywords influence Claude's choices meaningfully.
+
+Iterate fast. The best way to use this is to get a rough version first and then refine. "Make the lighting warmer" or "remove the left object and add a plant instead" works really well in follow-up prompts.
+
+## The bigger picture
+
+Blender MCP is part of a broader wave of tools connecting AI to creative software. We're moving toward a world where you describe what you want and the tool figures out how to make it. That's the whole ethos behind [Vibestack's curated directory of MCP servers and vibe coding tools](https://vibestack.in) — finding the best connectors between your ideas and the tools that can execute them.
+
+If you're a designer, PM, or founder who's been intimidated by 3D work, this is genuinely worth trying this weekend. The setup takes about 20 minutes, and the feeling when it works the first time is completely worth it.
+
+---
+
+## FAQ
+
+**Do I need to know how to use Blender to use Blender MCP?**
+
+Not really, no. You'll need to install Blender and the add-on, which takes about 20 minutes. But you don't need to learn Blender's interface to start creating scenes — Claude handles the commands. That said, having a basic understanding of 3D concepts (like objects, materials, and lighting) helps you write better prompts.
+
+**Does Blender MCP work with other AI tools besides Claude?**
+
+The MCP protocol is designed to be model-agnostic, so in theory other AI assistants that support MCP (like some versions of Cursor or other tools) could connect to it. In practice, Claude currently has the most capable MCP implementation, so that's what most people use.
+
+**Is Blender MCP free?**
+
+Yes — both Blender and the MCP add-on are free and open-source. The only cost involved is whatever Claude plan you're using. The free Claude tier may have limits on how many complex prompts you can run in a session, so a paid plan helps if you're using it heavily.

@@ -1,0 +1,134 @@
+---
+title: "Figma Make tutorial for beginners: build your first app"
+description: "Learn how to use Figma Make to turn your designs into working apps using AI — a beginner-friendly step-by-step tutorial."
+slug: "figma-make-tutorial-beginners"
+type: "guide"
+tags: ["figma-make", "tutorial", "beginners"]
+publishedAt: "2026-03-31"
+---
+
+Figma Make is Figma's built-in AI feature that turns your designs into working, interactive apps — no coding required. If you've been designing in Figma for a while and always wished you could just ship the thing without handing it off to a developer, Figma Make is the closest thing to that dream that exists right now.
+
+I want to walk you through exactly how to use it, from scratch, including the things that trip up most beginners. This tutorial assumes you know how to use Figma at a basic level but have zero coding background.
+
+## What is Figma Make, actually?
+
+Figma Make is an AI-powered feature inside Figma that reads your design frames and generates a working front-end application from them. You describe what you want the app to do, and the AI writes the code that makes your design interactive and functional.
+
+Think of it like this: you design the screens, describe the behaviour you want, and Make builds the bridge between your static design and a live, clickable product.
+
+It's particularly strong for:
+- Simple internal tools (dashboards, trackers, form-based apps)
+- Prototypes that need to feel real to investors or users
+- Landing pages and single-page apps
+- Personal projects you want to ship without a dev team
+
+## Before you start: what you need
+
+- A Figma account (free works, but a paid plan gives you more Make sessions)
+- A design frame you want to bring to life — or we'll start from scratch in this tutorial
+- About 30–60 minutes for your first project
+
+That's genuinely it. No installs, no code editors, no terminal commands.
+
+## Step 1: Open (or create) your design in Figma
+
+If you already have a design you want to turn into an app, open it. If you're starting fresh, create a new file and make a simple screen — for this tutorial, let's build a basic task tracker.
+
+Create a frame at iPhone 14 size (390 x 844 px). Add:
+- A title at the top ("My Tasks")
+- A few task items listed as text
+- A simple input field at the bottom
+- An "Add task" button
+
+You don't need to make it pixel-perfect right now. Make works better when the design is clear in its intent, not necessarily in its polish.
+
+For more inspiration on what you can build, check out [Vibestack's roundup of the best AI app builders for non-coders](https://vibestack.in/blog/best-ai-app-builders-non-coders) — Figma Make sits in great company there.
+
+## Step 2: Select your frame and open Make
+
+Click on the frame you want to turn into an app. Then, in the toolbar, look for the **Make** option — it should appear in the right-hand panel or via the menu (Figma updates the UI regularly, so it might be in slightly different places, but it's usually under the "Plugins & integrations" area or in the toolbar).
+
+If you don't see Make, make sure you're on an updated version of Figma and that your plan includes access to it.
+
+## Step 3: Describe what you want the app to do
+
+This is the most important step, and it's where most beginners underinvest. The AI needs to understand not just what the design looks like, but how it should *behave*.
+
+For our task tracker, I'd write something like:
+
+*"This is a task tracking app. Users should be able to type a task in the input field and click 'Add task' to add it to the list. Each task should have a checkbox they can tick to mark it as done. Completed tasks should show as strikethrough text. The list should persist between sessions using local storage."*
+
+The more specific you are about user interactions, the better the output. Don't just say "make this interactive" — tell Make exactly what each button, input, and element should do.
+
+## Step 4: Review and iterate
+
+Make will generate the code and show you a live preview. This is where the back-and-forth begins.
+
+Don't expect it to be perfect on the first try. What you're looking for is: does the core interaction work? Can I type and add a task? Do the checkboxes respond?
+
+If something is off, describe the issue in plain English in the follow-up prompt. Things like:
+- "The add button isn't working — clicking it doesn't add the task to the list"
+- "The completed tasks should have grey text, not just strikethrough"
+- "Can you add a 'Delete' button next to each task?"
+
+This iterative loop — describe, review, refine — is the real workflow in Figma Make. Treat the first output as a draft, not a final product.
+
+## Step 5: Customize the styling
+
+Once the core functionality works, you can ask Make to adjust the visual styling to match your design more closely. Prompts like:
+
+- "Make the background white with a light grey card for each task"
+- "Use the Inter font throughout"
+- "Add a subtle drop shadow to the input field"
+
+Work well because they describe visual outcomes rather than code properties. Make translates them into the right CSS under the hood.
+
+## Step 6: Export or publish
+
+When you're happy with the result, Figma Make gives you options to:
+- **Export the code** — download the HTML/CSS/JS to host yourself
+- **Share a live preview link** — great for sharing with stakeholders or getting feedback
+- **Deploy via Figma** — Figma offers hosting options for quick publishing
+
+For a prototype or internal tool, the live preview link alone is often enough. For something you want to actually launch, export the code and put it on a host like Vercel or Netlify (both have free tiers and genuinely easy deployments).
+
+## Common mistakes beginners make
+
+**Designing too many screens at once.** Start with one screen or one flow. Make handles focused, single-purpose apps much better than complex multi-screen applications in the early stages.
+
+**Being too vague in prompts.** "Make it interactive" does nothing. Describe specific interactions for specific elements.
+
+**Expecting pixel-perfect fidelity.** Make gets close but won't exactly replicate every design detail. Plan to adjust — and remember, a functional imperfect app beats a perfect static design every time.
+
+**Not iterating enough.** The power is in the conversation with the AI. If something doesn't work, tell it and try again. Don't give up after one bad output.
+
+## How Figma Make compares to other tools
+
+If you're wondering how this stacks up against other vibe coding tools, [check out our comparison of Figma Make vs v0 on Vibestack](https://vibestack.in/blog/figma-make-vs-v0) — it's a good read if you're deciding which tool fits your workflow best.
+
+The short version: Figma Make is best if you're already working in Figma and want to ship from your existing designs. Tools like v0 or Bolt might suit you better if you're starting from scratch with a text prompt and no existing design file.
+
+## You can do this
+
+Figma Make has lowered the barrier to shipping dramatically. If you can design a screen and describe behaviour in plain English, you can build and ship a working app. That's not hyperbole — it's genuinely where we are in 2026.
+
+Start small. Build that one-screen task tracker, a simple form, or a landing page prototype. Get familiar with the iteration loop. Then scale up to more complex things.
+
+[Browse Vibestack](https://vibestack.in) for more tools, guides, and inspiration for non-coders building real things with AI.
+
+---
+
+## FAQ
+
+**Do I need to know how to code to use Figma Make?**
+
+No. Figma Make is specifically designed for designers and non-coders. You interact with it through your design and plain English descriptions of the behaviour you want. The AI writes the code. You don't need to read or edit any of it unless you want to.
+
+**Can I use Figma Make on the free plan?**
+
+Figma Make is available on Figma's paid plans. As of early 2026, the Professional plan and above include Make access with a set number of generation sessions per month. The free plan may offer limited access — check Figma's current pricing page for the latest details, as these limits change periodically.
+
+**What kind of apps can Figma Make build?**
+
+Make works best for single-page or simple multi-screen apps with clear interactions — dashboards, trackers, forms, portfolios, landing pages, and lightweight internal tools. It struggles with complex database-backed applications, real-time features, or apps with many interconnected states. For those, you'd want to combine it with a backend service or use a more code-centric tool alongside it.
