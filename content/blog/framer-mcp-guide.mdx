@@ -1,0 +1,141 @@
+---
+title: "Framer MCP: edit your designs with Claude and Cursor"
+description: "The Framer MCP lets Claude and Cursor make changes to your Framer projects by chat. Here's what it can do and how to get it set up."
+slug: "framer-mcp-guide"
+type: "guide"
+tags: ["framer", "mcp", "claude"]
+publishedAt: "2026-03-31"
+---
+
+The Framer MCP connects AI tools like Claude and Cursor directly to your Framer projects, so you can make changes by describing them in plain language rather than manually clicking through Framer's interface. If you're a designer who uses Framer and wants to move faster, this is worth your time to set up.
+
+## What the Framer MCP actually does
+
+MCP stands for Model Context Protocol — it's the standard that lets AI assistants talk to external tools and services. With the Framer MCP running, Claude can:
+
+- Read your Framer site's structure and content
+- Update text and content across pages
+- Add or modify components
+- Work with your CMS content
+- Make style changes based on your descriptions
+
+The key thing to understand: the AI is interacting with your Framer project through Framer's API, not by clicking in the visual editor. That means some things (complex layout changes, visual design tweaks) are still better done manually in Framer. But for content, structure, and repetitive updates — the MCP is a genuine time-saver.
+
+Browse other MCP servers for design tools at [vibestack.in/mcp-servers](https://vibestack.in/mcp-servers).
+
+## What you'll need
+
+- A Framer account with a published site (or a site you're building)
+- A Framer API token
+- Claude Code, Cursor, or another MCP-compatible AI tool
+- Node.js installed on your computer
+
+## Step 1: Get your Framer API token
+
+1. Open Framer and go to your account settings
+2. Navigate to the **Developer** or **API** section
+3. Generate a new API token and copy it somewhere safe
+4. Note your **Project ID** — you'll need this too (it's in the URL when you have your project open: `framer.com/projects/YOUR-PROJECT-ID`)
+
+## Step 2: Install the Framer MCP server
+
+In your terminal:
+
+```
+npm install -g framer-mcp-server
+```
+
+Verify the install worked:
+
+```
+framer-mcp --version
+```
+
+## Step 3: Configure your Claude or Cursor setup
+
+**For Claude Code**, edit your MCP config file at `~/.config/claude/claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "framer": {
+      "command": "framer-mcp-server",
+      "env": {
+        "FRAMER_API_TOKEN": "your_token_here",
+        "FRAMER_PROJECT_ID": "your_project_id_here"
+      }
+    }
+  }
+}
+```
+
+**For Cursor**, go to Settings → Features → MCP Servers and add the same configuration through the UI.
+
+Restart your tool after saving the config.
+
+## Step 4: Test the connection
+
+Open Claude Code and try:
+
+> "Using the Framer MCP, tell me about the pages in my current Framer project."
+
+If it returns a list of your pages, you're connected. If not, double-check your token and project ID.
+
+## Practical things you can do with it
+
+**Content updates without opening Framer:**
+> "Update the headline on the homepage to 'Design tools for the AI era' and change the subheading to [your text]."
+
+**CMS item management:**
+> "Add a new case study to my Framer CMS with the title 'Redesigning the checkout flow', a cover image URL of [URL], and the following summary: [text]."
+
+**Bulk text changes:**
+> "Find every instance of 'Get in touch' across my site and change it to 'Start a project'."
+
+**Site structure queries:**
+> "List all pages that don't have a meta description set."
+
+**Iterating on copy:**
+> "Read the current copy on my About page and suggest three alternative versions of the headline that are more conversational."
+
+## What the Framer MCP can't do
+
+It's useful to be clear about the limits:
+
+- **Visual layout changes** — moving elements around, adjusting padding and margins, changing component structures — these still require the Framer editor. The MCP works with content and data, not pixel-level design.
+- **Creating new components from scratch** — you can instantiate existing components, but building new component designs via MCP isn't supported.
+- **Framer Motion animations** — animation configuration is outside what the MCP can currently reach.
+
+For anything visual, Framer's interface is still the right place. The MCP shines for everything content and structure related.
+
+## Combining Framer MCP with other tools
+
+One powerful workflow: use the **Figma MCP** to read your design spec, then use the **Framer MCP** to push that content and structure into your live Framer project. You can run both MCPs simultaneously in Claude — just add both entries to your config file.
+
+This effectively gives you a bridge between your design file and your live site, with Claude as the translator. You can explore both MCPs and others at [vibestack.in/mcp-servers](https://vibestack.in/mcp-servers).
+
+## Troubleshooting
+
+**"Authentication failed"** — Your API token is wrong or expired. Generate a new one in Framer's settings.
+
+**"Project not found"** — Double check your Project ID. Open your Framer project and grab the ID from the URL.
+
+**"Command not found: framer-mcp-server"** — The npm install didn't work correctly. Try running `npm install -g framer-mcp-server` again, and make sure Node.js is up to date.
+
+## FAQ
+
+**Does the Framer MCP work with Framer's free plan?**
+
+You need API access, which depends on your Framer plan tier. Check Framer's current plan details to confirm API access is included — paid plans typically include it.
+
+**Can I use the Framer MCP with Cursor instead of Claude Code?**
+
+Yes. Cursor supports MCP servers and the configuration is very similar. The MCP server itself is tool-agnostic — it's Claude or Cursor that you're telling to use it.
+
+**Will changes made through the MCP appear immediately in my published site?**
+
+Changes go into your project but still need to be published from Framer before they're live. This is actually helpful — it gives you a review step before anything goes public.
+
+---
+
+Once you're set up, the Framer MCP makes routine content updates and CMS management much faster. For the full picture of what AI tools can do in your design workflow, head to [vibestack.in](https://vibestack.in) — it's a curated directory of vibe coding tools and MCP servers built specifically for designers and non-coders.

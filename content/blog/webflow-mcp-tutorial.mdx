@@ -1,0 +1,130 @@
+---
+title: "Webflow MCP: update your site by chatting with AI"
+description: "The Webflow MCP lets Claude make changes to your Webflow site through conversation. Here's how to set it up and what you can actually do with it."
+slug: "webflow-mcp-tutorial"
+type: "guide"
+tags: ["webflow", "mcp", "tutorial"]
+publishedAt: "2026-03-31"
+---
+
+The Webflow MCP connects Claude directly to your Webflow site, so you can update content, create pages, and modify your CMS by just describing what you want — no clicking through the Webflow interface required. If you run a Webflow site and find yourself making repetitive updates, this is worth setting up. Here's how it works and how to get started.
+
+## What the Webflow MCP actually does
+
+When Claude is connected to your Webflow site via MCP, it can read and write to your site in real time. That means you can have a conversation like:
+
+> "Add a new blog post titled 'Our Summer Collection' to the CMS with this content: [paste content]"
+
+And Claude will create that CMS item directly in Webflow. Or:
+
+> "Update the hero headline on the homepage to 'Build faster with AI'"
+
+And it'll make that change — no drag-and-drop required.
+
+It's not magic. It's Claude using Webflow's API on your behalf, guided by what you tell it. But the practical effect is that updating your site becomes as easy as sending a message.
+
+## What you can do with it
+
+- **CMS management** — Create, update, and delete CMS items (blog posts, products, team members, etc.)
+- **Content updates** — Change text on static pages
+- **Page creation** — Add new pages to your site
+- **Collection queries** — Ask Claude to list or search your CMS content
+- **Batch updates** — Update multiple CMS items at once with a single instruction
+
+What you can't do (yet): make structural design changes, modify component layouts, or update visual styles. For those, you still need the Webflow designer.
+
+## What you'll need
+
+- A Webflow account with a site (any plan works, though CMS features require a CMS plan or above)
+- A Webflow API key
+- Claude Code installed, or a Claude interface that supports MCP servers
+- Node.js on your computer
+
+## Step 1: Get your Webflow API key
+
+1. Log into Webflow and go to your **Site Settings**
+2. Click the **Integrations** tab
+3. Scroll to **API access** and click **Generate API token**
+4. Copy the token and store it safely
+
+You'll also need your **Site ID**, which you can find in the same Integrations panel or in the URL when you're in the Webflow designer (`https://webflow.com/design/YOUR-SITE-ID`).
+
+## Step 2: Install the Webflow MCP server
+
+In your terminal:
+
+```
+npm install -g webflow-mcp-server
+```
+
+Verify it installed:
+
+```
+webflow-mcp --version
+```
+
+## Step 3: Add it to your Claude config
+
+Edit your Claude MCP configuration file (on Mac: `~/.config/claude/claude_desktop_config.json`):
+
+```json
+{
+  "mcpServers": {
+    "webflow": {
+      "command": "webflow-mcp-server",
+      "env": {
+        "WEBFLOW_API_TOKEN": "your_token_here",
+        "WEBFLOW_SITE_ID": "your_site_id_here"
+      }
+    }
+  }
+}
+```
+
+Save the file and restart Claude Code or your Claude Desktop app.
+
+## Step 4: Test it
+
+Once Claude restarts, try:
+
+> "Using the Webflow MCP, list all the CMS collections on my site."
+
+If the connection is working, Claude will return a list of your CMS collections. From there, you can start making real changes.
+
+## Practical workflows that save real time
+
+**Batch CMS publishing** — If you have 20 blog posts sitting in a spreadsheet, describe the structure to Claude and have it create all 20 CMS items at once rather than entering them one by one.
+
+**Content updates at scale** — "Update all blog posts tagged 'announcement' to add a banner notice at the top saying [X]" becomes a single instruction instead of opening each post individually.
+
+**Quick page additions** — "Create a new landing page called 'Spring Sale' with [description of structure]" — Claude creates the page shell, then you can flesh out the design in Webflow.
+
+**CMS auditing** — "List all blog posts that don't have a meta description set" gives you an instant content audit.
+
+## Tips for working with it
+
+**Be specific about collection names.** Claude will ask for your collection slug if it's unsure. Know your collection names in advance (e.g., "blog-posts", "team-members") to save back-and-forth.
+
+**Always review before bulk changes.** For any update that touches more than a few items, ask Claude to list what it's going to change before confirming. One extra message saves a lot of potential undoing.
+
+**Use it for content, not design.** The Webflow MCP is best for CMS and content operations. For layout and design changes, stick to the Webflow designer — it's still the best tool for that job.
+
+**Combine with other MCP servers.** You can have Claude connected to both Figma and Webflow at the same time. Design in Figma, generate the content structure in Claude, then push it into Webflow — all from one conversation. See what other MCP servers are available at [vibestack.in/mcp-servers](https://vibestack.in/mcp-servers).
+
+## FAQ
+
+**Will the Webflow MCP publish changes immediately or save as drafts?**
+
+By default, changes go to drafts — you still need to publish from Webflow. This is actually useful because it gives you a chance to review before anything goes live.
+
+**Can it update my Webflow Ecommerce products?**
+
+Yes, if your plan includes Ecommerce. Claude can read and update product CMS items the same way it handles other collections.
+
+**Is there a risk of it breaking my site?**
+
+Changes go through the Webflow API — the same as if you'd made them manually. Claude can't break your site design or delete your hosting. The main risk is content errors, which is why reviewing before bulk operations is good practice.
+
+---
+
+The Webflow MCP is one of those tools that sounds abstract until you actually try it — then it immediately becomes part of your routine. Set it up, test it on a small update first, and go from there. For more tools that connect AI to your design stack, head to [vibestack.in](https://vibestack.in).
