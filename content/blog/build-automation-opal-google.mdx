@@ -1,0 +1,103 @@
+---
+title: "Build automation without coding using Opal by Google"
+description: "Learn how to use Opal by Google to build powerful workflow automations without writing any code — a hands-on guide for designers, PMs, and non-technical founders."
+slug: "build-automation-opal-google"
+type: "guide"
+tags: ["opal", "google", "automation", "no-code"]
+publishedAt: "2026-04-01"
+---
+
+Opal by Google is Google's AI-native automation tool that lets you build multi-step workflows by describing what you want in plain language — no code, no flowchart builders, no duct-tape integrations. If you've ever wanted to automate something in your business but found tools like Zapier or n8n too fiddly, Opal is worth serious attention.
+
+I've been playing with it since it launched and it's changed how I think about what "non-technical automation" can look like.
+
+## What is Opal?
+
+Opal is Google's answer to the growing demand for AI-powered workflow automation. It sits in the Google Workspace ecosystem but isn't limited to Google products — it connects to a wide range of external services, including Slack, Notion, HubSpot, and more.
+
+The core idea: describe a workflow in natural language, and Opal builds it. "When a new lead fills in my Typeform, add them to my Google Sheet, send them a welcome email from Gmail, and notify the #sales channel in Slack." That's a workflow. Opal can build it without you touching a configuration screen.
+
+## Who is Opal for?
+
+Opal is built for people who:
+
+- Run processes manually and know they're wasting time on repetitive tasks
+- Have tried Zapier or Make and found the visual editor confusing
+- Work in Google Workspace and want their automations to live in the same ecosystem
+- Want to describe workflows in plain English rather than wire together steps
+
+If that sounds like you, you're going to love this.
+
+## Getting started with Opal
+
+### Step 1: Access Opal
+
+Opal is available through Google Workspace. If your organisation uses Google Workspace, look for Opal in your app launcher. Personal Google accounts may have access depending on your region — check [workspace.google.com](https://workspace.google.com) for current availability.
+
+### Step 2: Describe your first automation
+
+Opal's interface is chat-first. You open it and type what you want to happen. Start simple:
+
+> "When I receive an email with the subject 'New order', copy the sender's name and email to a Google Sheet called 'Orders'."
+
+Opal will interpret this, show you what it's going to build, and ask for confirmation. Review the steps before you approve — this is where you can catch misunderstandings before they cause problems.
+
+### Step 3: Grant the necessary permissions
+
+Like any automation tool, Opal needs to access your accounts. It will ask for permission to read Gmail, write to Sheets, and so on. These permissions are scoped to what the workflow needs — you're not handing over the keys to everything.
+
+### Step 4: Test the automation
+
+Once you've approved the workflow, Opal will ask if you want to test it. Always say yes. Testing surfaces edge cases you didn't think about ("what if the email has no attachments?") before they become real problems.
+
+### Step 5: Iterate with natural language
+
+Opal treats automation building like a conversation. After your first workflow is live, you can say "actually, also add a label to the Gmail thread once it's processed" and Opal will update the workflow. No need to go back into a visual editor.
+
+## Example automations you can build with Opal
+
+Here are some real-world use cases I've seen work well:
+
+**Content operations:** "When a Notion page is moved to the 'Ready to publish' database, create a draft post in WordPress and notify the editor in Slack."
+
+**Sales follow-up:** "Every morning at 9am, check for leads in my Google Sheet who haven't been emailed in 7 days and create draft follow-up emails in Gmail."
+
+**Client onboarding:** "When a new row is added to my Clients sheet, create a Google Drive folder with the client name, share it with them, and send a welcome email."
+
+**Expense tracking:** "When I forward an email with the word 'invoice' to [address], extract the amount and vendor name and add a row to my Expenses sheet."
+
+## Opal vs. other automation tools
+
+Opal is newer and more chat-native than its competitors. If you want a deeper comparison with n8n — especially for more technical workflows — I've covered that in the [Opal vs n8n comparison on Vibestack](https://vibestack.in/blog/opal-google-vs-n8n).
+
+The short version: Opal wins on ease of use and Google Workspace integration; n8n wins on flexibility and self-hosting.
+
+## Tips for getting better results from Opal
+
+**Be specific about triggers.** "When I get a new email" is too vague. "When I receive an email from a domain that isn't in my contacts list" is specific enough to build reliably.
+
+**Describe what shouldn't happen.** Good prompts include constraints: "but don't run this on weekends" or "only if the email has an attachment."
+
+**Start with one workflow, not five.** Resist the urge to automate everything at once. Build one thing, watch it run for a week, then expand.
+
+## Building on top of Opal with MCP servers
+
+Opal is part of the broader ecosystem of AI-powered tools that are reshaping how non-coders work. For related vibe coding tools and automation connectors, browse the [Vibestack tool directory](https://vibestack.in) — particularly the [MCP servers section](https://vibestack.in/mcp-servers) if you're looking to extend your automations further.
+
+## FAQ
+
+**Is Opal free?**
+
+Opal is available as part of Google Workspace. Pricing depends on your Workspace plan. Check the Google Workspace pricing page for current details, as this changes frequently.
+
+**Can Opal connect to tools outside Google's ecosystem?**
+
+Yes. Opal supports connections to Slack, Notion, HubSpot, Typeform, and other popular tools. The library of supported integrations is growing. If a tool you need isn't supported yet, Opal can sometimes work via webhooks as a workaround.
+
+**What happens when an automation breaks?**
+
+Opal notifies you when a workflow fails and shows you exactly which step failed and why. You can describe the fix in plain language ("if the Gmail API returns an error, retry 3 times before giving up") and Opal will update the workflow accordingly.
+
+---
+
+Automation used to require a developer or a lot of patience with visual flowchart builders. Opal changes that. If your workday includes any repetitive digital tasks, you now have the tools to eliminate them — no code required. [Find more automation and vibe coding tools at Vibestack](https://vibestack.in).
