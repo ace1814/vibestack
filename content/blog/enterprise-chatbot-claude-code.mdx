@@ -1,0 +1,89 @@
+---
+title: "How an indie hacker built an enterprise chatbot with Claude Code"
+description: "A behind-the-scenes look at how one indie hacker used Claude Code to build an enterprise-grade chatbot — without a dev team or VC funding."
+slug: "enterprise-chatbot-claude-code"
+type: "guide"
+tags: ["claude-code", "chatbot", "indie-hacker"]
+publishedAt: "2026-04-02"
+---
+
+When most people think "enterprise chatbot," they picture a 12-person engineering team, a six-figure budget, and a two-year roadmap. What they don't picture is one person, a laptop, and Claude Code shipping the whole thing in six weeks. But that's exactly what happened — and it's a story worth telling for anyone who thinks they need a dev team to build something serious.
+
+## The project: an internal knowledge bot for a mid-size SaaS
+
+The indie hacker in question (let's call him Marcus, since he prefers to stay anonymous) was a solo founder who'd been running a small SaaS for two years. A mid-size company came to him with a problem: their support team was drowning in questions that were all answered in their internal docs. They needed a chatbot that could search the docs, answer in natural language, and escalate to a human when it couldn't help.
+
+This is a classic enterprise chatbot use case. The kind of project that typically gets handed to an agency for $80K or a new internal hire. Instead, Marcus said he'd build it for a fraction of that, using Claude Code.
+
+Here's how he did it.
+
+## Phase 1: Setting up the foundation with Claude Code
+
+Marcus started by describing the full system architecture to Claude Code in plain English. He knew what he wanted — a RAG (retrieval-augmented generation) system that could query a vector database and return relevant context to a language model — but he didn't know how to build it.
+
+Claude Code generated the initial project structure: a Next.js frontend, a Node.js API layer, and scaffolding for a Supabase database. It wrote the boilerplate, set up the file structure, and explained what each piece was doing.
+
+"The thing that surprised me most," Marcus told me, "was that Claude Code would explain *why* it was doing something, not just do it. That meant I understood the codebase well enough to direct it better over time."
+
+## Phase 2: Building the document ingestion pipeline
+
+The hardest technical part of any RAG system is getting documents in cleanly. Marcus needed to ingest the client's internal documentation — PDFs, Word docs, Confluence pages — chunk them intelligently, embed them, and store them in a vector database.
+
+This is genuinely complex engineering. It's the kind of thing that trips up junior developers.
+
+Claude Code built the whole pipeline. Marcus described the inputs and outputs he needed, Claude wrote the code, Marcus tested it, and they iterated based on what wasn't working. The process looked like this: run the ingestor, see what broke, paste the error into Claude Code, get a fix.
+
+The whole ingestion pipeline took about four days.
+
+## Phase 3: The chat interface
+
+Marcus used Lovable to prototype the chat UI first — it's faster for visual work — then brought the generated components into his Claude Code project. This hybrid workflow (use a visual builder for UI, Claude Code for logic) is something more indie hackers should try.
+
+The chat interface needed to: show a conversation thread, display source citations, allow human escalation via a button, and work on mobile. Claude Code built all of this, including the escalation flow that sent a formatted Slack message to the support team.
+
+For the chat logic, Claude Code wrote a streaming API route that passed the user's message and relevant document chunks to the Claude API, streamed the response back, and stored the conversation in Supabase.
+
+Browse the [MCP server directory on Vibestack](https://vibestack.in/mcp) to find tools that can connect your chatbot to Slack, Notion, and other enterprise apps.
+
+## Phase 4: The enterprise bits
+
+This is where most indie hackers would have gotten stuck. Enterprise clients need things like: SSO authentication, audit logs, admin dashboards for managing content, and SLAs for uptime.
+
+Marcus handled this methodically. For each requirement, he described it to Claude Code, got a working implementation, tested it, and moved on. SSO with Okta (a common enterprise requirement) took two days — mostly because of the SAML integration, which Claude Code had seen many times before and handled well.
+
+The admin dashboard for managing documents — adding new content, removing outdated files, seeing what the bot was citing — took about a week.
+
+"I kept thinking I'd hit a wall," Marcus said. "Some requirement that Claude Code couldn't handle. It never happened. It would always say 'here's how to approach this' and then build it."
+
+## The result
+
+Six weeks. One person. An enterprise chatbot that the client deployed internally to 200 support team members.
+
+The client had originally budgeted $65,000 for this project. Marcus charged significantly less. He made a healthy margin, the client got a working product faster than expected, and everyone won.
+
+The chatbot now handles roughly 60% of internal support questions without escalation. The support team's ticket volume dropped noticeably in the first month.
+
+## What this means for you
+
+The takeaway isn't just "Claude Code is cool." It's that the definition of what one person can build has fundamentally changed. Projects that previously required teams are now within reach for a determined individual with the right tools.
+
+You don't need to be a developer. You need to understand the problem clearly, be able to describe what you want precisely, and be willing to iterate when things don't work.
+
+That's vibe coding at its best — using AI as a collaborator, not a replacement for thinking.
+
+If you want to explore more tools that make this kind of project possible, check out the [full Vibestack directory](https://vibestack.in) — it's a curated collection of AI coding tools for non-engineers and indie hackers.
+
+Also worth reading: [how to build a chatbot with AI and no coding skills](https://vibestack.in/blog/build-chatbot-ai-no-code) for a more beginner-friendly take on getting started.
+
+---
+
+## FAQ
+
+**Do you need any coding background to replicate this kind of project?**
+Marcus had some technical background — he'd built his own SaaS — but he isn't a software engineer. He couldn't have built this system without AI assistance. The key skill isn't coding, it's being able to describe what you want clearly, test what you get, and communicate the gap between the two.
+
+**What's the biggest risk when building like this?**
+The biggest risk is not understanding what you've built well enough to maintain it. Marcus mitigated this by asking Claude Code to explain every significant piece of code. He built up enough understanding that he can debug issues and make changes — slowly, with Claude's help, but reliably.
+
+**How does Claude Code compare to other tools for this kind of project?**
+Claude Code is specifically designed for complex, multi-file projects. Tools like Lovable and Bolt are better for standalone apps. For a system with multiple integrated components — a pipeline, an API, a database, a frontend — Claude Code gives you the most control and the most help.

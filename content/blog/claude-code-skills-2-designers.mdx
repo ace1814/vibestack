@@ -1,0 +1,171 @@
+---
+title: "Claude Code Skills 2.0 for designers: practical setup guide"
+description: "A practical setup guide for using Claude Code Skills 2.0 as a designer. Learn how to customize Claude's behavior for design-focused workflows."
+slug: "claude-code-skills-2-designers"
+type: "guide"
+tags: ["claude-code", "designers", "skills"]
+publishedAt: "2026-04-02"
+---
+
+Claude Code Skills 2.0 lets you customize exactly how Claude behaves in your coding sessions — and for designers, that's a game-changer. Instead of repeatedly explaining your design system, tone preferences, or component structure, you can teach Claude once and have it follow your rules every time. Here's how to set it up in a way that actually works for design workflows.
+
+## What are Claude Code Skills?
+
+Skills in Claude Code are essentially instruction files (written in Markdown) that Claude reads before it starts working. They define rules, preferences, and patterns Claude should follow. Think of it like an onboarding doc for a new hire — except the new hire is an AI and never forgets what you told it.
+
+Skills 2.0 expanded this system significantly. You can now have multiple skill files for different contexts: one for your design system, one for writing component documentation, one for accessibility standards, etc.
+
+For designers who code, this means you can stop repeating yourself. You write your preferences once, and Claude applies them every session.
+
+## Why this matters for designers specifically
+
+Most Claude Code tutorials are written by developers, for developers. The examples are about linting rules and test coverage. But as a designer using Claude Code, my concerns are different:
+
+- I want Claude to use my exact design tokens, not hardcode hex values
+- I want components that follow my naming conventions
+- I want it to use Tailwind utility classes in the order I prefer
+- I want it to keep things accessible by default, without being asked
+
+Skills 2.0 lets me encode all of this once, so Claude just does it.
+
+## Step 1: Create your skills folder
+
+In your project root, create a `.claude/skills/` folder. This is where all your skill files live.
+
+```bash
+mkdir -p .claude/skills
+```
+
+Claude Code will automatically look for skill files here when you start a session.
+
+## Step 2: Write your design system skill
+
+Create a file called `design-system.md` in your skills folder. This is the most important one for designers. Here's a template:
+
+```markdown
+# Design System
+
+## Tokens
+Always use CSS variables or Tailwind theme values for colors, spacing, and typography. Never hardcode hex values or pixel dimensions.
+
+Color tokens:
+- Primary: `--color-primary` / `bg-primary`
+- Background: `--color-bg` / `bg-base`
+- Text: `--color-text` / `text-primary`
+
+## Typography
+Use the type scale from the design system:
+- Headings: font-display
+- Body: font-sans
+- Code: font-mono
+
+## Components
+Follow the naming convention: [Context][Component], e.g. NavBar, HeroSection, CardGrid.
+
+## Accessibility
+Always include:
+- `aria-label` on interactive elements without visible text
+- `alt` text on images
+- Keyboard navigation support (focus styles, tab order)
+```
+
+You'll customize this with your actual tokens and conventions, but this gives Claude what it needs to generate code that fits your system.
+
+## Step 3: Write a component style skill
+
+Create `component-style.md` to define how you want components structured:
+
+```markdown
+# Component Style
+
+## Framework
+React functional components with TypeScript (when possible).
+
+## Styling
+Use Tailwind CSS utility classes. Follow mobile-first responsive patterns.
+Class order: layout → spacing → typography → colors → effects.
+
+## Structure
+Props interface at the top, component function below, export at bottom.
+Keep components focused: one responsibility per component.
+
+## Comments
+Only comment non-obvious logic. No boilerplate comments.
+```
+
+This file makes sure Claude doesn't write components in a style that clashes with your existing codebase.
+
+## Step 4: Write a writing/tone skill (optional but great)
+
+If you're using Claude to write copy alongside your UI — button labels, empty states, onboarding text — add a `writing.md` skill:
+
+```markdown
+# Copy and Writing
+
+## Tone
+Friendly, direct, human. No corporate language.
+Write like you're talking to a smart friend, not writing a press release.
+
+## UI Copy
+- Button labels: verbs that say what happens ("Save draft", "View project")
+- Error messages: explain what happened and what to do next
+- Empty states: encouraging, not just "No items found"
+
+## Avoid
+- Passive voice
+- Jargon or acronyms without explanation
+- Exclamation marks (more than one per page, max)
+```
+
+## Step 5: Reference your skills in CLAUDE.md
+
+The main instructions file for Claude Code is `CLAUDE.md` in your project root. You'll want to reference your skills there:
+
+```markdown
+# Project Instructions
+
+## Design System
+Read: .claude/skills/design-system.md
+
+## Component Style
+Read: .claude/skills/component-style.md
+
+## Writing
+Read: .claude/skills/writing.md
+
+## Current focus
+[Add project-specific context here — what you're building, any in-progress work Claude should know about]
+```
+
+When you start a Claude Code session, it reads `CLAUDE.md` automatically, which tells it to load your skill files.
+
+## Practical tips for designer skill files
+
+**Keep skills specific, not exhaustive.** Don't try to document your entire design system. Focus on the decisions Claude most often gets wrong. If it keeps using the wrong font family, add that. If it nails typography but struggles with spacing, fix spacing.
+
+**Update skills as you catch mistakes.** When Claude does something that doesn't fit your style, add a note to the relevant skill file. Over time, it gets much more accurate.
+
+**Use examples liberally.** Skills files with examples work better than rules alone. Instead of "use semantic HTML," write "use `<article>` for card components, `<section>` for grouped content, `<nav>` for navigation — not `<div>` for everything."
+
+**Version your skills with git.** Skills files are code. Commit them. This means you can share them with collaborators and track changes over time.
+
+## Getting started today
+
+If you're new to Claude Code and want to start with something minimal, just create one skill file — your design system tokens. Even just telling Claude your color variables and typography scale will dramatically improve the quality of code it generates for your project.
+
+You can find more tips and tools for design-focused vibe coding in the [Vibestack directory](https://vibestack.in). And if you're just getting started with Claude Code, the [Claude Code beginner tutorial on Vibestack](https://vibestack.in/blog/claude-code-tutorial-beginners) is a solid place to start.
+
+See the [full collection of Claude Code resources on Vibestack](https://vibestack.in/collections/claude-code) for more guides like this one.
+
+---
+
+## FAQ
+
+**Do skill files work across all Claude Code sessions?**
+Yes — as long as your `.claude/skills/` folder is in the project directory and referenced from `CLAUDE.md`, Claude Code will read them at the start of every session. If you switch projects, you'll need separate skill files for each one (or share a common base file).
+
+**Can I use skills with the Claude web interface too?**
+Skills are a Claude Code feature (the CLI tool), not the web chat interface. In the web interface, you can achieve something similar by adding custom instructions to a Project. It's less structured but works for most design use cases.
+
+**How long should a skill file be?**
+Shorter is usually better. Claude reads and applies skill files most reliably when they're concise and specific. Aim for under 300 words per skill file. If it's getting long, split it into multiple focused files.
