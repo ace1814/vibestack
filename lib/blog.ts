@@ -48,6 +48,22 @@ export function getAllPosts(): BlogPost[] {
     .sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1));
 }
 
+export function getRelatedPosts(post: BlogPost, limit = 3): BlogPost[] {
+  const all = getAllPosts().filter((p) => p.slug !== post.slug);
+
+  return all
+    .map((p) => {
+      const sharedTags = p.tags.filter((t) =>
+        post.tags.some((pt) => pt.toLowerCase() === t.toLowerCase())
+      ).length;
+      const sameType = p.type === post.type ? 1 : 0;
+      return { post: p, score: sharedTags * 2 + sameType };
+    })
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit)
+    .map((r) => r.post);
+}
+
 export function getPost(slug: string): BlogPost | null {
   if (!fs.existsSync(BLOG_DIR)) return null;
 

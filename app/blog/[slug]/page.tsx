@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { MDXRemote } from 'next-mdx-remote/rsc';
-import { getAllPosts, getPost } from '@/lib/blog';
+import { getAllPosts, getPost, getRelatedPosts } from '@/lib/blog';
 
 export const revalidate = 86400;
 export const dynamicParams = false;
@@ -50,6 +50,8 @@ export default async function BlogPostPage({
   const { slug } = await params;
   const post = getPost(slug);
   if (!post) notFound();
+
+  const related = getRelatedPosts(post);
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -127,6 +129,34 @@ export default async function BlogPostPage({
             </div>
           )}
         </article>
+
+        {/* Related articles */}
+        {related.length > 0 && (
+          <section className="max-w-2xl mx-auto px-6 pb-12">
+            <div className="border-t border-black/8 dark:border-white/8 pt-10">
+              <p className="text-xs font-medium text-black/40 dark:text-white/40 uppercase tracking-wider mb-6">
+                More articles
+              </p>
+              <div className="flex flex-col gap-4">
+                {related.map((r) => (
+                  <Link
+                    key={r.slug}
+                    href={`/blog/${r.slug}`}
+                    className="group flex flex-col gap-1 p-4 rounded-xl border border-black/8 dark:border-white/8 hover:border-black/20 dark:hover:border-white/20 transition-colors"
+                  >
+                    <span className="text-xs text-black/40 dark:text-white/40 capitalize">{r.type}</span>
+                    <span className="font-semibold text-black dark:text-white group-hover:underline underline-offset-2 leading-snug">
+                      {r.title}
+                    </span>
+                    <span className="text-sm text-black/55 dark:text-white/55 line-clamp-2">
+                      {r.description}
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
 
         <footer className="border-t border-black/8 dark:border-white/8 px-6 py-8 text-center">
           <p className="text-sm text-black/40 dark:text-white/40 mb-3">
