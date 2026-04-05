@@ -1,0 +1,181 @@
+---
+title: "Ollama tutorial for beginners: local AI in 10 minutes"
+description: "A beginner's guide to Ollama — download, install, and run AI models locally in under 10 minutes. No API keys, no costs, no data leaving your machine."
+slug: "ollama-tutorial-beginners"
+type: "guide"
+tags: ["ollama", "tutorial", "beginners", "local-ai"]
+publishedAt: "2026-04-05"
+---
+
+Ollama is the fastest way to run AI models locally on your own computer — and I promise it's much simpler than it sounds. In about 10 minutes you'll have a fully working local AI that you can use for free, offline, with complete privacy.
+
+This tutorial is for complete beginners. No coding experience required. Let's go.
+
+## What is Ollama?
+
+Ollama is a free tool that lets you download and run open-source AI models directly on your computer. Think of it like having ChatGPT running on your own machine — no subscription, no internet required once setup is done, and no one else can see what you're asking.
+
+It works on Mac, Windows, and Linux. The most popular use case is running models like Llama, Mistral, and Gemma — open-source alternatives to GPT-4 that are surprisingly capable.
+
+If you're into vibe coding and want to build AI-powered tools without paying API costs, Ollama is one of the best tools to have in your stack. You can browse how it fits with other tools at [Vibestack's AI tools directory](https://vibestack.in).
+
+---
+
+## What you need before you start
+
+- A reasonably modern computer (2018 or newer is usually fine)
+- At least 8GB of RAM — 16GB is better
+- 5–15GB of free disk space (models take up space)
+- 10 minutes
+
+That's it. No accounts, no credit cards, no API keys.
+
+---
+
+## Step 1: Install Ollama
+
+Go to [ollama.com](https://ollama.com) and click the big download button. It auto-detects your operating system.
+
+**On Mac:** You'll download a .zip, unzip it, and drag Ollama to your Applications folder. Open it and a little llama icon appears in your menu bar. Done.
+
+**On Windows:** Run the installer and follow the prompts. Ollama will run in the background as a system service.
+
+**On Linux:** Paste this into your terminal and press Enter:
+
+```
+curl -fsSL https://ollama.com/install.sh | sh
+```
+
+---
+
+## Step 2: Open your terminal
+
+Ollama is controlled by typing simple commands into a terminal (also called command line or shell).
+
+**Mac:** Press `Cmd + Space`, type Terminal, press Enter.
+
+**Windows:** Press `Windows + R`, type `cmd`, press Enter. Or search for "Command Prompt" or "PowerShell".
+
+**Linux:** You already know how to do this.
+
+---
+
+## Step 3: Download a model
+
+Type this command and press Enter:
+
+```
+ollama pull llama3.2
+```
+
+You'll see a progress bar. The download takes a few minutes depending on your internet speed. The model is about 2GB — worth it.
+
+### What model should you start with?
+
+- **llama3.2** — Great all-rounder. Good for writing, Q&A, summarising.
+- **mistral** — Fast and smart. My personal favourite for quick tasks.
+- **phi4** — Small but surprisingly capable. Best for weaker computers.
+- **gemma3** — Google's model. Excellent for code-related tasks.
+
+For vibe coding projects, I usually reach for `mistral` or `gemma3`.
+
+---
+
+## Step 4: Start talking to it
+
+Once downloaded, run:
+
+```
+ollama run llama3.2
+```
+
+You'll see:
+
+```
+>>> Send a message (/? for help)
+```
+
+Now just type anything and press Enter. Ask it a question, give it a task, start a conversation. It works like ChatGPT.
+
+```
+>>> What's the best way to start a freelance business?
+```
+
+The first message might take 5–10 seconds to respond as the model loads into memory. After that, it'll be much faster.
+
+To exit, type:
+
+```
+/bye
+```
+
+---
+
+## Step 5: Try a few useful prompts
+
+Here are some prompts to try with Ollama to get a feel for what it can do:
+
+**Summarise a long block of text:**
+```
+Summarise this in 3 bullet points: [paste your text here]
+```
+
+**Brainstorm ideas:**
+```
+Give me 10 name ideas for a freelance design studio that specialises in SaaS products.
+```
+
+**Rewrite something:**
+```
+Rewrite this email to sound more friendly and less formal: [paste email]
+```
+
+**Explain something:**
+```
+Explain what an API is to a 12-year-old.
+```
+
+---
+
+## Going further: use Ollama with a nice interface
+
+The terminal is functional but not pretty. If you want a ChatGPT-style web interface for Ollama, there are a few options:
+
+**Open WebUI** is the most popular. It's a free, browser-based interface you run locally. You can install it with Docker (if you have it) or download the desktop app from the Open WebUI website.
+
+Once you have Open WebUI running, you can have proper conversations, switch between models easily, and even upload documents to summarize.
+
+---
+
+## What can you use Ollama for?
+
+Once you're comfortable with the basics, here's where things get interesting:
+
+You can integrate Ollama into vibe coding projects as a free AI backend — no API costs ever. You can use it to power local chatbots, summarize private documents without them leaving your machine, or run it alongside tools like Cursor for AI-assisted coding. Explore what's possible with the [Vibestack local AI tools section](https://vibestack.in/tools) and check out the [full guide on using Ollama for vibe coding](https://vibestack.in/blog/ollama-vibe-coding).
+
+---
+
+## Common beginner mistakes
+
+**Expecting instant responses:** The first response in a session is slower because the model is loading. It gets faster after that.
+
+**Picking a model that's too big:** If your computer is slow or has less RAM, start with `phi4` or `llama3.2:1b` (a smaller version). You can always try larger models later.
+
+**Forgetting Ollama needs to be running:** On Mac, check your menu bar for the llama icon. If it's not there, open the app first.
+
+---
+
+## FAQ
+
+**Is Ollama safe to use?**
+Yes. It runs entirely on your computer and doesn't send data anywhere. The models are open-source and the Ollama app is open-source too — anyone can inspect the code.
+
+**How is it different from ChatGPT?**
+ChatGPT runs on OpenAI's servers and requires a subscription for the best models. Ollama runs on your machine using open-source models. The quality is different (ChatGPT's latest models are more capable), but Ollama is free and private.
+
+**Can I use Ollama for my vibe coding projects?**
+Absolutely. Ollama exposes a local API that you can connect to your projects. It's one of the best ways to add AI features to something you're building without paying per-request. Check out [Vibestack](https://vibestack.in) for tools and resources to help you do this.
+
+---
+
+That's it — you're now running local AI on your own machine. Start experimenting, and visit [vibestack.in](https://vibestack.in) to explore more tools and tutorials for building with AI as a non-coder.
