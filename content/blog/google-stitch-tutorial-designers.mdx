@@ -1,0 +1,124 @@
+---
+title: "Google Stitch tutorial for designers who don't code"
+description: "Learn how to use Google Stitch to build AI-powered UI without writing code. A practical tutorial for designers and non-coders."
+slug: "google-stitch-tutorial-designers"
+type: "guide"
+tags: ["google-stitch", "designers", "tutorial"]
+publishedAt: "2026-04-05"
+---
+
+Google Stitch is one of the most designer-friendly AI tools I've come across — it lets you generate full UI screens from a text prompt or even a rough sketch, and then export them to code. If you're a designer who's been curious about building functional prototypes without touching a codebase, this tutorial will get you from zero to your first working screen in under an hour.
+
+## What is Google Stitch?
+
+Google Stitch is an AI-powered design and prototyping tool from Google that bridges the gap between visual design and working code. You describe a screen or UI component, and Stitch generates it — including the actual code underneath, not just a static mockup.
+
+What sets it apart from tools like Figma Make or v0 is its tight integration with Google's Material Design system. If you're building apps that will live in Android, Google Workspace, or anywhere Material Design is the standard, Stitch is genuinely compelling.
+
+It's also built with non-coders in mind. You don't need to understand React or CSS — you describe what you want, iterate on it visually, and export when you're happy.
+
+For a comparison of Stitch against other AI design tools, check out [Vibestack's comparison guides](https://vibestack.in/guides).
+
+## Before you start
+
+To use Google Stitch you'll need:
+- A Google account
+- Access to Google Stitch (it's been rolling out through Google Labs — visit labs.google.com to check availability)
+
+The interface runs in your browser, so no installs required.
+
+## Part 1: Your first UI with Stitch
+
+### Step 1: Open a new project
+
+Log in with your Google account and create a new project. Give it a name — something like "Task Manager App" works for our tutorial.
+
+You'll land on a canvas that looks a bit like a stripped-down Figma, but with a prompt bar at the bottom.
+
+### Step 2: Describe your first screen
+
+Click into the prompt bar and type a description of the screen you want. Be specific — the more detail you give, the better the result.
+
+For example:
+> "A mobile app home screen for a task management app. Show a header with the user's name and avatar, a progress summary card at the top showing 3 tasks completed out of 8, and a scrollable list of today's tasks with checkboxes. Use Material 3 design. Dark mode."
+
+Hit generate and watch Stitch produce a screen based on your description. It typically takes 10–20 seconds.
+
+### Step 3: Iterate visually
+
+The first result won't be perfect — and that's fine. Stitch is built for iteration. You can:
+
+- Click on any element and type instructions to modify it ("make this button larger", "change the colour to teal")
+- Use the prompt bar to describe bigger changes ("add a floating action button in the bottom right")
+- Drag elements around to adjust layout
+
+This back-and-forth is where the magic happens. Think of it less like using a design tool and more like directing a very fast junior designer.
+
+### Step 4: Add more screens
+
+Once you're happy with your home screen, add a new screen — click "Add screen" or use the keyboard shortcut. Describe your next screen in the same way.
+
+Stitch is smart enough to maintain some consistency between screens — colours, fonts, and component styles will carry through if you described a system in your first screen.
+
+## Part 2: Using Stitch for real design work
+
+### Working from a sketch
+
+If you have a rough sketch on paper or in a tool like Excalidraw, you can upload it to Stitch and use it as a reference. Type "based on this sketch, generate..." and Stitch will use your layout as a starting point.
+
+This is one of my favourite features as a designer. I sketch on paper, photograph it, and use Stitch to produce the first digital version. It compresses hours of work into minutes.
+
+### Specifying your design system
+
+If your product uses a specific colour palette or component library, tell Stitch upfront. For example:
+
+> "Use a primary colour of #6200EE, secondary #03DAC6, and follow Material 3 guidelines throughout."
+
+Stitch will apply these constraints consistently across your screens.
+
+### Generating responsive layouts
+
+Stitch can generate both mobile and desktop layouts. Simply specify in your prompt: "design this for a desktop browser, 1440px wide" or "make this work on both mobile and tablet".
+
+For more AI design tools that complement Stitch, browse [Vibestack's full tools directory](https://vibestack.in/tools).
+
+## Part 3: Exporting from Stitch
+
+### Exporting to Figma
+
+Stitch can export designs to Figma format, which means you can open them in Figma for fine-tuning, hand-off, or collaboration with developers. This is the workflow I recommend for most designers: prototype in Stitch, polish in Figma.
+
+### Exporting code
+
+Stitch generates code — primarily Android XML layouts and Jetpack Compose for Android apps, but also web-friendly formats depending on your project type. If you're handing off to a developer, you can export the code directly and they'll have a working starting point rather than a static mockup.
+
+### Copying individual components
+
+You can also select individual components and copy the code for just that piece. Useful if you want to drop a specific button or card into an existing project.
+
+## Tips for getting the best results in Stitch
+
+**Be specific about platform.** Stitch is optimised for Material Design, so telling it you're building an Android app (vs a web app) will produce more appropriate components.
+
+**Iterate rather than perfecting your first prompt.** Write a good starting prompt, generate, then refine. Don't try to write the perfect prompt — just get something on screen and work from there.
+
+**Use the variant system.** Stitch can generate multiple variations of the same screen. Ask for "show me 3 different versions of this layout" and compare.
+
+**Reference real apps.** "Make this look like the Gmail inbox but for task management" gives Stitch useful context about what you're going for.
+
+Want to see how Stitch compares to tools like Figma Make? Check out the [Vibestack comparison section](https://vibestack.in/comparisons) for side-by-side breakdowns.
+
+## FAQ
+
+**Is Google Stitch free?**
+Google Stitch is part of Google Labs and is currently available for free during its preview period. Pricing for general availability hasn't been confirmed as of early 2026 — check labs.google.com for the latest.
+
+**Can I use Stitch if I'm not building a Google or Android app?**
+Stitch is most powerful for Material Design and Android use cases, but you can use it to generate web UI too. The results are less polished for web-first design compared to tools like v0 or Figma Make, so it depends on your target platform.
+
+**How does Google Stitch compare to Figma Make?**
+Figma Make is better for web and general-purpose UI, and integrates directly with your Figma files and design system. Stitch is stronger for Material Design and Android app UI, and has tighter Google ecosystem integration. If you're in both worlds, it's worth trying both.
+
+---
+
+Ready to explore more AI design tools? [Vibestack](https://vibestack.in) is a curated directory of the best vibe coding tools and MCP servers for designers, PMs, and founders — all in one place.

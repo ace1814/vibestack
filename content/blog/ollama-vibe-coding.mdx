@@ -1,0 +1,124 @@
+---
+title: "How to use Ollama for vibe coding projects"
+description: "Use Ollama to power your vibe coding projects with free, local AI — no API keys needed. Here's how to set it up and what to build."
+slug: "ollama-vibe-coding"
+type: "guide"
+tags: ["ollama", "vibe-coding", "local-ai"]
+publishedAt: "2026-04-05"
+---
+
+Ollama is one of the best-kept secrets in the vibe coding world — it lets you run powerful AI models directly on your own computer, completely free, and connect them to the tools you're already using to build stuff. If you're a designer, PM, or founder who's been racking up API bills while experimenting, Ollama is going to change the way you work.
+
+## What is vibe coding, and where does Ollama fit?
+
+Vibe coding is the practice of using AI tools to build real software without being a professional developer. You describe what you want, the AI writes the code, and you iterate until it works. Tools like Bolt, Lovable, and Claude Code have made this accessible to almost anyone.
+
+The problem? Cloud AI APIs aren't free. Every prompt costs tokens, and if you're iterating fast (which is kind of the point of vibe coding), those costs stack up quickly.
+
+That's where Ollama comes in. It's a free, open-source tool that runs LLMs locally on your Mac, Windows, or Linux machine. You download a model once and then use it as many times as you want — no API key, no usage limits, no bill at the end of the month.
+
+For a full list of vibe coding tools (including ones that pair well with local AI), check out the [Vibestack tools directory](https://vibestack.in/tools).
+
+## Setting up Ollama for vibe coding
+
+Getting started is easier than you'd expect.
+
+### Install Ollama
+
+Download it from [ollama.com](https://ollama.com). It installs like any normal app. On Mac, drag it to your Applications folder and you're done.
+
+### Pull a coding-focused model
+
+For vibe coding, you want a model that's good at writing and understanding code. My go-to recommendations:
+
+- **Qwen 2.5 Coder 7B** — genuinely great at writing clean code and understanding context
+- **DeepSeek Coder V2** — strong at multi-step coding tasks and debugging
+- **Llama 3.2** — solid all-rounder if you want something for both chat and code
+
+To download one, open your terminal and run:
+
+```
+ollama pull qwen2.5-coder:7b
+```
+
+### Start it up
+
+```
+ollama run qwen2.5-coder:7b
+```
+
+You're now chatting with a local coding AI. Type a prompt like "write me a landing page in HTML and Tailwind CSS for a task management app" and watch it go.
+
+## Ways to use Ollama in your vibe coding workflow
+
+### 1. Local code generation for prototypes
+
+When I'm building early prototypes — the kind where I just want to see if something works — I use Ollama instead of paying for API calls. I describe what I want, it generates the code, and I paste it into my project.
+
+It's perfect for things like:
+- Quick HTML/CSS components
+- Simple JavaScript functions
+- Writing Python scripts for data processing
+- Generating SQL queries
+
+### 2. Pairing with Open WebUI for a proper chat experience
+
+Open WebUI is a free, browser-based interface for Ollama that looks like ChatGPT. Install it locally (one Docker command), point it at your Ollama installation, and you've got a proper chat UI running entirely on your machine.
+
+This makes it much easier to have multi-turn conversations with your local model — which is great for the back-and-forth nature of vibe coding.
+
+### 3. Connecting to Cursor or VS Code
+
+If you're using Cursor for vibe coding, you can configure it to use local models via Ollama as an alternative to paying for the AI completions. It requires a bit of setup, but it means you can get AI-assisted coding in your editor without ongoing costs.
+
+### 4. Building local AI automations
+
+Combine Ollama with a tool like n8n (which also runs locally) and you can build AI-powered automations that never touch the cloud. For example, a workflow that reads files, processes them through your local AI, and saves the output — all on your own machine.
+
+For ideas on MCP servers and automation tools that work with local AI, browse [Vibestack's MCP directory](https://vibestack.in/mcp-servers).
+
+## What kinds of vibe coding projects work best with Ollama?
+
+Local models are fantastic for some tasks and less ideal for others. Here's my honest take:
+
+### Great fits for local AI
+- Generating boilerplate code and HTML/CSS layouts
+- Writing JavaScript utility functions
+- Summarising docs and research
+- Drafting copy for landing pages
+- Converting Figma descriptions to code sketches
+- Reviewing and explaining existing code
+
+### Better with a cloud API
+- Very complex, multi-file architecture decisions
+- Tasks requiring up-to-date information (local models have a knowledge cutoff)
+- Situations where you need the absolute best reasoning quality (like debugging a tricky production bug)
+
+The sweet spot I've found is using Ollama for the bulk of my iterative work — all the "let me try this quick" moments — and saving cloud API credits for the harder problems.
+
+## Tips for better results in vibe coding with Ollama
+
+**Write detailed prompts.** Local models are capable but work best when you're explicit. Instead of "make a form", try "write a contact form in HTML with name, email, and message fields, styled with Tailwind CSS, with client-side validation".
+
+**Use a coding-specific model.** General models like Llama 3.2 are good all-rounders but a dedicated coding model like Qwen 2.5 Coder will give you noticeably better results for code tasks.
+
+**Iterate in small steps.** Rather than asking for an entire app in one prompt, build it piece by piece. This plays to the strengths of local models and keeps outputs manageable.
+
+**Keep a system prompt.** If you're using Open WebUI, set a system prompt that tells the model what kind of app you're building, your preferred stack, and your style preferences. It dramatically improves consistency.
+
+Looking for more tools to power your local AI setup? Check out the [Vibestack beginners guide](https://vibestack.in/guides) for curated recommendations.
+
+## FAQ
+
+**Can Ollama replace a cloud AI tool like Bolt or Lovable for vibe coding?**
+Not entirely — tools like Bolt and Lovable have built-in deployment pipelines and UI layers that Ollama doesn't. But for the AI *thinking* layer of your workflow, Ollama is a great free alternative for a lot of tasks. Think of it as your local sketchpad.
+
+**How do I know which Ollama model to pick for coding?**
+Start with Qwen 2.5 Coder 7B — it's the best balance of quality and speed for most computers. If your machine is older or has less RAM, try Phi-3 Mini. If you want the highest quality and have a powerful machine, look at the 14B or 32B variants of Qwen.
+
+**Does Ollama work on Windows?**
+Yes, Ollama has a native Windows installer and works well. Performance is best on machines with a dedicated GPU, but it runs on CPU too — just slower.
+
+---
+
+Ready to take your vibe coding setup to the next level? Head to [Vibestack](https://vibestack.in) and explore the full directory of AI tools, MCP servers, and guides built for designers, PMs, and founders who build with AI.
