@@ -1,0 +1,102 @@
+---
+title: "Jules by Google vs Claude Code: which coding agent wins?"
+description: "Jules and Claude Code are both AI coding agents, but they work very differently. Here's an honest comparison for non-coders and indie builders."
+slug: "jules-google-vs-claude-code"
+type: "comparison"
+tags: ["jules", "google", "claude-code", "comparison"]
+publishedAt: "2026-04-06"
+---
+
+Jules by Google and Claude Code are both AI coding agents — but they're built for pretty different workflows and audiences. Jules is Google's async agent that works inside GitHub to fix bugs and ship features in the background, while Claude Code is a terminal-based agent that works alongside you in real time as you build. Depending on how you work, one of these will feel like a superpower and the other might feel like it's not quite for you.
+
+I've spent time with both and I want to give you a real picture of how they compare — not just spec-sheet stuff, but what it actually feels like to use them if you're not a professional developer.
+
+## What is Jules by Google?
+
+Jules is Google's AI coding agent, launched as part of their Project IDX and Google AI ecosystem. The big differentiator: Jules is *asynchronous*. You assign it a task — "fix this bug" or "add this feature" — and it goes away and works on it in the background using your actual GitHub repo. You come back later and it's opened a pull request.
+
+This is a fundamentally different interaction model than most AI coding tools. You don't chat with Jules in real time. You delegate, and then you wait.
+
+### What Jules is great at
+
+- Fixing specific, well-defined bugs in existing codebases
+- Small, scoped feature additions
+- Refactoring and cleanup tasks
+- Working asynchronously when you don't want to babysit an AI
+
+Jules works directly with your GitHub repository, which means it has full context of your project — not just a snippet you paste in.
+
+## What is Claude Code?
+
+Claude Code is Anthropic's AI coding agent that runs in your terminal. You open it in your project directory and start a conversation with it — ask it to build a feature, debug an error, write tests, or explain what a piece of code does.
+
+Unlike Jules, Claude Code is a real-time, interactive experience. It can see your entire project, make changes across multiple files, run commands, and explain every step of what it's doing. It's like having a senior developer sitting next to you.
+
+I covered this in much more depth in my [Claude Code tutorial for beginners](https://vibestack.in/blog/claude-code-tutorial-beginners) — highly recommend reading that if you're just getting started.
+
+### What Claude Code is great at
+
+- Building features from scratch with your full creative input
+- Debugging complex problems in real time
+- Learning how your code works while you build
+- Full-stack projects where you want to stay in the loop
+
+## Head-to-Head: Jules vs Claude Code
+
+### Interaction model
+
+This is the biggest difference. Jules is asynchronous — you describe the task, hand it off, and check back in. Claude Code is synchronous and conversational — you're in the driver's seat the whole time.
+
+Neither is better in an absolute sense. If you're a designer or PM who needs a bug fixed and doesn't want to be involved in how it gets done, Jules is appealing. If you're a founder who wants to understand what's being built and stay in control, Claude Code fits better.
+
+### Access to your codebase
+
+Jules works directly from your GitHub repo, so it has full context without you needing to copy-paste anything. Claude Code works from your local terminal inside your project directory — it also has full context, but you need to have the project set up locally.
+
+### Ease of use for non-coders
+
+Jules is more approachable for pure non-coders in theory — you don't need a terminal, you just open GitHub and assign a task. But in practice, to get good results you need to write really clear task descriptions and understand your repo structure at least a little.
+
+Claude Code requires comfort with the terminal, which is a real barrier. That said, once you're past that initial setup, it's remarkably natural to use. Check out the [best AI tools for designers who want to code](https://vibestack.in/blog/ai-tools-designers-who-code) for more context on where Claude Code fits.
+
+### Quality of output
+
+Both produce genuinely good code. Claude Code tends to be better for complex, multi-step builds because you can guide it in real time. Jules is excellent for well-scoped tasks where your requirements are clear upfront.
+
+### Integration with existing tools
+
+Jules integrates with GitHub natively, which is a big deal if your team is already there. Claude Code works at the terminal level and integrates with whatever your development environment is — Cursor, VS Code, or raw terminal.
+
+## Who should use Jules?
+
+- Developers with existing codebases who want to offload repetitive tasks
+- Teams on GitHub who want async AI help without adding a new tool
+- People who can write a clear spec and trust the AI to execute
+
+## Who should use Claude Code?
+
+- Founders and designers building from zero
+- Non-coders who are willing to learn the terminal
+- Anyone who wants to understand what's being built, not just get output
+- People building new products rather than maintaining existing ones
+
+## My take
+
+For most designers, PMs, and founders I know, Claude Code is the more useful tool day-to-day because you're usually building new things rather than fixing bugs in a large existing repo. The real-time conversational nature means you can course-correct as you go.
+
+Jules is a glimpse at the future of development — async AI agents that work in the background while you sleep. As it matures, it's going to be a huge deal for development teams.
+
+Want to see all the best AI coding tools for non-coders in one place? Head to [Vibestack](https://vibestack.in) — it's a curated directory of vibe coding tools and MCP servers built specifically for designers, PMs, and founders who want to build without a development team.
+
+---
+
+## FAQ
+
+**Is Jules by Google available to everyone?**
+Jules has been in limited preview/beta. Google has been rolling it out gradually — check Google's Project IDX and AI announcements for current availability as it may have expanded since this was written.
+
+**Do I need to know how to code to use Claude Code?**
+Not technically, but you need to be comfortable with the terminal and have a basic understanding of file systems. Anthropic has been working on making this more accessible. It has a much lower barrier than traditional coding but higher than something like Bolt.
+
+**Can Jules and Claude Code work together?**
+They can be used in complementary ways — Claude Code for building new features interactively, and Jules for async bug fixes or cleanup tasks. They're not the same tool, so there's no native integration, but nothing stops you from using both.

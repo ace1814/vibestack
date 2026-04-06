@@ -1,0 +1,110 @@
+---
+title: "Best open-source models to run with Ollama for vibe coding"
+description: "Not all Ollama models are equal for vibe coding. Here are the best open-source models to run locally for building apps without writing code."
+slug: "best-ollama-models-vibe-coding"
+type: "roundup"
+tags: ["ollama", "open-source", "models", "local-ai"]
+publishedAt: "2026-04-06"
+---
+
+If you're using Ollama to run AI locally and want to vibe code — meaning, build apps and tools through conversation without writing code — the model you choose makes a huge difference. The best open-source models for vibe coding right now are Qwen2.5-Coder, DeepSeek Coder V2, and Llama 3.3, each with different trade-offs depending on what you're building and how powerful your machine is.
+
+I've been running Ollama on my Mac for a while now and have tested a bunch of these models for real coding tasks. Here's what actually works.
+
+## Why Ollama models matter for vibe coding
+
+Most people vibe coding are using cloud tools like Claude, ChatGPT, or Lovable. But there's a growing group — especially privacy-conscious founders and designers with beefy machines — who want to run everything locally with no API costs and no data leaving their computer.
+
+That's where Ollama shines. But you'll quickly notice that not every model is equally good at understanding your plain-English instructions and turning them into working code. Some are better at following instructions, some at writing specific languages, and some are just way too big to run smoothly on a laptop.
+
+If you're new to Ollama, start with my guide on [how to run AI locally with no API costs](https://vibestack.in/blog/run-ai-locally-no-api-cost) first.
+
+## The best Ollama models for vibe coding in 2026
+
+### 1. Qwen2.5-Coder (7B or 32B)
+
+**Best for: General vibe coding, HTML/CSS/JavaScript, beginners**
+
+Qwen2.5-Coder from Alibaba is the model I recommend most to people just getting started with local AI for coding. The 7B version runs on basically any modern Mac or Windows machine with 16GB of RAM, and it punches way above its weight class.
+
+For vibe coding tasks — "build me a landing page", "create a simple Kanban app", "make a form that saves to a JSON file" — it's excellent at understanding natural language instructions and producing clean, working code. It's also very good at JavaScript and Python, the two languages most relevant to web app builders.
+
+The 32B version requires more RAM (at least 32GB unified memory) but is noticeably better at complex multi-file projects.
+
+**How to install:** `ollama pull qwen2.5-coder:7b`
+
+### 2. DeepSeek Coder V2
+
+**Best for: Complex full-stack tasks, TypeScript, React**
+
+DeepSeek Coder V2 is another strong contender. It's specifically trained for coding tasks and shows it — it's particularly good at more complex, multi-step builds where you're asking it to set up a project structure, write components, and wire them together.
+
+If you're trying to build something more substantial — a SaaS app, an internal dashboard, a Chrome extension — DeepSeek Coder V2 holds up better than general-purpose models. It handles TypeScript and React especially well, which is what most modern web apps are built with.
+
+The trade-off is it's larger and slower than Qwen2.5-Coder on the same hardware.
+
+**How to install:** `ollama pull deepseek-coder-v2`
+
+### 3. Llama 3.3 (70B — if you have the hardware)
+
+**Best for: Complex reasoning, writing clean code with good explanations**
+
+Meta's Llama 3.3 at 70B parameters is one of the best models you can run locally period — not just for coding, but for reasoning and following complex instructions. If you have the hardware (at least 64GB RAM and a powerful GPU or Apple Silicon), this is a game-changer.
+
+For vibe coding, the bigger win is actually in how well it explains what it's building and handles multi-turn conversations. It remembers context better across a long session, which matters when you're iterating on a project through conversation.
+
+The 8B version of Llama 3.3 is a great option if you don't have the hardware for 70B — it's more capable than you'd expect for a model this size.
+
+**How to install:** `ollama pull llama3.3` or `ollama pull llama3.3:70b`
+
+### 4. Mistral Small 3.1
+
+**Best for: Speed, efficiency, fast iteration**
+
+If your priority is speed — fast responses, quick iteration — Mistral Small 3.1 is worth trying. It's one of the faster models available through Ollama and is surprisingly capable at writing clean front-end code.
+
+For quick tasks like "write me a CSS animation", "create a navigation component", or "generate a mock API response", Mistral Small 3.1 is often the fastest tool for the job. It's also quite resource-efficient, making it a great choice if you're running Ollama on a machine with less RAM.
+
+**How to install:** `ollama pull mistral-small3.1`
+
+### 5. Phi-4 (Microsoft)
+
+**Best for: Lightweight machines, quick scripting tasks**
+
+Microsoft's Phi-4 is a small model that's specifically trained to be efficient at instruction-following and coding tasks. If you have an older laptop or a machine with 8GB RAM, Phi-4 is one of the few models that will actually run smoothly and still give you decent coding output.
+
+It won't handle complex full-stack builds as well as the larger models, but for simple scripts, data manipulation, or writing utility functions, it's perfectly capable.
+
+**How to install:** `ollama pull phi4`
+
+## How to choose the right model
+
+Here's my simple decision tree:
+
+- **16GB RAM or less?** Start with Qwen2.5-Coder 7B or Phi-4
+- **32GB RAM?** Try Qwen2.5-Coder 32B or DeepSeek Coder V2
+- **64GB+ RAM?** Run Llama 3.3 70B and don't look back
+- **Need speed over quality?** Mistral Small 3.1
+
+One thing to note: vibe coding with local models works best when your prompts are very specific. Cloud models like Claude have been tuned for vague, conversational instructions. Local models benefit from more structured prompts. Tell it exactly what tech stack you want, what the app should do, and any constraints upfront.
+
+I covered how to use Ollama for vibe coding in more detail in [this guide to Ollama for vibe coding projects](https://vibestack.in/blog/ollama-vibe-coding).
+
+## The bottom line
+
+The open-source model ecosystem has gotten genuinely good. A year ago I wouldn't have recommended local models for vibe coding — the gap with cloud models was too big. Now? For a lot of tasks, Qwen2.5-Coder 7B is good enough that I reach for it first just to avoid API costs.
+
+If you want to explore more local AI tools and vibe coding resources, head to [Vibestack](https://vibestack.in) — it's a curated directory of tools for designers, PMs, and founders who want to build with AI. Local AI tools are a growing category there, and it's one of the best places to discover what's new.
+
+---
+
+## FAQ
+
+**What's the minimum computer spec to run Ollama for vibe coding?**
+You can run smaller models (3B-7B) on most modern computers with 8-16GB of RAM. For a good vibe coding experience with richer context, I'd recommend at least 16GB of RAM. Apple Silicon Macs handle this particularly well because of their unified memory architecture.
+
+**Are local models as good as Claude or ChatGPT for coding?**
+Not quite — the top cloud models still have an edge, especially for complex reasoning and very long contexts. But the gap has narrowed significantly. For many everyday vibe coding tasks, local models are more than good enough, and the privacy and cost benefits are real.
+
+**Can I switch between models mid-project in Ollama?**
+Yes — you can run different models for different tasks within the same project. Some builders use a fast small model for quick edits and switch to a larger model for complex new features. Just be aware that models don't share conversation history, so you'll need to re-provide context when switching.
