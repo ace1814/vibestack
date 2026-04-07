@@ -1,0 +1,122 @@
+---
+title: "How to prompt AI to build a full app: the non-coder's cheat sheet"
+description: "Learn how to write AI prompts that actually build working apps. Practical examples for designers, PMs, and founders using vibe coding tools."
+slug: "how-to-prompt-ai-build-app"
+type: "guide"
+tags: ["prompting", "ai-tools", "vibe-coding"]
+publishedAt: "2026-04-07"
+---
+
+The secret to getting AI to build you a full app isn't knowing how to code — it's knowing how to prompt. The quality of your prompt is almost entirely what determines whether you get something that works on the first try or spend an hour untangling a mess. This guide is my tried-and-tested cheat sheet.
+
+I've been building with vibe coding tools like Cursor, Lovable, and Bolt for a while now, and the patterns in this guide are what I wish someone had given me on day one.
+
+## Why Prompting Is the Actual Skill
+
+When people say "vibe coding doesn't work for me," what they usually mean is "my prompts aren't specific enough." The AI isn't magic — it's a powerful translator that converts your description into code. The more precise your description, the closer the output is to what you had in your head.
+
+Think of it like briefing a developer. You wouldn't say "build me an app." You'd say what the app does, who it's for, what it looks like, how it should behave. Same principle applies here.
+
+## The Anatomy of a Great App-Building Prompt
+
+A strong initial prompt covers five things:
+
+**1. What it is** — what type of thing are you building? (landing page, web app, dashboard, browser extension, form, etc.)
+
+**2. What it does** — describe the core functionality. What actions can users take? What does it show them?
+
+**3. Who it's for** — brief audience context helps the AI make good decisions about copy, tone, and complexity.
+
+**4. How it should look** — visual direction: color palette, font style, overall aesthetic. Adjectives help here.
+
+**5. Technical constraints or preferences** — do you want it in a specific framework? Should it work without a backend? Does it need to connect to any external services?
+
+You don't need to nail all five perfectly, but the more you give, the better the first output will be.
+
+## Prompt Templates You Can Use Right Now
+
+Here are real prompt templates I use regularly. Copy, adapt, and go.
+
+### For a Landing Page
+
+> "Build a landing page for [product name]. It's a [one-line description of what the product does] for [target audience]. The page should have: a hero section with headline and CTA button, a three-feature section explaining the main benefits, a pricing section with two tiers, and a footer with email signup. Visual style: [clean/bold/minimal/playful], using [color palette or brand colors]. CTA button should say '[your CTA text]' and link to a sign-up form."
+
+### For an Internal Tool or Dashboard
+
+> "Build a simple web dashboard that reads from a CSV file I'll upload. It should show: a summary table of all rows, a filter/search bar at the top, and a chart showing [specific data column] over time. The UI should be clean and minimal — think Notion or Linear. No login required. Built in plain HTML/CSS/JS so it works in any browser."
+
+### For a Web App with User Accounts
+
+> "Build a web app called [name] that [core function]. Users should be able to sign up with email, log in, and [list 2–3 core user actions]. Data should persist between sessions. Use Supabase for the backend. The design should feel like a modern SaaS — clean, professional, dark sidebar navigation, content in a card-based layout."
+
+### For a Chrome Extension
+
+> "Build a Chrome extension that [describe what it does]. When the user [trigger action, e.g., clicks the extension icon, visits a certain type of page], it should [describe the behavior]. The extension should have a simple popup UI with [describe UI elements]. Store user settings in Chrome's local storage."
+
+## The Most Important Iteration Techniques
+
+Your first prompt gets you 60–80% of the way there. Here's how to get the rest.
+
+### Be Surgical with Follow-Up Prompts
+
+Don't say "fix the layout." Say "The hero section text is overlapping on mobile. Can you add responsive padding so the headline and CTA have at least 16px of breathing room on small screens?"
+
+Specific > vague, every single time.
+
+### Ask for One Change at a Time
+
+Resist the urge to list five things in one follow-up. The AI can handle it, but it's harder to test and easier for things to break silently. Make one change, see the result, then make the next.
+
+### Reference What's Working
+
+"Keep the navigation exactly as it is, but change the hero background to a gradient from navy blue to dark purple." Anchoring to what's good prevents the AI from touching things that are already right.
+
+### Use Screenshots (When Your Tool Supports It)
+
+Tools like Cursor and Claude support image uploads. If you find a design you love, screenshot it and say: "I want the layout to feel similar to this. Same general structure, but with my content and [your brand colors]." This saves a lot of descriptive back-and-forth.
+
+## Common Prompting Mistakes (and How to Fix Them)
+
+**"Make it look better"** — means nothing. Better for who? What's wrong now? Instead: "The page feels cluttered. Can you add more whitespace between sections and reduce the body font size to 16px?"
+
+**"Add a feature"** — too vague. Instead describe the feature's behavior completely: "Add a button next to each table row that, when clicked, opens a modal with the full details of that row."
+
+**"It's broken"** — unhelpful. Instead: "When I click Submit, nothing happens. The form should validate that the email field isn't empty and then show a success message. Can you debug this?"
+
+**Asking for too much at once** — a 10-part prompt for a complex app will produce something that half-works. Better to start small: get one core feature working, then layer on everything else.
+
+## What to Do When It Goes Wrong
+
+AI-built apps break. That's normal. Here's the playbook:
+
+**Error messages** — copy the full error text and paste it back into the chat: "Getting this error: [paste]. Can you fix it?"
+
+**Something that used to work stopped working** — "The last change broke the form submission. Can you revert just that part and try a different approach?"
+
+**Something that looks wrong visually** — describe what you're seeing vs. what you expected: "The button is touching the bottom edge of the card with no padding. It should have at least 12px of space on all sides."
+
+For more inspiration on what to build and which tools to use, [Vibestack's directory of vibe coding tools](https://vibestack.in/tools) is the best curated starting point. And if you want to see what other non-coders have built, check out the [vibe coding project ideas roundup on Vibestack](https://vibestack.in/blog/vibe-coding-project-ideas).
+
+## The Mindset That Makes Everything Work
+
+Vibe coding with AI is collaborative, not transactional. You're not issuing commands — you're having a conversation with a very capable collaborator who needs clear direction. The more clearly you can articulate what you want, the better your results.
+
+The skill compounds fast. Your prompts get better every session, and what used to take a weekend starts taking an afternoon. Start with something small, ship it, and work from there.
+
+[Vibestack](https://vibestack.in) is the best place to find the right AI tools and MCP servers to add to your building toolkit — curated specifically for non-coders and makers.
+
+---
+
+## Frequently Asked Questions
+
+**How long should my initial prompt be?**
+
+Aim for 3–6 sentences for a simple project, and up to a short paragraph for a more complex one. More detail is almost always better than less, but you don't need to write a novel. If you're unsure, start with the five elements — what, does, for, looks, constraints — and iterate from there.
+
+**Can I use these prompts in any vibe coding tool?**
+
+Yes. The prompt templates in this guide work in Cursor, Lovable, Bolt, Replit, Claude, and most other AI-powered building tools. The underlying principle — be specific, describe behavior, not just appearance — applies universally.
+
+**What if the AI keeps misunderstanding me?**
+
+Try rephrasing using more concrete examples. Instead of "make it feel modern," show a reference: "Can you make the button styling more like a Stripe or Linear button — rounded corners, subtle shadow, clean hover state?" Concrete comparisons almost always land better than abstract adjectives.
