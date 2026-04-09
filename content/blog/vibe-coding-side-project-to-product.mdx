@@ -1,0 +1,104 @@
+---
+title: "How to go from vibe coding side project to real product"
+description: "The practical steps to take a weekend vibe coding project and turn it into something real — with users, feedback, and (maybe) revenue."
+slug: "vibe-coding-side-project-to-product"
+type: "guide"
+tags: ["vibe-coding", "founders", "mvp", "side-project"]
+publishedAt: "2026-04-09"
+---
+
+Getting from "I built something in a weekend" to "people actually use this" is the gap most vibe coders fall into. The tools make building easy — but building and shipping are different things. Here's how I think about taking a side project across that line.
+
+## The Weekend Build Problem
+
+Vibe coding makes building fast. Suspiciously fast. You can go from idea to working app in a few hours, which is amazing — but it also means you can build something nobody wants in a weekend and feel like you've shipped a product when you've really just built a demo.
+
+I've done this. Twice. The apps worked fine. Nobody cared.
+
+The difference between a side project and a real product isn't the quality of the code. It's whether anyone else has a problem it solves.
+
+## Step 1: Validate Before You Polish
+
+The first thing I'd tell anyone with a vibe-coded prototype: don't clean it up yet. Instead, show it to 5 people who might actually have the problem you're solving.
+
+Not your friends. Not people who will be polite. People who are genuinely dealing with the problem.
+
+Watch them use it. Don't explain anything. See where they get confused, what they ignore, what they wish it did. This feedback is worth more than any amount of polishing.
+
+If after 5 conversations nobody says something like "this would actually save me time" or "how do I sign up?", you've learned something important before wasting more time.
+
+## Step 2: Define What "Done" Means
+
+A lot of vibe-coded projects stay in perpetual beta because the creator keeps adding features instead of defining what the core thing is supposed to do.
+
+Before you build more, write one sentence: "This tool helps [specific person] do [specific task] so they can [specific outcome]."
+
+If you can't write that sentence, the product isn't ready to ship — not because of the code, but because of the concept.
+
+## Step 3: Get a Real URL in Front of People
+
+Sharing a localhost preview or a Replit link is fine for testing. But there's something psychological that changes when your product has a real domain and looks like a thing you built on purpose.
+
+This is also where you start finding out if the technical infrastructure holds up. Authentication, database reads under load, edge cases in form submissions — these show up when real people use the thing.
+
+For most vibe-coded projects I've seen, [Lovable](https://vibestack.in/tools/lovable) handles this well because it deploys with a real URL automatically. Vercel is another strong option for anything v0-generated.
+
+## Step 4: Add the Minimum Viable Business Layer
+
+If you want people to use your product long-term, you need at minimum:
+
+- A way to collect their email (even if it's just a waitlist form)
+- A way for them to contact you when something breaks
+- Some form of analytics so you know if people are actually using it
+
+None of this requires extra development. Tally or Typeform for email collection, a simple contact form, and Plausible or Posthog for analytics. All three have free tiers and all can be added with a few prompts in Cursor or Lovable.
+
+## Step 5: Ship Something Ugly and Learn
+
+The single most useful thing I've done for any project I've launched is write a short newsletter post or tweet about what I built and why. Not a polished launch — just "I made this because I had this problem, here it is."
+
+This does a few things:
+- Forces you to articulate the value clearly
+- Gets your first 20–50 visitors
+- Generates DMs from people who have the same problem (or think it doesn't solve theirs, which is equally useful)
+
+The vibe coding community is genuinely supportive of people building in public. Communities like Indie Hackers, Product Hunt, and Twitter/X are full of people who want to try new tools.
+
+## Step 6: Iterate Quickly Based on Real Feedback
+
+Here's where vibe coding gives you a real advantage over traditionally-built products: your iteration cycle is hours, not weeks.
+
+When a user says "I wish I could filter by date" or "the onboarding is confusing," you can fix that in an afternoon. This speed compounds — you improve faster, users see that you're responsive, and word of mouth builds organically.
+
+The tools that work best for fast iteration in my experience are Cursor (for detailed control), Lovable (for full-stack changes), and Bolt.new (for front-end adjustments). You can compare them all on [Vibestack's tool directory](https://vibestack.in/tools).
+
+## What Not to Do
+
+A few patterns I've seen derail good projects:
+
+**Don't add features before validating core value.** Every feature you add before finding product-market fit is borrowed time.
+
+**Don't wait until it's "ready."** It never is. Ship at 70%, learn, iterate.
+
+**Don't confuse building with progress.** Spending a weekend adding a dark mode is not the same as spending a weekend talking to users. The latter is almost always more valuable.
+
+**Don't underestimate the product thinking.** The AI handles the code. You still have to handle the positioning, the copy, the pricing, and the marketing. These aren't small things.
+
+For more on the full journey from idea to monetised product, our [guide to building a SaaS without coding](https://vibestack.in/blog/build-saas-without-coding-ai) goes deep on the business side. And if you want real examples of what's possible, our [vibe coded SaaS examples roundup](https://vibestack.in/blog/vibe-coded-saas-examples) shows what people are actually shipping.
+
+---
+
+**Ready to build something real?** Find all the tools you need at [vibestack.in](https://vibestack.in) — the directory for vibe coders who want to ship, not just build.
+
+---
+
+## FAQ
+
+**How do I know if my side project is worth turning into a product?**
+The clearest signal is people asking to use it or pay for it unprompted. If you have to convince people it's useful, that's a sign to keep validating. If people ask "how do I sign up?" after you show them, that's a green light.
+
+**What should I charge for my vibe-coded product?**
+Start with what feels uncomfortable. Most first-time indie hackers underprice dramatically. If someone's getting real value, $10–$50/month is a reasonable starting range for a focused tool. Test different price points early.
+
+**Do I need a company to start charging for my app?**
+No — you can accept payments as an individual through Stripe or Lemon Squeezy before setting up a formal business entity. Once you have consistent revenue worth structuring around, that's the time to formalise. Different rules apply in different jurisdictions, so check with an accountant when that time comes.
