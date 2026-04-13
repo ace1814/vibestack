@@ -42,6 +42,7 @@ function HomeContent() {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [isPaletteOpen, setIsPaletteOpen] = useState(false);
   const [isSubscribeOpen, setIsSubscribeOpen] = useState(false);
+  const [isIntroVisible, setIsIntroVisible] = useState(false);
 
   // searchInput: what's typed in the palette (controlled)
   // activeSearch: committed query that drives the SWR key — cleared on refresh
@@ -109,6 +110,17 @@ function HomeContent() {
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
   }, []);
+
+  // Intro video banner — show once per browser (dismissed state in localStorage)
+  useEffect(() => {
+    const dismissed = localStorage.getItem('intro-dismissed');
+    if (!dismissed) setIsIntroVisible(true);
+  }, []);
+
+  const handleIntroDismiss = () => {
+    setIsIntroVisible(false);
+    localStorage.setItem('intro-dismissed', '1');
+  };
 
   const handleTypeChange = (type: string) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -272,18 +284,19 @@ function HomeContent() {
           {/* Intent chips */}
           <div className="flex flex-wrap gap-2 mt-5">
             {([
-              { label: 'Build something',    emoji: '🛠', type: 'tool'     },
-              { label: 'Learn vibe coding',  emoji: '📚', type: 'learning' },
-              { label: 'Find an MCP server', emoji: '⚡', type: 'mcp'      },
-            ] as const).map(({ label, emoji, type }) => (
+              { label: "I'm new here",    emoji: '🌱', tag: 'beginner'      },
+              { label: 'Build an app',    emoji: '🛠', tag: 'build-an-app'  },
+              { label: 'Run AI locally',  emoji: '💻', tag: 'local-ai'      },
+              { label: 'Design with AI',  emoji: '🎨', tag: 'design-with-ai'},
+            ] as const).map(({ label, emoji, tag }) => (
               <button
-                key={type}
+                key={tag}
                 onClick={() => {
-                  handleTypeChange(selectedType === type ? '' : type);
+                  handleTagChange(selectedTag === tag ? '' : tag);
                   document.getElementById('resource-grid')?.scrollIntoView({ behavior: 'smooth' });
                 }}
                 className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                  selectedType === type
+                  selectedTag === tag
                     ? 'bg-black/8 dark:bg-white/10 text-black dark:text-white ring-1 ring-black/15 dark:ring-white/15'
                     : 'bg-black/4 dark:bg-white/6 text-black/55 dark:text-white/55 hover:bg-black/7 dark:hover:bg-white/9 hover:text-black/80 dark:hover:text-white/80'
                 }`}
@@ -297,6 +310,111 @@ function HomeContent() {
 
         </div>
       </header>
+
+      {/* Intro video banner — shown once per browser until dismissed */}
+      {isIntroVisible && (
+        <div className="px-4 sm:px-14 pt-5 pb-2">
+          <div className="relative flex flex-col sm:flex-row gap-4 bg-black/4 dark:bg-white/5 rounded-2xl p-4 sm:p-5">
+            <button
+              onClick={handleIntroDismiss}
+              aria-label="Dismiss intro"
+              className="absolute top-3 right-3 w-6 h-6 flex items-center justify-center rounded-full text-black/30 dark:text-white/30 hover:text-black/60 dark:hover:text-white/60 hover:bg-black/6 dark:hover:bg-white/8 transition-colors text-sm"
+            >
+              ×
+            </button>
+            {/* Thumbnail */}
+            <a
+              href="https://www.youtube.com/watch?v=WPeY9GCdZDs"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-shrink-0 relative rounded-xl overflow-hidden w-full sm:w-[200px] aspect-video bg-black/8 dark:bg-white/5 group"
+            >
+              <img
+                src="https://i.ytimg.com/vi/WPeY9GCdZDs/mqdefault.jpg"
+                alt="How Vibestack was built"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-full bg-black/60 group-hover:bg-black/80 transition-colors flex items-center justify-center">
+                  <svg className="w-4 h-4 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </div>
+              </div>
+            </a>
+            {/* Text */}
+            <div className="flex flex-col justify-center pr-6">
+              <p className="text-xs font-medium text-black/40 dark:text-white/40 uppercase tracking-wider mb-1">New here?</p>
+              <p className="text-sm font-semibold text-black dark:text-white leading-snug">Watch how Vibestack works</p>
+              <p className="text-xs text-black/50 dark:text-white/50 mt-1">A 2-min intro to how this was built and how to use it.</p>
+              <a
+                href="https://www.youtube.com/watch?v=WPeY9GCdZDs"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-2 text-xs font-medium text-black dark:text-white underline underline-offset-2 decoration-black/30 dark:decoration-white/30 hover:decoration-black dark:hover:decoration-white transition-all w-fit"
+              >
+                Watch on YouTube →
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Curated stacks */}
+      <div className="px-4 sm:px-14 pt-5 pb-1">
+        <p className="text-xs font-medium text-black/40 dark:text-white/40 uppercase tracking-wider mb-3">Start with a stack</p>
+        <div className="flex gap-3 overflow-x-auto pb-2 -mx-1 px-1 scrollbar-none">
+          {([
+            {
+              tag: 'beginner',
+              emoji: '🌱',
+              name: 'Start here',
+              desc: 'New to vibe coding? Begin here.',
+            },
+            {
+              tag: 'build-an-app',
+              emoji: '🛠',
+              name: 'Build an app',
+              desc: 'Go from idea to working product.',
+            },
+            {
+              tag: 'local-ai',
+              emoji: '💻',
+              name: 'Run AI locally',
+              desc: 'No API costs. Full privacy.',
+            },
+            {
+              tag: 'design-with-ai',
+              emoji: '🎨',
+              name: 'Design with AI',
+              desc: 'For designers who want to build.',
+            },
+            {
+              tag: 'mcp-starter',
+              emoji: '⚡',
+              name: 'Automate with MCP',
+              desc: 'Connect AI to your favourite tools.',
+            },
+          ] as const).map(({ tag, emoji, name, desc }) => (
+            <button
+              key={tag}
+              onClick={() => {
+                handleTagChange(selectedTag === tag ? '' : tag);
+                document.getElementById('resource-grid')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className={`flex-shrink-0 flex flex-col items-start gap-1 px-4 py-3 rounded-xl border transition-all text-left w-[160px] sm:w-[180px] ${
+                selectedTag === tag
+                  ? 'bg-black dark:bg-white border-transparent text-white dark:text-black'
+                  : 'bg-white dark:bg-zinc-900 border-black/8 dark:border-white/8 hover:border-black/20 dark:hover:border-white/20'
+              }`}
+            >
+              <span className="text-xl">{emoji}</span>
+              <span className={`text-sm font-semibold leading-tight ${selectedTag === tag ? 'text-white dark:text-black' : 'text-black dark:text-white'}`}>{name}</span>
+              <span className={`text-[11px] leading-snug ${selectedTag === tag ? 'text-white/70 dark:text-black/60' : 'text-black/45 dark:text-white/45'}`}>{desc}</span>
+            </button>
+          ))}
+        </div>
+      </div>
 
       {/* Sticky filter bar */}
       <FilterBar
