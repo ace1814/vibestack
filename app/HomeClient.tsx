@@ -311,50 +311,70 @@ function HomeContent() {
         </div>
       </header>
 
-      {/* Intro video banner — shown once per browser until dismissed */}
+      {/* Intro modal — shown once per browser for first-time visitors */}
       {isIntroVisible && (
-        <div className="px-4 sm:px-14 pt-5 pb-2">
-          <div className="relative flex flex-col sm:flex-row gap-4 bg-black/4 dark:bg-white/5 rounded-2xl p-4 sm:p-5">
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+          onClick={handleIntroDismiss}
+        >
+          <div
+            className="relative w-full max-w-lg bg-white dark:bg-zinc-900 rounded-2xl shadow-2xl overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close */}
             <button
               onClick={handleIntroDismiss}
-              aria-label="Dismiss intro"
-              className="absolute top-3 right-3 w-6 h-6 flex items-center justify-center rounded-full text-black/30 dark:text-white/30 hover:text-black/60 dark:hover:text-white/60 hover:bg-black/6 dark:hover:bg-white/8 transition-colors text-sm"
+              aria-label="Close"
+              className="absolute top-3 right-3 z-10 w-7 h-7 flex items-center justify-center rounded-full text-black/30 dark:text-white/30 hover:text-black/60 dark:hover:text-white/60 hover:bg-black/6 dark:hover:bg-white/8 transition-colors text-lg leading-none"
             >
               ×
             </button>
-            {/* Thumbnail */}
+
+            {/* Video thumbnail */}
             <a
               href="https://www.youtube.com/watch?v=WPeY9GCdZDs"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-shrink-0 relative rounded-xl overflow-hidden w-full sm:w-[200px] aspect-video bg-black/8 dark:bg-white/5 group"
+              className="relative block w-full aspect-video bg-black group"
+              onClick={handleIntroDismiss}
             >
               <img
-                src="https://i.ytimg.com/vi/WPeY9GCdZDs/mqdefault.jpg"
+                src="https://i.ytimg.com/vi/WPeY9GCdZDs/maxresdefault.jpg"
                 alt="How Vibestack was built"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
               />
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-10 h-10 rounded-full bg-black/60 group-hover:bg-black/80 transition-colors flex items-center justify-center">
-                  <svg className="w-4 h-4 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24">
+                <div className="w-14 h-14 rounded-full bg-black/60 group-hover:bg-black/80 transition-colors flex items-center justify-center">
+                  <svg className="w-6 h-6 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M8 5v14l11-7z" />
                   </svg>
                 </div>
               </div>
             </a>
+
             {/* Text */}
-            <div className="flex flex-col justify-center pr-6">
-              <p className="text-xs font-medium text-black/40 dark:text-white/40 uppercase tracking-wider mb-1">New here?</p>
-              <p className="text-sm font-semibold text-black dark:text-white leading-snug">Watch how Vibestack works</p>
-              <p className="text-xs text-black/50 dark:text-white/50 mt-1">A 2-min intro to how this was built and how to use it.</p>
-              <a
-                href="https://www.youtube.com/watch?v=WPeY9GCdZDs"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-2 text-xs font-medium text-black dark:text-white underline underline-offset-2 decoration-black/30 dark:decoration-white/30 hover:decoration-black dark:hover:decoration-white transition-all w-fit"
-              >
-                Watch on YouTube →
-              </a>
+            <div className="px-6 py-5">
+              <p className="text-xs font-medium text-black/40 dark:text-white/40 uppercase tracking-wider mb-1">Welcome to Vibestack</p>
+              <p className="text-base font-semibold text-black dark:text-white leading-snug">Watch how it works — 2 min</p>
+              <p className="text-sm text-black/50 dark:text-white/50 mt-1.5 leading-relaxed">A quick intro to what Vibestack is, how it was built, and how to use it to find the right tools for your project.</p>
+              <div className="flex items-center gap-3 mt-4">
+                <a
+                  href="https://www.youtube.com/watch?v=WPeY9GCdZDs"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={handleIntroDismiss}
+                  className="flex-1 flex items-center justify-center gap-2 bg-black dark:bg-white text-white dark:text-black text-sm font-semibold px-4 py-2.5 rounded-full hover:opacity-80 transition-opacity"
+                >
+                  <svg className="w-4 h-4 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
+                  Watch on YouTube
+                </a>
+                <button
+                  onClick={handleIntroDismiss}
+                  className="text-sm text-black/40 dark:text-white/40 hover:text-black/70 dark:hover:text-white/70 transition-colors px-2"
+                >
+                  Skip
+                </button>
+              </div>
             </div>
           </div>
         </div>
