@@ -218,7 +218,7 @@ function HomeContent() {
     <div className="min-h-screen bg-white dark:bg-zinc-950 transition-colors duration-200">
 
       {/* Hero */}
-      <header className="h-[min(50vh,500px)] flex flex-col px-4 sm:px-14 pt-8 pb-10 bg-white dark:bg-zinc-950 overflow-hidden">
+      <header className="flex flex-col px-4 sm:px-14 pt-8 pb-8 bg-white dark:bg-zinc-950">
 
         {/* Nav row */}
         <div className="flex items-center justify-between flex-shrink-0">
@@ -271,7 +271,7 @@ function HomeContent() {
         </div>
 
         {/* Headline */}
-        <div className="flex flex-col justify-center flex-1 min-h-0">
+        <div className="flex flex-col mt-8">
           <h1 className="font-serif font-normal text-[clamp(24px,3.8vw,62px)] leading-[1.1] tracking-[-0.04em] text-black dark:text-white">
             A curated library for
             <br />
@@ -306,14 +306,14 @@ function HomeContent() {
 
             {/* Video thumbnail */}
             <a
-              href="https://www.youtube.com/watch?v=WPeY9GCdZDs"
+              href="https://www.youtube.com/watch?v=RQO2vQKElAk"
               target="_blank"
               rel="noopener noreferrer"
               className="relative block w-full aspect-video bg-black group"
               onClick={handleIntroDismiss}
             >
               <img
-                src="https://i.ytimg.com/vi/WPeY9GCdZDs/maxresdefault.jpg"
+                src="https://i.ytimg.com/vi/RQO2vQKElAk/maxresdefault.jpg"
                 alt="How Vibestack was built"
                 className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
               />
@@ -333,7 +333,7 @@ function HomeContent() {
               <p className="text-sm text-black/50 dark:text-white/50 mt-1.5 leading-relaxed">A quick intro to what Vibestack is, how it was built, and how to use it to find the right tools for your project.</p>
               <div className="flex items-center gap-3 mt-4">
                 <a
-                  href="https://www.youtube.com/watch?v=WPeY9GCdZDs"
+                  href="https://www.youtube.com/watch?v=RQO2vQKElAk"
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={handleIntroDismiss}
