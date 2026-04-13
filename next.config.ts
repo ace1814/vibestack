@@ -28,6 +28,17 @@ const nextConfig: NextConfig = {
     ],
   },
 
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'vibestack.in' }],
+        destination: 'https://www.vibestack.in/:path*',
+        permanent: true,
+      },
+    ];
+  },
+
   async headers() {
     return [
       {
