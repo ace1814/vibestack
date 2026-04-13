@@ -281,32 +281,6 @@ function HomeContent() {
             Handpicked tools, resources and real projects so you don&apos;t waste time.
           </p>
 
-          {/* Intent chips */}
-          <div className="flex flex-wrap gap-2 mt-5">
-            {([
-              { label: "I'm new here",    emoji: '🌱', tag: 'beginner'      },
-              { label: 'Build an app',    emoji: '🛠', tag: 'build-an-app'  },
-              { label: 'Run AI locally',  emoji: '💻', tag: 'local-ai'      },
-              { label: 'Design with AI',  emoji: '🎨', tag: 'design-with-ai'},
-            ] as const).map(({ label, emoji, tag }) => (
-              <button
-                key={tag}
-                onClick={() => {
-                  handleTagChange(selectedTag === tag ? '' : tag);
-                  document.getElementById('resource-grid')?.scrollIntoView({ behavior: 'smooth' });
-                }}
-                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                  selectedTag === tag
-                    ? 'bg-black/8 dark:bg-white/10 text-black dark:text-white ring-1 ring-black/15 dark:ring-white/15'
-                    : 'bg-black/4 dark:bg-white/6 text-black/55 dark:text-white/55 hover:bg-black/7 dark:hover:bg-white/9 hover:text-black/80 dark:hover:text-white/80'
-                }`}
-              >
-                <span>{emoji}</span>
-                {label}
-                <span className="opacity-40 text-[10px]">→</span>
-              </button>
-            ))}
-          </div>
 
         </div>
       </header>
