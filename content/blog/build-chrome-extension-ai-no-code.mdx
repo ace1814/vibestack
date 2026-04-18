@@ -1,0 +1,129 @@
+---
+title: "How to build a Chrome extension with AI and no coding skills"
+description: "You can build a Chrome extension with AI tools like Lovable, Bolt, or Cursor without writing a single line of code. Here's how, step by step."
+slug: "build-chrome-extension-ai-no-code"
+type: "guide"
+tags: ["chrome-extension", "no-code", "ai-tools", "tutorial"]
+publishedAt: "2026-04-14"
+---
+
+You can build a working Chrome extension using AI in an afternoon, even if you've never written a line of JavaScript. The key is knowing which tools to use and how to describe what you want clearly — and that's exactly what I'll walk you through here.
+
+I built my first Chrome extension about six months ago as a designer with zero JavaScript experience. I used Cursor + Claude, described what I wanted in plain English, and had a working extension installed in my browser by lunchtime. Here's the process that worked for me.
+
+## What can a Chrome extension actually do?
+
+Before we get into the how, let me paint a picture of what's possible so you can decide if this is worth pursuing.
+
+Chrome extensions can:
+- Add a button to pages that does something (copy content, reformat text, open a sidebar)
+- Modify how a webpage looks (remove elements, change colours, inject your own UI)
+- Save data from pages you visit (prices, links, contact info) to a spreadsheet or database
+- Show a popup with custom tools when you click an icon in the toolbar
+- Run in the background and notify you when certain conditions are met
+
+For designers, PMs, and founders, this opens up a lot of useful possibilities: a quick screenshot annotation tool, a page-to-Notion clipper, a competitor price tracker, a time logger that lives in your browser.
+
+## The stack you need
+
+A Chrome extension is made of a few files: a manifest (a settings file), some HTML for any popups, and JavaScript for the logic. AI tools are very good at generating all of this from a description.
+
+Here's what I'd recommend using:
+
+**Cursor** — This is my top pick for Chrome extensions because you're working with local files, and Cursor lets you edit them with AI assistance. It also runs your changes immediately so you can test as you go.
+
+**Bolt.new** — A solid alternative if you want to stay in the browser. Bolt can generate the extension files and you can download them as a zip.
+
+**Claude or ChatGPT (directly)** — For simple extensions, you can literally ask Claude to write the files for you and paste them into folders yourself. This works surprisingly well for basic use cases.
+
+## Step-by-step: building a Chrome extension with AI
+
+### Step 1: Define exactly what you want
+
+The more specific you are, the better your AI output will be. Don't say "make a productivity extension." Instead, write something like:
+
+> "Build a Chrome extension that adds a small floating button to every webpage. When I click the button, it copies the current page's title and URL to my clipboard in this format: [Title](URL) — ready to paste as a Markdown link."
+
+That's a real extension I built. It saves me maybe 10 minutes a day.
+
+### Step 2: Generate the files
+
+Open Cursor (or Bolt) and paste in your description. Ask for:
+- A `manifest.json` file (Chrome extension settings)
+- A `popup.html` file (if you want a toolbar popup)
+- A `content.js` file (if you want to interact with webpages)
+- A `background.js` file (if you need background processing)
+
+Cursor will generate all of these. Don't panic if you don't understand what each file does — the AI handles that.
+
+### Step 3: Load it into Chrome
+
+This is where the magic happens for the first time:
+
+1. Open Chrome and go to `chrome://extensions`
+2. Enable "Developer mode" (toggle in the top right)
+3. Click "Load unpacked"
+4. Select the folder with your extension files
+
+Your extension will appear in Chrome immediately. Click its icon and test it.
+
+[Browse AI coding tools for non-coders on Vibestack →](https://vibestack.in/tools)
+
+### Step 4: Fix issues by describing them in plain English
+
+Something probably didn't work perfectly on the first try. That's fine — go back to Cursor and describe the issue:
+
+- "The button doesn't appear on Gmail pages"
+- "When I click the popup it closes before copying"
+- "It's copying the URL but not the title"
+
+The AI will diagnose and fix the issue. This iterative process is the heart of vibe coding.
+
+### Step 5: Polish and personalise
+
+Once the core function works, you can ask the AI to improve things:
+- "Make the floating button smaller and position it in the bottom-right corner"
+- "Add a keyboard shortcut (Ctrl+Shift+C) to trigger the copy action"
+- "Show a small notification after copying so I know it worked"
+
+## Ideas for Chrome extensions worth building
+
+If you're looking for inspiration, here are five extension ideas that non-coders have built using AI:
+
+**Link formatter** — Copies any page as a formatted link (Markdown, HTML, or plain text)
+
+**Reading time estimator** — Shows estimated reading time at the top of articles
+
+**Price history display** — Looks up price history on Amazon product pages (requires integration with an API)
+
+**Meeting note template** — Detects when you're on a video call platform and opens a quick-note sidebar
+
+**Distraction blocker** — Adds a timed block to social media sites with a custom message
+
+[Read about more vibe coding project ideas →](https://vibestack.in/blog/vibe-coding-project-ideas)
+
+## Publishing to the Chrome Web Store
+
+If you want other people to use your extension (not just you), you'll need to publish it to the Chrome Web Store. This requires:
+
+- A Google developer account ($5 one-time fee)
+- Screenshots and a description of your extension
+- A privacy policy if your extension collects any data
+- A review from Google (usually takes a few days)
+
+For a personal tool, you don't need to publish — just keep using it as a "Developer mode" extension. For something you want to share or monetise, the Chrome Web Store is the way to go.
+
+## FAQ
+
+**Do I need to know JavaScript to build a Chrome extension with AI?**
+No. The AI writes all the code. You need to be able to describe what you want clearly and give feedback when something doesn't work. That's it.
+
+**Can I build a Chrome extension for free?**
+Yes. Cursor has a free tier. Bolt.new has a free tier. Claude and ChatGPT both have free tiers. For simple extensions, you can build the whole thing for free.
+
+**How long does it take to build a Chrome extension with AI?**
+A simple extension (one main function, no external APIs) typically takes 1–3 hours including testing and iteration. A more complex extension might take a full day. The more specific you are upfront, the faster it goes.
+
+---
+
+Ready to build your first extension? Explore the full toolkit at [vibestack.in](https://vibestack.in) — we've curated the best AI tools for non-coders, including everything you need to go from idea to working Chrome extension without touching a line of code yourself.

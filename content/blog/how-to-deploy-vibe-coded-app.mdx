@@ -1,0 +1,112 @@
+---
+title: "How to deploy your vibe coded app: a non-coder's complete guide"
+description: "Built your app with Lovable, Bolt, or Replit? Here's how to deploy it so real users can access it — no DevOps knowledge needed."
+slug: "how-to-deploy-vibe-coded-app"
+type: "guide"
+tags: ["vibe-coding", "deployment", "beginners", "tutorial"]
+publishedAt: "2026-04-16"
+---
+
+Deploying a vibe coded app means making it live on the internet so other people can actually use it — and in 2026, most AI app builders handle this for you with one click. But if you've exported your code or want more control over where your app lives, this guide covers everything you need to know, in plain English.
+
+## Why deployment feels scary (but isn't)
+
+A year ago, deploying an app required understanding servers, DNS, environment variables, CI/CD pipelines, and a dozen other concepts that take years to learn. Today, if you built your app with a tool like Lovable, Bolt, or Replit, you can often deploy with a single button click and have a live URL in under two minutes.
+
+The more you learn about deployment, the more control you get. But you don't need to understand it all to ship. Let's start with the easiest options and work up from there.
+
+## Option 1: Use your builder's built-in deployment
+
+Most AI app builders include deployment baked right in. Here's how the main ones work:
+
+### Lovable
+Lovable gives every project a live URL from the moment you create it. You can share that link with anyone. For a custom domain (like `yourapp.com`), upgrade to a paid plan and connect your domain in settings. No extra tools needed.
+
+### Bolt.new
+Bolt apps can be deployed to Netlify directly from the builder interface. Click the deploy button, log into Netlify, and your app is live. Netlify's free tier covers most hobby and early-stage projects.
+
+### Replit
+Replit hosts your app automatically while you build. You get a `.replit.app` URL for free. For custom domains and always-on hosting (so your app doesn't sleep when inactive), you'll need a Replit subscription.
+
+### v0 by Vercel
+Since v0 is made by Vercel, deploying to Vercel is seamlessly integrated. One click, and your generated UI is live on Vercel's CDN with a preview URL you can share immediately.
+
+## Option 2: Deploy to Vercel (most popular for front-end apps)
+
+If your app is a React or Next.js project (common outputs from tools like Tempo Labs, Cursor-built apps, or custom Lovable exports), Vercel is the go-to hosting platform.
+
+**Steps:**
+1. Export your code to GitHub (most builders have a "push to GitHub" option)
+2. Sign up at vercel.com — it's free
+3. Click "Add New Project" and import your GitHub repository
+4. Vercel auto-detects your framework and deploys it
+5. You get a live URL instantly, and every time you push updates to GitHub, Vercel redeploys automatically
+
+The free tier on Vercel is genuinely generous. For most solo projects and MVPs, you won't pay anything.
+
+## Option 3: Deploy to Netlify
+
+Netlify works almost identically to Vercel and is equally popular. It's excellent for static sites and front-end apps. Same process: connect GitHub, import your repo, deploy.
+
+Netlify also has a drag-and-drop deploy option — if your builder exports a ZIP or folder of HTML/CSS/JS files, you can literally drag that folder onto the Netlify dashboard and it goes live.
+
+## Option 4: Deploy to Render (for apps with a back-end)
+
+If your app has a server component — an API, a database, or server-side logic — you'll need a platform that handles back-end hosting too. Render is the friendliest option for non-coders.
+
+Render supports Node.js, Python, and most common back-end languages. It also has a managed PostgreSQL database service. Connect your GitHub repo, configure your service (Render usually auto-detects the right settings), and deploy.
+
+Render's free tier spins down inactive services after a period of inactivity. The $7/month starter plan keeps things always on.
+
+## Understanding custom domains
+
+Every platform above gives you a free subdomain (`yourproject.vercel.app`, `yourproject.netlify.app`). For a professional-looking URL:
+
+1. Buy a domain from Namecheap, Google Domains, or Cloudflare (~$10–15/year for a `.com`)
+2. In your hosting platform's settings, add your custom domain
+3. The platform will give you DNS records to add at your domain registrar
+4. Wait 5–30 minutes for it to propagate
+
+That's genuinely it. Every platform has a step-by-step guide for this in their documentation, and most have a support chat if you get stuck.
+
+## Environment variables: the thing that trips people up
+
+If your app uses API keys (for OpenAI, Supabase, Stripe, or anything else), you cannot paste those keys directly into your code. Instead, you store them as *environment variables* — a secure way to pass secrets to your app at runtime.
+
+Every deployment platform has an "Environment Variables" section in the project settings. Add your keys there (e.g., `OPENAI_API_KEY = sk-...`), and your code can read them without the keys ever being exposed publicly.
+
+If your app works locally but breaks when deployed, missing environment variables are the most common culprit.
+
+## Quick deployment checklist
+
+Before you hit deploy, make sure:
+
+- [ ] Your app works correctly in the builder's preview
+- [ ] Any API keys are stored as environment variables, not hardcoded
+- [ ] You've tested the main user flows (sign up, login, core features)
+- [ ] You have a way to receive errors (most platforms show logs in a dashboard)
+
+## Where to go from here
+
+Deployment is a one-time setup per project. Once it's running, updates are usually as simple as making changes in your builder and pressing a button. The more you deploy, the more natural it feels.
+
+You can find tools to help with every stage of the build-and-deploy process in the [Vibestack directory](https://vibestack.in). If you're still choosing which builder to use, check out the [best AI app builders for non-coders](https://vibestack.in/blog/best-ai-app-builders-non-coders). And if you need a back-end for your project, our [Supabase for non-coders guide](https://vibestack.in/blog/supabase-non-coders-guide) is a great companion to this one.
+
+---
+
+## Ready to ship?
+
+Your app deserves to be seen. Head to [vibestack.in](https://vibestack.in) to find the right tools for building, hosting, and growing your project.
+
+---
+
+## FAQ
+
+**Do I need to pay to deploy my app?**
+Not necessarily. Vercel, Netlify, Render, and Replit all have free tiers that cover basic deployments. You'll typically pay only when you need a custom domain, more traffic, or always-on hosting. For early projects and MVPs, free tiers are usually more than enough.
+
+**What's the difference between front-end and full-stack deployment?**
+Front-end deployment (Vercel, Netlify) is for apps that run entirely in the browser — HTML, CSS, JavaScript. Full-stack deployment (Render, Railway, Fly.io) includes a server component that handles things like user data, authentication, and API calls. Tools like Lovable and Replit handle full-stack apps by default.
+
+**Can I update my app after it's deployed?**
+Absolutely. Most platforms are connected to your GitHub repository, so pushing an update automatically triggers a new deployment. If you're working directly in a builder like Lovable or Bolt, there's usually a "redeploy" or "publish" button that pushes changes live instantly.
