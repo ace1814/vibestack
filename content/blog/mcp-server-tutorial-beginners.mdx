@@ -1,0 +1,170 @@
+---
+title: "MCP server tutorial for beginners: connect AI to your tools in 2026"
+description: "A beginner's tutorial on setting up and using MCP servers with Claude and Cursor. Connect AI to Figma, Notion, Slack, and more — no coding needed."
+slug: "mcp-server-tutorial-beginners"
+type: "guide"
+tags: ["mcp", "tutorial", "beginners", "claude", "non-coders"]
+publishedAt: "2026-04-18"
+---
+
+An MCP (Model Context Protocol) server is the thing that connects your AI assistant to the tools you actually use — Figma, Notion, Slack, GitHub, your database. Once you set one up, you stop copying and pasting between apps and start having your AI work directly inside them. This tutorial will show you how to get your first MCP server running from scratch, even if you've never done anything like this before.
+
+If you want the concept explained first, check out our [MCP explainer for designers and non-coders](https://vibestack.in/blog/what-is-mcp-server-designers). This guide is purely hands-on.
+
+## What you'll need
+
+- Claude for Desktop (free, from anthropic.com) — this is the easiest way to use MCP servers without any coding
+- A tool you want to connect (we'll use Figma and Notion as examples)
+- About 20–30 minutes
+
+You don't need to write any code. You'll be editing a simple configuration file — I'll show you exactly what to type.
+
+## Step 1: Install Claude for Desktop
+
+Download Claude for Desktop from [claude.ai/download](https://claude.ai/download) and install it. Sign in with your Claude account (or create a free one).
+
+Claude for Desktop is the key here. It has built-in support for MCP servers, which means you can add connections to external tools through a simple config file.
+
+## Step 2: Find the MCP server you want to use
+
+MCP servers are small programs that act as a bridge between Claude and a specific tool. You can find curated, tested ones at [vibestack.in/mcp-servers](https://vibestack.in) — we list MCP servers for dozens of tools including Figma, Notion, Slack, Linear, GitHub, and more.
+
+For this tutorial, we'll use the Figma MCP server as an example since it's one of the most popular.
+
+## Step 3: Open your Claude config file
+
+Claude for Desktop stores its configuration in a simple JSON file on your computer.
+
+**On Mac:**
+Open Finder, press `Cmd + Shift + G`, and paste in:
+`~/Library/Application Support/Claude/claude_desktop_config.json`
+
+**On Windows:**
+Press `Win + R`, type `%APPDATA%\Claude\claude_desktop_config.json`, and hit Enter.
+
+If the file doesn't exist yet, you can create it — I'll show you what to put in it.
+
+## Step 4: Add your first MCP server
+
+Open the config file with any text editor (TextEdit on Mac, Notepad on Windows). You'll add your MCP server settings here.
+
+Here's what the file should look like with the Figma MCP server added:
+
+```json
+{
+  "mcpServers": {
+    "figma": {
+      "command": "npx",
+      "args": ["-y", "@figma/mcp-server"],
+      "env": {
+        "FIGMA_ACCESS_TOKEN": "your-figma-token-here"
+      }
+    }
+  }
+}
+```
+
+Replace `your-figma-token-here` with your actual Figma access token. To get that:
+
+1. Go to figma.com, click your profile, then **Settings**
+2. Scroll to **Access tokens** and click **Generate new token**
+3. Copy the token and paste it into the config file
+
+Save the file, then restart Claude for Desktop.
+
+## Step 5: Test that it's working
+
+Open a new conversation in Claude for Desktop. You should now see a small plug icon or an indicator that MCP tools are available. Ask Claude something like:
+
+> "Can you see my Figma files?"
+
+If everything is connected, Claude will confirm it has access to your Figma workspace and can start reading your designs.
+
+## Step 6: What you can do with Figma MCP
+
+Once the Figma MCP server is running, you can ask Claude things like:
+
+- "Read the specs from the 'Login Screen' frame in my dashboard design"
+- "What fonts and colours are used in the Hero section?"
+- "Summarise all the components in my design system file"
+- "Write the CSS for the button component in my Figma file"
+
+You're having a conversation with your design files. No more manual spec-reading or copy-pasting values.
+
+## Adding a second MCP server: Notion
+
+Here's how to add Notion alongside Figma. Update your config file to include both:
+
+```json
+{
+  "mcpServers": {
+    "figma": {
+      "command": "npx",
+      "args": ["-y", "@figma/mcp-server"],
+      "env": {
+        "FIGMA_ACCESS_TOKEN": "your-figma-token-here"
+      }
+    },
+    "notion": {
+      "command": "npx",
+      "args": ["-y", "@anthropic/mcp-server-notion"],
+      "env": {
+        "NOTION_API_KEY": "your-notion-integration-key"
+      }
+    }
+  }
+}
+```
+
+For your Notion API key:
+1. Go to notion.so/my-integrations
+2. Click **New integration**, give it a name, and save
+3. Copy the **Internal Integration Token**
+4. In Notion, open the page or database you want Claude to access, click the `...` menu, and add your integration under **Connections**
+
+After restarting Claude, you can ask things like:
+
+> "Read my product roadmap from Notion and suggest which items I should prioritise this week"
+
+## Troubleshooting common issues
+
+**Claude doesn't seem to see the MCP tools:**
+Make sure you fully quit and restarted Claude for Desktop after editing the config. A refresh isn't enough — you need a full restart.
+
+**"Command not found" errors:**
+You'll need Node.js installed on your computer. Download it from [nodejs.org](https://nodejs.org) — it's free and the installer handles everything.
+
+**Token errors:**
+Double-check that your API key or access token is correct. Common issues: extra spaces when copying, or the token has expired.
+
+## Using MCP servers with Cursor
+
+MCP servers also work with Cursor, the AI code editor. In Cursor settings, go to **MCP** and you can add server configurations there. Same principle — the config format is slightly different but the logic is identical.
+
+This is particularly useful if you're vibe coding a product and want Claude to access your Figma designs directly from Cursor as you build.
+
+Our [best MCP servers for Claude guide](https://vibestack.in/blog/best-mcp-servers-claude-2026) covers the top servers worth installing in 2026 — worth a read once you've got the basics working.
+
+---
+
+## You're now using AI the way it was meant to work
+
+MCP servers turn Claude from a text assistant into something that genuinely works inside your tools. Once you've connected Figma, Notion, and a few others, the way you use AI completely changes. You stop copy-pasting context in and start just asking Claude to do real work.
+
+Browse the full directory of MCP servers at [vibestack.in](https://vibestack.in) — every server is reviewed, tagged by tool, and kept up to date.
+
+---
+
+## FAQ
+
+**Do I need to know how to code to set up an MCP server?**
+
+No. You're editing a JSON config file — which looks like code but is really just structured text. As long as you follow the format exactly (don't delete any brackets or commas), it works fine. If you get stuck, paste your config file into Claude and ask it to check for mistakes.
+
+**Are MCP servers free?**
+
+The MCP servers themselves are usually free and open source. You will need API keys for the services they connect to (Figma, Notion, etc.), and some of those services have paid tiers. But you can get started with free accounts on most platforms.
+
+**Can I build my own MCP server?**
+
+Yes, and it's simpler than it sounds. If there's a tool you use regularly that doesn't have an MCP server yet, you can ask Claude to help you build one. The MCP protocol is open and well-documented. Plenty of indie makers have published their own servers — many are listed on vibestack.in.

@@ -1,0 +1,128 @@
+---
+title: "How to build an API with AI and no coding skills"
+description: "Learn how to build a working API using AI tools without writing code. A practical guide for non-coders, designers, and founders in 2026."
+slug: "build-api-ai-no-code"
+type: "guide"
+tags: ["api", "no-code", "ai-tools", "beginners", "vibe-coding"]
+publishedAt: "2026-04-18"
+---
+
+You can build a working API with AI tools and no coding skills — I know because I did it as a designer with no backend experience. Using a combination of Claude, Supabase, and a bit of vibe coding, I shipped an API that handled real user data in a single afternoon.
+
+This guide will walk you through what an API actually is, why you might need one, and the simplest way to build one using AI today.
+
+## What is an API and why would you need one?
+
+An API (Application Programming Interface) is basically a way for two pieces of software to talk to each other. When your app needs to save data, fetch user information, or trigger an action — it makes a request to an API.
+
+You need an API when:
+
+- You want to store and retrieve data (user profiles, form submissions, orders)
+- You're building a product that talks to external services (email, payments, notifications)
+- You want to let other apps connect to your tool
+
+In the past, building an API meant hiring a backend developer. In 2026, AI tools have made this accessible to anyone who can describe what they want in plain English.
+
+## The easiest way to build an API with AI: Supabase + Claude
+
+The combination I keep coming back to is Supabase for the data layer and Claude for writing the API logic. Here's why:
+
+**Supabase** gives you a full Postgres database with a built-in REST API out of the box. The moment you create a table in Supabase, you have an API endpoint for it — no code required. You can read, write, and query your data via HTTP requests right away.
+
+**Claude** helps you write the custom logic: filtering, authentication, connecting your Supabase data to your front end, or adding more complex operations.
+
+### Step 1: Set up your Supabase project
+
+Go to [supabase.com](https://supabase.com), create a free project, and create a table. Say you're building a simple feedback tool — create a table called `feedback` with columns: `id`, `user_email`, `message`, `created_at`.
+
+Supabase instantly generates an API endpoint like `https://your-project.supabase.co/rest/v1/feedback`.
+
+You can already send data to it from a form or app. No code written yet.
+
+### Step 2: Use Claude to write the connection code
+
+Now open [claude.ai](https://claude.ai) and say:
+
+> "I have a Supabase table called 'feedback' with columns: id, user_email, message, created_at. Write me a simple JavaScript function that sends a POST request to save a new feedback entry. My Supabase URL is [your URL] and my anon key is [your key]."
+
+Claude will write you the exact code. Paste it into your project (in Lovable, Bolt, Cursor — wherever you're building) and it works.
+
+If something doesn't work, paste the error message back into Claude and ask it to fix it.
+
+## Building a more custom API with Lovable or Bolt
+
+If you want a more complete backend — with user authentication, custom business logic, and multiple endpoints — tools like Lovable and Bolt can generate the whole thing.
+
+In Lovable, you can say:
+
+> "Build me a backend API for a task management app. Users should be able to sign up, create projects, and add tasks to those projects. Each task should have a title, description, status (todo / in progress / done), and a due date."
+
+Lovable will scaffold the entire data model, API routes, and front-end in one go. It's remarkable how much it handles automatically.
+
+For more complex requirements — rate limiting, webhooks, custom authentication flows — I'd bring in Claude to help write specific pieces, then drop them into the project manually.
+
+## What about serverless functions?
+
+If you want to run custom code when something happens (a new signup, a payment, a form submission), serverless functions are the answer. The most common options are Vercel Edge Functions and Supabase Edge Functions.
+
+Both can be written with AI. Tell Claude:
+
+> "Write me a Supabase Edge Function that runs when a new row is inserted into my 'feedback' table and sends an email notification to admin@mycompany.com using Resend."
+
+Claude will write the function. You paste it in, deploy it, and it runs automatically. You've just built a real backend workflow without writing a single line of code yourself.
+
+## Testing your API
+
+Once your API is live, you'll want to make sure it works. Two tools I use:
+
+**Postman** — a free tool where you can send test requests to your API and see the responses. Ask Claude to write you the test requests if you're not sure what to send.
+
+**Supabase's built-in table editor** — if you're using Supabase, you can see every row that's been created in real time. Great for verifying that data is saving correctly.
+
+## Common mistakes when building APIs with AI
+
+**Not setting up authentication.** A public API with no auth means anyone can write to your database. Ask Claude to add Row Level Security to your Supabase tables, or add API key authentication to your functions.
+
+**Vague prompts.** "Build me an API" produces vague results. "Build me an API endpoint that accepts a POST request with {email, message} and saves it to a Supabase table called feedback" produces working code.
+
+**Not testing error cases.** Ask Claude: "What happens if someone sends an empty message? Add validation to reject that request."
+
+## Real example: a feedback API in under an hour
+
+Here's what I built as a non-coder in one afternoon:
+
+1. Created a Supabase project and a `feedback` table (5 minutes)
+2. Used Claude to write a JavaScript function to POST feedback (10 minutes)
+3. Embedded that function in a Lovable form component (15 minutes)
+4. Added a Supabase Edge Function to email me when new feedback arrived (20 minutes)
+5. Tested everything using Postman (10 minutes)
+
+Total: under an hour. A working, production-ready feedback API. No developer needed.
+
+If you want to see the tools that make this possible, browse the [full vibe coding toolkit at vibestack.in](https://vibestack.in) — we've got everything categorised from app builders to MCP servers.
+
+For the backend side specifically, the [Supabase guide for non-coders](https://vibestack.in/blog/supabase-non-coders-guide) goes deeper on the database layer.
+
+---
+
+## Build your first API today
+
+APIs aren't scary anymore. With Supabase handling the data layer and Claude writing the code, you can build something real without touching a line of code yourself. Start small — a simple form submission endpoint is enough to get your confidence up.
+
+Head to [vibestack.in](https://vibestack.in) to find all the tools you need in one place.
+
+---
+
+## FAQ
+
+**Do I need to understand code to maintain an API built with AI?**
+
+Not really. For basic changes — adding a column, modifying a filter, changing a response format — you can describe the change to Claude and it will update the code. For significant architecture changes you may eventually want a developer's input, but most small products run fine on AI-assisted maintenance.
+
+**Is a Supabase API secure enough for real users?**
+
+Yes, if you set it up correctly. The key steps are: enable Row Level Security (RLS) on your tables, use authenticated requests (not the anon key) for sensitive data, and don't expose your service role key in client-side code. Claude can help you set all of this up correctly.
+
+**Can I monetise an API I built with AI tools?**
+
+Absolutely. Plenty of founders are charging for API access to tools they built with Lovable, Bolt, and Supabase. Add Stripe for payments, give paying users an API key, and validate that key in your Edge Functions. Claude can write all of this for you.

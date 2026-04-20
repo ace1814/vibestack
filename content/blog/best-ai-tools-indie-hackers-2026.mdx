@@ -1,0 +1,98 @@
+---
+title: "Best AI tools for indie hackers in 2026: build solo, ship fast"
+description: "The best AI tools indie hackers are actually using in 2026 to build, launch, and grow products without a team. Curated for solo builders."
+slug: "best-ai-tools-indie-hackers-2026"
+type: "roundup"
+tags: ["ai-tools", "indie-hackers", "founders", "vibe-coding", "2026"]
+publishedAt: "2026-04-20"
+---
+
+If you're an indie hacker in 2026, the best AI tools for your stack are the ones that collapse the gap between idea and shipped product — tools like Lovable, Cursor, Supabase, and Claude that let one person do the work of a small team. I've been building solo products for a few years now, and this is the toolkit I actually rely on.
+
+The indie hacker game has changed dramatically. A year ago, "building solo" meant duct-taping a dozen no-code tools together and hoping they didn't break. Today, you can prompt your way to a working SaaS in a weekend. Here's what I use and what's actually worth your time.
+
+## The core vibe coding layer
+
+### Lovable
+
+Lovable is my go-to for getting a product off the ground fast. You describe your app in natural language, it generates a full React frontend with a working backend, and you can start showing it to users within hours. The built-in Supabase integration makes authentication and data storage surprisingly easy.
+
+I've launched two micro-SaaS products using Lovable as the starting point. Neither required me to understand React beyond a basic level. The AI handles the structure — I just direct it.
+
+**Best for:** MVPs, micro-SaaS, anything you want live in under a day.
+
+### Cursor
+
+Once a project gets past MVP stage, I move it into Cursor. It's an AI-powered code editor that gives you full control while still letting the AI write most of the code. You're directing, not coding.
+
+The Composer feature in Cursor is particularly powerful for indie hackers — you can describe a feature in plain English and it'll implement it across multiple files simultaneously.
+
+**Best for:** Projects that need to scale, custom logic, anything with a real backend.
+
+### Claude (via API or Claude.ai)
+
+I use Claude constantly — for writing product copy, debugging issues, designing database schemas, and just thinking through architecture. It's the best AI assistant I've used for product thinking, not just code generation.
+
+The [Claude tools available on Vibestack](https://vibestack.in/tools?tag=claude) are worth exploring — there are MCP servers that plug Claude directly into your dev environment and design tools.
+
+## The backend and database layer
+
+### Supabase
+
+Supabase is open-source Firebase — a Postgres database with built-in authentication, storage, and a generous free tier. It's become the default backend for indie hackers building with AI tools because Lovable, Bolt, and Cursor all integrate with it natively.
+
+You don't need to understand SQL to use it effectively. The dashboard is clean, and AI tools can generate queries and schema changes for you.
+
+### Railway
+
+For deploying backends and running server-side code, Railway is my favourite. It's simpler than AWS, cheaper than Heroku, and plays nicely with everything in this stack.
+
+## The design and prototyping layer
+
+### v0 by Vercel
+
+v0 generates UI components from text prompts. It's perfect for when you have a rough idea of what a screen should look like but can't design it yourself. Generate a component, copy the code into your project, tweak it with AI.
+
+### Figma Make
+
+If you're more design-native, Figma Make lets you generate a working frontend directly from a Figma file. It bridges the gap between design and code beautifully for solo builders who think visually.
+
+Browse [AI design tools on Vibestack](https://vibestack.in/tools?type=design) to find the right fit for your workflow.
+
+## The productivity and automation layer
+
+### n8n
+
+n8n is an open-source workflow automation tool — think Zapier, but self-hosted and with way more flexibility. I use it to connect my products to external services, send notifications, process data, and run background tasks without writing backend code.
+
+### Perplexity
+
+For research, competitive analysis, and staying on top of trends, Perplexity has replaced Google for me. It synthesises sources and gives you a clean answer rather than a list of links.
+
+## What the actual indie hacker workflow looks like
+
+Here's roughly how I build a new product in 2026:
+
+1. Describe the core idea to Claude, get feedback and a rough spec
+2. Use Lovable to build the first working version
+3. Use v0 or Figma Make to refine the UI
+4. Move to Cursor when I need custom features or integrations
+5. Wire up automations with n8n
+6. Deploy to Railway or Vercel
+
+The whole stack costs less than $100/month. The velocity is something that would have taken a small team a month to achieve — now it's a weekend.
+
+## FAQ
+
+**Do I need to know how to code to use these tools?**
+Not really — you need to understand the basic concepts (what a frontend is, what a database does) but you don't need to write code from scratch. These tools let you direct AI to write it for you.
+
+**What's the best tool for a first-time indie hacker?**
+Start with Lovable. It has the gentlest learning curve and gets you from idea to working app the fastest. Once you've launched one thing, you'll naturally want more control and can explore Cursor.
+
+**How much does the full stack cost per month?**
+A lean setup (Lovable Pro, Cursor Pro, Supabase free tier, Railway starter) runs around $60–80/month. That's less than one hour of a freelance developer's time.
+
+---
+
+Want to find the exact tool for your next build? Browse the full directory at [vibestack.in](https://vibestack.in) — it's a curated collection of the best AI building tools, MCP servers, and vibe coding resources for indie hackers and solo founders.
