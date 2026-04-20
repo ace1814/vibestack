@@ -2,15 +2,54 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getAllPosts } from '@/lib/blog';
 
+const BLOG_DESCRIPTION = 'Guides, comparisons, and tutorials on vibe coding, AI tools, and building apps without code.';
+
 export const metadata: Metadata = {
   title: 'Blog — VibeStack',
-  description: 'Guides, comparisons, and tutorials on vibe coding, AI tools, and building apps without code.',
-  alternates: { canonical: '/blog' },
+  description: BLOG_DESCRIPTION,
+  alternates: { canonical: 'https://www.vibestack.in/blog' },
+  openGraph: {
+    title: 'VibeStack Blog — Vibe coding guides, comparisons and tutorials',
+    description: BLOG_DESCRIPTION,
+    type: 'website',
+    url: 'https://www.vibestack.in/blog',
+    images: [{ url: '/og-image.png' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'VibeStack Blog — Vibe coding guides, comparisons and tutorials',
+    description: BLOG_DESCRIPTION,
+  },
+};
+
+const blogJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'VibeStack Blog',
+  url: 'https://www.vibestack.in/blog',
+  description: BLOG_DESCRIPTION,
+  publisher: {
+    '@type': 'Organization',
+    name: 'VibeStack',
+    url: 'https://www.vibestack.in',
+  },
 };
 
 export const revalidate = 86400;
 
 export default function BlogIndexPage() {
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogJsonLd) }}
+      />
+      <BlogIndexContent />
+    </>
+  );
+}
+
+function BlogIndexContent() {
   const posts = getAllPosts();
 
   const typeLabel: Record<string, string> = {

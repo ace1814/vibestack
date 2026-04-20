@@ -38,7 +38,7 @@ export async function generateMetadata({
       description: post.description,
       images: [ogImage],
     },
-    alternates: { canonical: `/blog/${slug}` },
+    alternates: { canonical: `https://www.vibestack.in/blog/${slug}` },
   };
 }
 
@@ -53,12 +53,26 @@ export default async function BlogPostPage({
 
   const related = getRelatedPosts(post);
 
+  const wordCount = post.content.split(/\s+/).filter(Boolean).length;
+  const readingTime = Math.ceil(wordCount / 200);
+
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Article',
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `https://www.vibestack.in/blog/${post.slug}`,
+    },
     headline: post.title,
     description: post.description,
     datePublished: post.publishedAt,
+    dateModified: post.publishedAt,
+    wordCount,
+    author: {
+      '@type': 'Person',
+      name: 'Arpit Chandak',
+      url: 'https://www.linkedin.com/in/arpitchandak',
+    },
     publisher: {
       '@type': 'Organization',
       name: 'VibeStack',
@@ -86,7 +100,7 @@ export default async function BlogPostPage({
 
         <article className="max-w-2xl mx-auto px-6 py-12">
           {/* Meta */}
-          <div className="flex items-center gap-3 mb-6 text-sm text-black/40 dark:text-white/40">
+          <div className="flex flex-wrap items-center gap-3 mb-6 text-sm text-black/40 dark:text-white/40">
             <span className="px-2.5 py-0.5 rounded-full bg-black/6 dark:bg-white/8 text-xs font-medium capitalize">
               {post.type}
             </span>
@@ -97,6 +111,19 @@ export default async function BlogPostPage({
                 day: 'numeric',
               })}
             </time>
+            <span>·</span>
+            <span>{readingTime} min read</span>
+            <span>·</span>
+            <span>By{' '}
+              <a
+                href="https://www.linkedin.com/in/arpitchandak"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-black/60 dark:text-white/60 hover:text-black dark:hover:text-white underline underline-offset-2 decoration-black/20 dark:decoration-white/20 transition-colors"
+              >
+                Arpit Chandak
+              </a>
+            </span>
           </div>
 
           <h1 className="text-3xl sm:text-4xl font-bold leading-tight mb-4">{post.title}</h1>

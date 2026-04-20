@@ -31,7 +31,7 @@ export async function generateMetadata({
     description,
     openGraph: { title, description, images: [{ url: ogImage }] },
     twitter: { card: 'summary_large_image', title, description, images: [ogImage] },
-    alternates: { canonical: `/resources/${id}` },
+    alternates: { canonical: `https://www.vibestack.in/resources/${id}` },
   };
 }
 

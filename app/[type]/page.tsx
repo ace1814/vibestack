@@ -34,7 +34,7 @@ export async function generateMetadata({
       title: `${meta.title} — VibeStack`,
       description: meta.description,
     },
-    alternates: { canonical: `/${type}` },
+    alternates: { canonical: `https://www.vibestack.in/${type}` },
   };
 }
 

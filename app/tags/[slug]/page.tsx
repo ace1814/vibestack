@@ -30,7 +30,7 @@ export async function generateMetadata({
     description,
     openGraph: { title, description, images: [{ url: '/og-image.png' }] },
     twitter: { card: 'summary_large_image', title, description },
-    alternates: { canonical: `/tags/${slug}` },
+    alternates: { canonical: `https://www.vibestack.in/tags/${slug}` },
   };
 }
 
