@@ -1,0 +1,113 @@
+---
+title: "How to add Stripe payments to your app with AI and no coding"
+description: "A practical guide to integrating Stripe payments into your vibe-coded app using AI tools — no developer required."
+slug: "build-stripe-payment-page-ai-no-code"
+type: "guide"
+tags: ["stripe", "payments", "no-code", "ai-tools", "vibe-coding"]
+publishedAt: "2026-04-21"
+---
+
+Adding Stripe payments to a vibe-coded app is one of the first real milestones on the road to actually making money — and yes, you can absolutely do it without writing a single line of payment code yourself. I've done it twice now, and both times AI handled the entire integration.
+
+Here's exactly how to get Stripe working in your app if you're a non-coder using vibe coding tools.
+
+## Why Stripe is the go-to choice for vibe coders
+
+Stripe is the most developer-friendly payment platform in the world, which means it's also the most AI-friendly. Every vibe coding tool and AI model has been trained on thousands of Stripe integration examples. When you ask Claude or Lovable to "add a Stripe checkout", they know exactly what to do.
+
+Stripe also has a sandbox mode (test mode) so you can test your whole payment flow with fake card numbers before going live. This is huge — you can iterate without any real money on the line.
+
+## What you'll need before you start
+
+- A Stripe account (free to create at stripe.com)
+- Your Stripe publishable key and secret key (from the Stripe dashboard → Developers → API keys)
+- An existing vibe-coded app, or you can build one alongside adding payments
+
+That's genuinely it. No Stripe expertise required.
+
+## Step 1: Set up your Stripe account
+
+Go to stripe.com and create an account. You don't need a company — individuals can use Stripe too. Once you're in, head to **Developers → API Keys** and note down:
+
+- **Publishable key** (starts with `pk_test_...`)
+- **Secret key** (starts with `sk_test_...`)
+
+Keep your secret key private. Never paste it into a public chat or commit it to a public GitHub repo.
+
+## Step 2: Tell your AI tool what you want
+
+This is where vibe coding shines. In your tool of choice (Lovable, Cursor, Claude Code, Bolt, etc.), describe exactly what you want:
+
+> "Add a checkout button to my app that charges $29/month using Stripe. When the user clicks it, open a Stripe Checkout session. After payment succeeds, redirect them to /dashboard. Use Stripe's hosted checkout page."
+
+Be specific about:
+- The **price** ($29/month, $99 one-time, etc.)
+- Whether it's a **one-time charge or subscription**
+- Where users go **after payment** (success URL)
+- Whether to use **Stripe Checkout** (hosted page, easiest) or **Stripe Elements** (embedded in your app, more custom)
+
+For most non-coders, **Stripe Checkout** is the right choice — Stripe handles the UI, security, and compliance entirely. You just redirect users there.
+
+## Step 3: Add your API keys securely
+
+Your AI will likely tell you to add your Stripe keys as environment variables. This is the right approach — it keeps your secret key out of your codebase.
+
+In Lovable or Replit, there's usually a "Secrets" or "Environment Variables" section in the project settings. Add:
+
+```
+STRIPE_SECRET_KEY=sk_test_your_key_here
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_your_key_here
+```
+
+Then tell your AI: "I've added the environment variables. Now use them in the Stripe integration."
+
+## Step 4: Test with Stripe's test card numbers
+
+Stripe provides test card numbers that you can use in test mode. The most useful one:
+
+- Card number: **4242 4242 4242 4242**
+- Expiry: Any future date
+- CVC: Any 3 digits
+
+Run through a test purchase. Stripe test mode is completely free and nothing real happens. You should see the transaction appear in your Stripe dashboard under **Test mode → Payments**.
+
+## Step 5: Add a webhook for payment confirmation
+
+This is the step most guides skip. A webhook is what your app uses to know that a payment actually succeeded — because Stripe processes it asynchronously.
+
+Tell your AI:
+
+> "Add a Stripe webhook endpoint at /api/stripe-webhook that listens for the checkout.session.completed event and marks the user as paid in the database."
+
+Your AI will scaffold this. In Lovable, the backend is handled automatically. In Cursor or Claude Code, it'll write a serverless function for you.
+
+## Common mistakes to avoid
+
+**Using the wrong key:** The publishable key goes in your frontend code. The secret key goes in your backend only. Your AI should handle this correctly if you describe the setup clearly.
+
+**Forgetting test mode:** Make sure you're testing with your `pk_test_` and `sk_test_` keys. The live keys (`pk_live_` and `sk_live_`) will charge real money.
+
+**Skipping the webhook:** Your success page URL alone isn't enough to confirm payment. Always implement the webhook.
+
+## Which vibe coding tools work best with Stripe?
+
+[Lovable](https://vibestack.in/tools/lovable) handles Stripe integrations especially well — it has built-in Supabase support and can wire up user authentication + payments in a single session. Cursor with Claude is a close second. For pure no-code, Bolt.new also handles Stripe reasonably well.
+
+Browse more [AI app builder tools on Vibestack](https://vibestack.in/categories/app-builders) to find the right starting point for your project.
+
+---
+
+## FAQ
+
+**Do I need a business bank account to use Stripe?**
+No. You can start with a personal bank account. Stripe will ask for your personal details to verify your identity before you can receive payouts.
+
+**Can I use Stripe with any vibe coding tool?**
+Almost all vibe coding tools that support backend functionality can integrate Stripe. Browser-only tools (like some Webflow setups) may need a workaround like Stripe Payment Links instead.
+
+**How long does it take to go from zero to a working Stripe checkout?**
+With a good vibe coding tool, most people have a working test checkout within 30-60 minutes on their first try. Getting to live mode (real payments) might take an extra hour to configure correctly.
+
+---
+
+Ready to monetise your vibe-coded app? Explore more payment and backend tools in the [Vibestack directory](https://vibestack.in) — everything's curated for non-coders who want to ship real products.
