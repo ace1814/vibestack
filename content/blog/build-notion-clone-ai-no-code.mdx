@@ -1,0 +1,129 @@
+---
+title: "How to build a Notion-style app with AI and no coding skills"
+description: "Want a custom Notion-like workspace? Learn how to build one with AI tools and zero coding in 2026 — step by step."
+slug: "build-notion-clone-ai-no-code"
+type: "guide"
+tags: ["no-code", "ai-tools", "vibe-coding", "productivity", "beginners"]
+publishedAt: "2026-04-22"
+---
+
+You can build a Notion-style app with AI and no coding skills — and it'll take you less than an afternoon. I know because I've done it twice: once for a client who needed a custom knowledge base, and once for my own content planning workflow that Notion's templates never quite nailed.
+
+This guide walks you through the whole thing, from idea to live URL. No developer required.
+
+## Why build your own instead of using Notion?
+
+Notion is great, but it's built for everyone — which means it's not perfectly built for you. If you've ever wanted:
+
+- A custom interface that only shows what your team needs
+- Specific automations baked in (not bolted on)
+- A branded experience for client-facing use
+- Full control over your data
+
+…then building your own Notion-style app makes a lot of sense. And with AI tools in 2026, it's genuinely within reach for non-coders.
+
+---
+
+## What you'll be building
+
+A Notion-style app typically has:
+
+- A database with filterable, sortable records
+- Multiple views (table, kanban, calendar)
+- Rich text notes attached to records
+- User authentication (so only your team can access it)
+
+We'll build all of this using Lovable — the AI app builder that handles the frontend, backend, and database for you. Browse [Lovable on Vibestack](https://vibestack.in/tools/lovable) to learn more.
+
+---
+
+## Step 1: Start with a clear prompt
+
+Open [lovable.dev](https://lovable.dev) and start a new project. The more specific your prompt, the better the first output. Here's a template to adapt:
+
+> "Build a project management app with a Supabase database. It should have a list of projects, each with a title, status (todo, in progress, done), owner, due date, and a notes field. Show projects in a table view with filters. Include a kanban view toggle. Users should be able to log in with email."
+
+Don't try to describe everything at once. Start with the core data model and views — you can add features later.
+
+### What Lovable generates
+
+After submitting your prompt, Lovable will generate a full React app connected to Supabase. You'll see a live preview on the right side of the screen. The database tables are created automatically in Supabase — you don't need to configure anything yourself.
+
+---
+
+## Step 2: Iterate in plain English
+
+The first output won't be exactly what you want. That's fine — this is where vibe coding shines. Just describe what's wrong or what you want to add:
+
+> "The status filter isn't working. Fix it."  
+> "Add a sidebar navigation with links to Projects, Notes, and Settings."  
+> "Make the kanban columns drag-and-drop."
+
+Each message triggers a new build. Most changes take 30–60 seconds. You can undo any change with a single click if something breaks.
+
+---
+
+## Step 3: Customise the look
+
+Once the structure is right, you can adjust the design. Lovable supports Tailwind CSS, so you can describe visual changes in plain English:
+
+> "Change the primary colour to indigo. Make the sidebar darker."  
+> "Use a cleaner font — something like Inter."  
+> "Add a logo placeholder in the top-left corner."
+
+If you have a specific brand colour hex code, include it in your message. Lovable will apply it correctly.
+
+### Connecting Figma designs (optional)
+
+If you've already designed the app in Figma, you can use [Figma MCP with Claude](https://vibestack.in/blog/figma-mcp-claude-setup) to extract design tokens and component specs, then paste them into Lovable as implementation instructions. It's a bit more advanced, but produces much closer results to your original design.
+
+---
+
+## Step 4: Add auth and user roles
+
+Lovable connects to Supabase Auth out of the box. To enable user login:
+
+> "Add email/password authentication. After login, redirect to the dashboard. Allow users to register."
+
+For team access with roles (admin vs. read-only), ask:
+
+> "Add user roles. Admin users can create and delete projects. Viewer users can only read."
+
+Supabase handles row-level security automatically when Lovable sets this up — you don't need to understand SQL to get it working.
+
+---
+
+## Step 5: Deploy your app
+
+When you're happy with how it looks and works, click **Deploy** in Lovable. Your app gets a live URL (yourapp.lovable.app) instantly. You can also connect a custom domain through Lovable's settings.
+
+For a production setup, you might want to migrate your Supabase database to a paid tier and set up proper backups — but for a side project or team tool, the free tier handles it fine.
+
+---
+
+## What this approach can't do (yet)
+
+To set expectations: vibe-coded apps like this work great for internal tools, team dashboards, and side projects. Where they get tricky:
+
+- **Complex offline functionality** — Notion works offline; vibe-coded web apps typically don't
+- **Mobile apps** — you'd need to build a separate React Native version
+- **Very large data sets** — Supabase handles this fine, but you'd need to think about pagination and query performance
+
+For most use cases — a content calendar, a client portal, a project tracker — this approach works perfectly.
+
+---
+
+## FAQ
+
+**Do I need a Supabase account?**  
+Yes, but Lovable walks you through connecting one. It takes about 2 minutes. Supabase has a free tier that's more than enough for small team tools.
+
+**How long does it take to build?**  
+Most people get a working v1 in 2–4 hours. Getting it polished and deployed might take a full day, including time spent iterating on the design and fixing edge cases.
+
+**Can I export the code?**  
+Yes — Lovable lets you export the full source code. If you eventually want to hand it off to a developer or host it yourself, you can. [Learn how to deploy your vibe-coded app](https://vibestack.in/blog/how-to-deploy-vibe-coded-app) for more on hosting options.
+
+---
+
+Ready to build your own productivity app? Head to [vibestack.in](https://vibestack.in) for more tools, tutorials, and guides tailored to non-coders who want to build real things with AI.
