@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useRef, useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
+import Link from 'next/link';
 import useSWR, { mutate } from 'swr';
 import ResourceCard from '@/components/ResourceCard';
 import ResourceListRow from '@/components/ResourceListRow';
@@ -257,6 +258,22 @@ function HomeContent() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35" />
               </svg>
             </button>
+
+            {/* Nav links */}
+            <div className="hidden sm:flex items-center gap-1">
+              <Link
+                href="/blog"
+                className="px-3 py-1.5 text-sm text-black/50 dark:text-white/50 hover:text-black dark:hover:text-white hover:bg-black/4 dark:hover:bg-white/4 rounded-full transition-colors"
+              >
+                Blog
+              </Link>
+              <Link
+                href="/course"
+                className="px-3 py-1.5 text-sm text-black/50 dark:text-white/50 hover:text-black dark:hover:text-white hover:bg-black/4 dark:hover:bg-white/4 rounded-full transition-colors"
+              >
+                Free Course
+              </Link>
+            </div>
 
             {/* Dark mode toggle */}
             <ThemeToggle />
@@ -522,6 +539,23 @@ function HomeContent() {
           </>
         )}
       </main>
+
+      {/* Footer */}
+      <footer className="px-4 sm:px-14 py-8 border-t border-black/6 dark:border-white/6 bg-white dark:bg-zinc-950">
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <p className="text-sm text-black/35 dark:text-white/35">
+            © {new Date().getFullYear()} VibeStack · Curated tools for non-coder builders
+          </p>
+          <div className="flex flex-wrap items-center gap-5">
+            <Link href="/blog" className="text-sm text-black/40 dark:text-white/40 hover:text-black dark:hover:text-white transition-colors">
+              Blog
+            </Link>
+            <Link href="/course" className="text-sm text-black/40 dark:text-white/40 hover:text-black dark:hover:text-white transition-colors">
+              Free Course
+            </Link>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
