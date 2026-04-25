@@ -84,9 +84,9 @@ export default function CourseLanding() {
         <p className="text-xs font-semibold uppercase tracking-widest text-black/40 dark:text-white/40 mb-6">
           Free course · No coding experience needed
         </p>
-        <h1 className="text-4xl sm:text-5xl lg:text-[3.5rem] font-bold leading-[1.1] mb-6 max-w-3xl mx-auto">
+        <h1 className="text-4xl sm:text-5xl lg:text-[3.5rem] font-serif font-normal leading-[1.1] mb-6 max-w-3xl mx-auto">
           Build and launch<br />
-          your first real app —<br />
+          your first real app,<br />
           <span className="text-black/45 dark:text-white/45">even if you&apos;ve never coded.</span>
         </h1>
         <p className="text-lg text-black/60 dark:text-white/60 max-w-xl mx-auto mb-8 leading-relaxed">
@@ -108,7 +108,7 @@ export default function CourseLanding() {
       {/* ── Section 2: Pain ───────────────────────────────────────────────── */}
       <section className="bg-white dark:bg-zinc-950 px-6 py-20">
         <div className="max-w-2xl mx-auto">
-          <h2 className="text-3xl font-bold mb-8 leading-snug">
+          <h2 className="text-3xl font-serif font-normal mb-8 leading-snug">
             You have an idea. It&apos;s been sitting there for months.
           </h2>
           <div className="space-y-5 text-lg text-black/65 dark:text-white/65 leading-relaxed">
@@ -137,7 +137,7 @@ export default function CourseLanding() {
       {/* ── Section 3: Solution ───────────────────────────────────────────── */}
       <section className="bg-stone-50 dark:bg-zinc-900 px-6 py-20">
         <div className="max-w-2xl mx-auto">
-          <h2 className="text-3xl font-bold mb-5 leading-snug">
+          <h2 className="text-3xl font-serif font-normal mb-5 leading-snug">
             That different way is called vibe coding.
           </h2>
           <p className="text-lg text-black/65 dark:text-white/65 leading-relaxed mb-10">
@@ -167,7 +167,7 @@ export default function CourseLanding() {
       {/* ── Section 4: What You'll Build ──────────────────────────────────── */}
       <section className="bg-white dark:bg-zinc-950 px-6 py-20">
         <div className="max-w-2xl mx-auto">
-          <h2 className="text-3xl font-bold mb-8 leading-snug">
+          <h2 className="text-3xl font-serif font-normal mb-8 leading-snug">
             By the end of this course, you&apos;ll have built a Kanban board app:
           </h2>
           <ul className="space-y-3 mb-8">
@@ -200,7 +200,7 @@ export default function CourseLanding() {
       {/* ── Section 5: What's Inside ──────────────────────────────────────── */}
       <section className="bg-stone-50 dark:bg-zinc-900 px-6 py-20">
         <div className="max-w-2xl mx-auto">
-          <h2 className="text-3xl font-bold mb-3">
+          <h2 className="text-3xl font-serif font-normal mb-3">
             6 modules. Plain English. No prior experience needed.
           </h2>
           <p className="text-black/50 dark:text-white/50 mb-10">
@@ -231,7 +231,7 @@ export default function CourseLanding() {
       {/* ── Section 6: Who It's For ────────────────────────────────────────── */}
       <section className="bg-white dark:bg-zinc-950 px-6 py-20">
         <div className="max-w-2xl mx-auto">
-          <h2 className="text-3xl font-bold mb-10">Is this for you?</h2>
+          <h2 className="text-3xl font-serif font-normal mb-10">Is this for you?</h2>
           <div className="grid sm:grid-cols-2 gap-8">
             <div>
               <p className="text-xs font-semibold uppercase tracking-wider text-black/40 dark:text-white/40 mb-4">
@@ -285,7 +285,7 @@ export default function CourseLanding() {
           <p className="text-xs font-semibold uppercase tracking-widest text-white/40 mb-4">
             Free · Start immediately
           </p>
-          <h2 className="text-3xl font-bold text-white mb-3">Ready to build your first app?</h2>
+          <h2 className="text-3xl font-serif font-normal text-white mb-3">Ready to build your first app?</h2>
           <p className="text-white/55 mb-8">Sign up and get instant access to all 6 modules.</p>
 
           {status === 'success' ? (

@@ -119,7 +119,7 @@ function FAQSection({ items }: { items: { q: string; a: React.ReactNode }[] }) {
 }
 
 function H2({ children }: { children: React.ReactNode }) {
-  return <h2 className="text-2xl font-bold mt-10 mb-4 leading-snug">{children}</h2>;
+  return <h2 className="text-2xl font-serif font-normal mt-10 mb-4 leading-snug">{children}</h2>;
 }
 
 function P({ children }: { children: React.ReactNode }) {
@@ -184,9 +184,9 @@ function ToolHeader({
       </div>
       <div>
         <p className="text-xs font-medium text-black/35 dark:text-white/35">Tool {number}</p>
-        <h3 className="text-base font-semibold leading-snug">
-          {name}{' '}
-          <span className="font-normal text-black/45 dark:text-white/45">— {tagline}</span>
+        <h3 className="text-base font-serif font-normal leading-snug">
+          {name}
+          <span className="text-black/45 dark:text-white/45">, {tagline}</span>
         </h3>
       </div>
     </div>
@@ -213,7 +213,7 @@ function ModuleHeader({
         <p className="text-xs font-semibold uppercase tracking-wider text-black/35 dark:text-white/35 mb-0.5">
           Module {number}
         </p>
-        <h2 className="text-2xl font-bold leading-tight">{title}</h2>
+        <h2 className="text-2xl font-serif font-normal leading-tight">{title}</h2>
       </div>
     </div>
   );
@@ -296,7 +296,7 @@ export default function CourseContentPage() {
           <main className="min-w-0">
             {/* Course intro */}
             <div className="mb-12">
-              <h1 className="text-3xl sm:text-4xl font-bold mb-3 leading-tight">
+              <h1 className="text-3xl sm:text-4xl font-serif font-normal mb-3 leading-tight">
                 Vibe Coding for People Who&apos;ve Never Coded
               </h1>
               <p className="text-black/55 dark:text-white/55 text-lg leading-relaxed">
@@ -1103,7 +1103,7 @@ git push -u origin main`}</CodeBlock>
               <div className="flex justify-center mb-4 text-black/50 dark:text-white/50">
                 <Trophy size={48} weight="duotone" />
               </div>
-              <h2 className="text-2xl font-bold mb-4">You did it.</h2>
+              <h2 className="text-2xl font-serif font-normal mb-4">You did it.</h2>
               <p className="text-black/65 dark:text-white/65 mb-6 leading-relaxed max-w-md mx-auto">
                 You just built and deployed a real Kanban board app. Without writing a single line of code.
               </p>
