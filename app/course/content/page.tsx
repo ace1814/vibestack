@@ -236,17 +236,17 @@ export default function CourseContentPage() {
   return (
     <div className="min-h-screen bg-white dark:bg-zinc-950 text-black dark:text-white">
       {/* Header */}
-      <header className="border-b border-black/8 dark:border-white/8 px-6 py-4 sticky top-0 bg-white/95 dark:bg-zinc-950/95 backdrop-blur-sm z-10">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
+      <header className="border-b border-black/8 dark:border-white/8 px-6 py-5 sticky top-0 bg-white/95 dark:bg-zinc-950/95 backdrop-blur-sm z-10">
+        <div className="max-w-7xl mx-auto relative flex items-center justify-center">
           <Link
             href="/"
-            className="text-sm font-semibold tracking-tight text-black dark:text-white hover:opacity-70 transition-opacity"
+            className="font-sans font-light text-[clamp(16px,1.5vw,26px)] tracking-[-0.04em] text-black dark:text-white leading-none hover:opacity-70 transition-opacity"
           >
             vibestack
           </Link>
           <Link
             href="/course"
-            className="text-xs text-black/40 dark:text-white/40 hover:text-black dark:hover:text-white transition-colors"
+            className="absolute right-0 text-xs text-black/40 dark:text-white/40 hover:text-black dark:hover:text-white transition-colors"
           >
             ← Course overview
           </Link>
