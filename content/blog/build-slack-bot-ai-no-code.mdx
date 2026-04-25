@@ -1,0 +1,91 @@
+---
+title: "How to build a Slack bot with AI and no coding skills"
+description: "Learn how to build a custom Slack bot using AI tools and no coding experience. Step-by-step guide for non-coders, designers, and PMs in 2026."
+slug: "build-slack-bot-ai-no-code"
+type: "guide"
+tags: ["slack", "no-code", "ai-tools", "automation", "beginners"]
+publishedAt: "2026-04-24"
+---
+
+Building a Slack bot with AI is genuinely possible without writing a single line of code — I did it in an afternoon using a combination of Lovable and an MCP server, and it changed how my whole team handles notifications. If you've been putting it off because it sounds technical, this guide is going to change that.
+
+## Why build a Slack bot in the first place?
+
+Slack bots are one of those things that sound fancy but solve very everyday problems. Want to get a daily summary of your Notion tasks posted to a channel? Or a bot that automatically posts when someone submits a form? These are all things a Slack bot can handle — and with AI tools, you don't need to touch an API or write a webhook by hand.
+
+I started building bots because I was tired of manually copying updates from one tool into Slack. After about an hour with an AI builder, I had a bot that did it for me.
+
+## What you'll need before you start
+
+You don't need any coding experience, but you will need a few things set up:
+
+A Slack workspace where you have admin rights (or a friendly admin who can approve your bot). A free or paid account on an AI builder — I recommend [Lovable](https://vibestack.in/tools/lovable) or Replit for this. And a rough idea of what you want your bot to do, even if it's just "tell me when something happens."
+
+That's genuinely it.
+
+## Step 1: Define what your bot should do
+
+Before jumping into any tool, spend five minutes writing out your bot's job in plain English. Something like: "When a new row is added to my Google Sheet, post a message in #sales-alerts with the customer name and deal size."
+
+The more specific you are here, the better your AI builder will perform. Vague prompts lead to vague results — specific prompts lead to working bots.
+
+### Common Slack bot ideas for non-coders
+
+There are a few patterns that come up again and again when people are building their first bots. Daily standup reminders that ping your team at 9am. Form submission alerts that notify a channel when someone fills out a Typeform. Task assignment notifications that tell a person their name just appeared in a Notion database. Status update bots that post to a channel when a GitHub PR is merged or a Vercel deploy finishes.
+
+Any of these are completely doable with AI tools today.
+
+## Step 2: Set up your Slack app
+
+Go to api.slack.com/apps and click "Create New App." Choose "From scratch," give it a name, and select your workspace. This creates the container for your bot.
+
+Under "OAuth & Permissions," scroll to "Bot Token Scopes" and add `chat:write` and `channels:read`. These are the basic permissions that let your bot post messages.
+
+Install the app to your workspace, copy the Bot Token that appears — you'll need this in a moment.
+
+This part is a bit manual, but it's a one-time thing and takes about five minutes. The Slack dashboard is pretty clear about what to click.
+
+## Step 3: Use an AI builder to write the logic
+
+This is where the magic happens. Open [Lovable](https://vibestack.in/tools/lovable) or your AI builder of choice and describe exactly what you want your bot to do in one prompt.
+
+A good prompt looks like this: "Build a simple Node.js script that connects to Slack using this bot token and posts a message to a channel called #updates every morning at 9am saying 'Good morning team! Don't forget to update your tasks in Notion.' The bot token is [paste your token here]."
+
+The AI builder will generate the full code, handle the scheduling logic, and — if you're using Replit — can even deploy it for you in one click.
+
+### What if your bot needs to read from another tool?
+
+If you want your bot to pull data from somewhere (like a spreadsheet, Notion, or a form tool), check out the [MCP servers listed on Vibestack](https://vibestack.in/mcp-servers). MCPs let Claude and other AI tools connect to external services without you having to build the integration yourself. There's an MCP for Notion, Google Sheets, Airtable, and dozens more.
+
+## Step 4: Test your bot in Slack
+
+Once your AI builder has generated the code and deployed it, invite your bot to a Slack channel by typing `/invite @yourbotname`. Then trigger whatever action you set up — whether it's a time trigger or a data source update — and watch the message appear.
+
+If something doesn't work, paste the error message back into your AI builder and ask it to fix the issue. This back-and-forth is totally normal and part of the process.
+
+## Step 5: Iterate and improve
+
+Your first version doesn't need to be perfect. Once the basic flow works, you can layer on more features: add a button that lets team members respond to the bot, pull in dynamic data from a spreadsheet, or create multiple message templates for different scenarios.
+
+The key is to get one thing working before adding complexity. Every Slack bot I've built started as something embarrassingly simple and grew from there.
+
+## The tools I'd recommend for building Slack bots
+
+For pure simplicity, Lovable is great — it understands natural language prompts and handles deployment. For more control, Replit gives you access to the full code and lets you edit directly. If you want to connect multiple services without writing any code at all, n8n (which you can explore on [Vibestack's automation tools section](https://vibestack.in/categories/automation)) has a visual Slack integration that's genuinely impressive.
+
+## FAQ
+
+**Do I need a paid Slack plan to build bots?**
+No — Slack's free plan supports custom bots. You only hit limits on how many messages your workspace can store, not on bot functionality itself.
+
+**Will my bot stop working if I close my laptop?**
+If you're running it on your own machine, yes. That's why deploying to a service like Replit or Vercel is important — it keeps your bot running 24/7 without needing your computer on.
+
+**Can I build a bot that responds to messages, not just posts them?**
+Yes, and it's not much harder. You'll need to add an "events" subscription in your Slack app settings and handle incoming messages in your code. Your AI builder can generate this logic if you describe it clearly.
+
+---
+
+Building Slack bots used to be a developer-only skill. With AI tools, it's a one-afternoon project even if you've never written code. Start with something small, get it working, then keep building.
+
+Explore all the AI tools and MCP servers that work with Slack at [vibestack.in](https://vibestack.in) — it's the easiest way to find what fits your workflow.

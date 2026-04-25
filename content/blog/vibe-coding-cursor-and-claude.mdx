@@ -1,0 +1,85 @@
+---
+title: "Vibe coding with Cursor and Claude: the ultimate non-coder combo in 2026"
+description: "How to use Cursor and Claude together for vibe coding projects — a practical guide for designers, PMs, and non-coders who want to build real products."
+slug: "vibe-coding-cursor-and-claude"
+type: "guide"
+tags: ["cursor", "claude", "vibe-coding", "non-coders", "tutorial"]
+publishedAt: "2026-04-24"
+---
+
+Using Cursor with Claude is the most powerful vibe coding setup I've tried, and it's completely accessible to non-coders. You open Cursor, describe what you want to build, and Claude writes the code — you just review it, guide it, and ship it.
+
+I'll be honest: I came to this combo as a designer with zero coding background. After two weeks, I'd shipped a working internal tool that my whole team now uses daily. Here's how the setup works and how to get the most out of it.
+
+## What makes Cursor + Claude special?
+
+Cursor is an AI-first code editor. Think of it like VS Code but with an AI assistant deeply built in — it can see your whole project, not just the file you're editing. This context-awareness makes it dramatically more useful than pasting code back and forth with a chatbot.
+
+Claude (made by Anthropic) is the AI model behind the magic. When you use Claude inside Cursor, you get a model that's genuinely good at understanding intent, reasoning through complex problems, and explaining what it's doing in plain English. For non-coders, that explainability is everything.
+
+Together, they're a pair that feels like having a senior developer sitting next to you who never gets impatient.
+
+## Getting set up in under 20 minutes
+
+Download Cursor from cursor.com — there's a free tier that gets you started. When you first open it, you'll be asked to choose your AI model. Select Claude (any recent version works, but Claude Sonnet or Opus are best for complex projects).
+
+Create a new folder on your desktop called "my-project" and open it in Cursor. That's your workspace. You don't need to understand what goes in it yet — Claude will create the files.
+
+You can find Cursor and other AI coding tools in the [Vibestack tools directory](https://vibestack.in/tools) if you want to compare options before committing.
+
+## How to actually build something
+
+Open the Cursor chat panel (it's the speech bubble icon on the sidebar) and start with a clear description of what you want. Don't be vague — the more specific, the better.
+
+A weak prompt: "Build me an app."
+
+A strong prompt: "Build a simple web app where I can paste in a list of names, and it randomly picks one and displays it in big text on screen. Make it look clean and minimal with a white background and dark text. Add a button that says 'Pick someone' and plays a little animation when a name is selected."
+
+Claude will write all the files needed and explain what each one does. You can then ask follow-up questions like "why did you choose that approach?" or "can you make the button blue instead?" in plain English.
+
+### The feedback loop that makes vibe coding work
+
+The real rhythm of vibe coding with Cursor and Claude goes like this: you describe something, Claude builds it, you look at the result in your browser, you notice something that needs to change, you describe the change, Claude makes it.
+
+This loop is the whole thing. You don't need to understand the code to participate in it meaningfully. Your job is to be a good product designer — to notice what's not right and articulate it clearly.
+
+## Things that work really well
+
+Cursor with Claude shines on certain types of projects. Building simple web apps and internal tools. Generating forms, tables, and dashboards with data from a spreadsheet or database. Creating landing pages and portfolio sites. Building scripts that automate repetitive tasks. Prototyping ideas that would take weeks to spec and build with a traditional team.
+
+If your project involves a lot of design customisation, you might find it useful to also check out the [Figma MCP on Vibestack](https://vibestack.in/mcp-servers/figma) — it lets Claude read your Figma designs directly and translate them into code.
+
+## Things to watch out for
+
+A few honest limitations worth knowing. Claude sometimes writes code that works but is harder to maintain as your project grows — for a side project or internal tool, this is usually fine. Cursor's free tier has message limits, so if you're doing heavy building, a paid plan is worth it. And if your project needs a backend (user accounts, databases, payments), you'll want to pair Cursor with Supabase — something the [Supabase for non-coders guide on Vibestack](https://vibestack.in/blog/supabase-non-coders-guide) covers well.
+
+## Tips for getting better results
+
+A few things I've learned from months of using this combo. Always describe the end result, not the implementation. Claude knows how to build things — you just need to describe what the finished version looks like and how it should behave.
+
+When something breaks, don't panic. Paste the error message into the Cursor chat and ask Claude to fix it. Nine times out of ten, it will.
+
+Save your best prompts. If you find a way of describing something that gets great results, write it down. Your prompt library becomes your superpower over time.
+
+## Is this better than Lovable or Bolt?
+
+It depends on your goal. Lovable and Bolt are faster for spinning up a complete app from scratch — they handle hosting, database, and auth out of the box. Cursor with Claude gives you more control and is better when you want to customise deeply or build something that doesn't fit a template.
+
+I think of Lovable as the quick-start option and Cursor + Claude as the "I want to build it my way" option. Both are excellent.
+
+## FAQ
+
+**Do I need to know how to code to use Cursor?**
+No. You need to be comfortable reading plain English explanations of what the code does, but you don't need to write any code yourself.
+
+**Can Cursor and Claude build mobile apps?**
+Cursor and Claude are best for web apps that run in a browser. For native mobile apps, tools like Replit or dedicated mobile AI builders are a better fit.
+
+**What if the code Claude writes doesn't work?**
+Paste the error message back into the chat and ask Claude to fix it. If it still doesn't work after a couple of tries, try rephrasing your original request with more specific constraints.
+
+---
+
+Cursor with Claude is one of my favourite setups for anyone who wants to build real things without learning to code from scratch. It's collaborative, approachable, and genuinely fun once the loop clicks.
+
+Head to [vibestack.in](https://vibestack.in) to explore all the tools, MCP servers, and resources that work with this setup — everything's curated for non-coders and makers.
