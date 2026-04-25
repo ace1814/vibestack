@@ -236,7 +236,7 @@ export default function CourseContentPage() {
   return (
     <div className="min-h-screen bg-white dark:bg-zinc-950 text-black dark:text-white">
       {/* Header */}
-      <header className="border-b border-black/8 dark:border-white/8 px-6 py-5 sticky top-0 bg-white/95 dark:bg-zinc-950/95 backdrop-blur-sm z-10">
+      <header className="px-6 py-5 sticky top-0 z-10">
         <div className="max-w-7xl mx-auto relative flex items-center justify-center">
           <Link
             href="/"
