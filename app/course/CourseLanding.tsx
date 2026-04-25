@@ -3,8 +3,37 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import {
+  ArrowRight,
+  CheckCircle,
+  XCircle,
+  ChatTeardrop,
+  Robot,
+  Rocket,
+  Brain,
+  Wrench,
+  SquaresFour,
+  Database,
+  Globe,
+} from '@phosphor-icons/react';
 
 type Status = 'idle' | 'loading' | 'success' | 'error';
+
+type ModuleEntry = {
+  n: number;
+  Icon: React.ElementType;
+  title: string;
+  desc: string;
+};
+
+const LANDING_MODULES: ModuleEntry[] = [
+  { n: 1, Icon: Brain,       title: 'What Is Vibe Coding?',    desc: 'Understand AI, the internet, and how this all works' },
+  { n: 2, Icon: Wrench,      title: 'Set Up Your Tools',        desc: 'Get Cursor, GitHub, Supabase, and Vercel ready — with video walkthroughs' },
+  { n: 3, Icon: ChatTeardrop,title: 'How to Talk to AI',        desc: 'The exact prompts that work, plus tool options for every preference' },
+  { n: 4, Icon: SquaresFour, title: 'Build Your Kanban Board',  desc: 'Go from blank screen to a working board in your browser' },
+  { n: 5, Icon: Database,    title: 'Save Tasks to Supabase',   desc: 'Give your app a real database (explained in plain English)' },
+  { n: 6, Icon: Globe,       title: 'Go Live with Vercel',      desc: 'Put your app on the internet at its own URL' },
+];
 
 export default function CourseLanding() {
   const [email, setEmail] = useState('');
@@ -61,13 +90,15 @@ export default function CourseLanding() {
           <span className="text-black/45 dark:text-white/45">even if you&apos;ve never coded.</span>
         </h1>
         <p className="text-lg text-black/60 dark:text-white/60 max-w-xl mx-auto mb-8 leading-relaxed">
-          A step-by-step course in plain English. No jargon. No CS degree. Just you, AI, and your first live Kanban board app.
+          A step-by-step course in plain English. No jargon. No CS degree. Just you, AI, and your
+          first live Kanban board app.
         </p>
         <a
           href="#signup"
           className="inline-flex items-center gap-2 bg-black dark:bg-white text-white dark:text-black font-semibold px-7 py-3.5 rounded-full text-sm hover:opacity-80 transition-opacity"
         >
-          Start for free →
+          Start for free
+          <ArrowRight size={15} weight="bold" />
         </a>
         <p className="mt-3 text-xs text-black/35 dark:text-white/35">
           Free forever. Takes 20 seconds to sign up.
@@ -82,20 +113,22 @@ export default function CourseLanding() {
           </h2>
           <div className="space-y-5 text-lg text-black/65 dark:text-white/65 leading-relaxed">
             <p>
-              You&apos;ve tried learning to code. You watched tutorials. You opened a code editor once, felt
-              completely lost, and closed it.
+              You&apos;ve tried learning to code. You watched tutorials. You opened a code editor once,
+              felt completely lost, and closed it.
             </p>
             <p>
               You&apos;ve looked at tools like Webflow or Bubble, but they&apos;re either{' '}
               <strong className="text-black dark:text-white">too expensive</strong>,{' '}
-              <strong className="text-black dark:text-white">too limited</strong>, or you still end up stuck.
+              <strong className="text-black dark:text-white">too limited</strong>, or you still end up
+              stuck.
             </p>
             <p>
               Meanwhile, other people —{' '}
               <strong className="text-black dark:text-white">
                 designers, marketers, PMs with zero coding background
               </strong>{' '}
-              — are shipping real apps. Not because they&apos;re smarter. Because they found a different way.
+              — are shipping real apps. Not because they&apos;re smarter. Because they found a
+              different way.
             </p>
           </div>
         </div>
@@ -112,17 +145,19 @@ export default function CourseLanding() {
             describing them, and ship. That&apos;s the whole thing.
           </p>
           <div className="space-y-3">
-            {[
-              { emoji: '💬', label: 'You describe your idea in plain English' },
-              { emoji: '🤖', label: 'AI writes the code' },
-              { emoji: '🚀', label: 'You review, tweak, and publish' },
-            ].map((step) => (
+            {([
+              { Icon: ChatTeardrop, label: 'You describe your idea in plain English' },
+              { Icon: Robot,        label: 'AI writes the code' },
+              { Icon: Rocket,       label: 'You review, tweak, and publish' },
+            ] as { Icon: React.ElementType; label: string }[]).map(({ Icon, label }) => (
               <div
-                key={step.emoji}
+                key={label}
                 className="flex items-center gap-4 p-4 bg-white dark:bg-zinc-950 rounded-xl border border-black/6 dark:border-white/6"
               >
-                <span className="text-2xl">{step.emoji}</span>
-                <span className="font-medium text-base">{step.label}</span>
+                <div className="w-10 h-10 rounded-xl bg-black/6 dark:bg-white/8 flex items-center justify-center shrink-0 text-black/60 dark:text-white/60">
+                  <Icon size={20} weight="duotone" />
+                </div>
+                <span className="font-medium text-base">{label}</span>
               </div>
             ))}
           </div>
@@ -144,7 +179,11 @@ export default function CourseLanding() {
               'The confidence to build your next idea faster',
             ].map((item) => (
               <li key={item} className="flex items-start gap-3 text-lg">
-                <span className="text-black/35 dark:text-white/35 mt-1 shrink-0">✓</span>
+                <CheckCircle
+                  size={22}
+                  weight="fill"
+                  className="text-emerald-500 dark:text-emerald-400 shrink-0 mt-0.5"
+                />
                 <span>{item}</span>
               </li>
             ))}
@@ -152,7 +191,8 @@ export default function CourseLanding() {
           <p className="text-sm text-black/45 dark:text-white/45 border-t border-black/8 dark:border-white/8 pt-5 mt-5">
             Built with <strong className="text-black dark:text-white">Cursor</strong>,{' '}
             <strong className="text-black dark:text-white">Supabase</strong>, and{' '}
-            <strong className="text-black dark:text-white">Vercel</strong> — the same stack used by real startups.
+            <strong className="text-black dark:text-white">Vercel</strong> — the same stack used by
+            real startups.
           </p>
         </div>
       </section>
@@ -160,30 +200,26 @@ export default function CourseLanding() {
       {/* ── Section 5: What's Inside ──────────────────────────────────────── */}
       <section className="bg-stone-50 dark:bg-zinc-900 px-6 py-20">
         <div className="max-w-2xl mx-auto">
-          <h2 className="text-3xl font-bold mb-3">6 modules. Plain English. No prior experience needed.</h2>
+          <h2 className="text-3xl font-bold mb-3">
+            6 modules. Plain English. No prior experience needed.
+          </h2>
           <p className="text-black/50 dark:text-white/50 mb-10">
             Each module opens with a quick summary — skip ahead if you already know the topic.
           </p>
           <div className="space-y-3">
-            {[
-              { n: 1, emoji: '🧠', title: 'What Is Vibe Coding?', desc: 'Understand AI, the internet, and how this all works' },
-              { n: 2, emoji: '🛠', title: 'Set Up Your Tools', desc: 'Get Cursor, GitHub, Supabase, and Vercel ready in 30 minutes — with video walkthroughs' },
-              { n: 3, emoji: '💬', title: 'How to Talk to AI', desc: 'The exact prompts that work, plus tool options for every preference' },
-              { n: 4, emoji: '🖥', title: 'Build Your Kanban Board', desc: 'Go from blank screen to a working board in your browser' },
-              { n: 5, emoji: '🗄', title: 'Save Tasks to Supabase', desc: 'Give your app a real database (explained in plain English)' },
-              { n: 6, emoji: '🌍', title: 'Go Live with Vercel', desc: 'Put your app on the internet at its own URL' },
-            ].map((m) => (
+            {LANDING_MODULES.map((m) => (
               <div
                 key={m.n}
                 className="flex items-start gap-4 p-4 bg-white dark:bg-zinc-950 rounded-xl border border-black/6 dark:border-white/6"
               >
-                <div className="w-7 h-7 rounded-full bg-black/8 dark:bg-white/10 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">
-                  {m.n}
+                <div className="w-9 h-9 rounded-xl bg-black/6 dark:bg-white/8 flex items-center justify-center shrink-0 text-black/60 dark:text-white/60">
+                  <m.Icon size={18} weight="duotone" />
                 </div>
                 <div>
-                  <p className="font-semibold">
-                    {m.emoji} {m.title}
+                  <p className="text-xs font-medium text-black/35 dark:text-white/35 mb-0.5">
+                    Module {m.n}
                   </p>
+                  <p className="font-semibold">{m.title}</p>
                   <p className="text-sm text-black/50 dark:text-white/50 mt-0.5">{m.desc}</p>
                 </div>
               </div>
@@ -208,8 +244,12 @@ export default function CourseLanding() {
                   "You've tried tutorials and found them too technical",
                   'You want to build something real, not just follow along',
                 ].map((item) => (
-                  <li key={item} className="flex items-start gap-2 text-sm leading-snug">
-                    <span className="text-emerald-600 dark:text-emerald-400 font-bold shrink-0 mt-0.5">✓</span>
+                  <li key={item} className="flex items-start gap-2.5 text-sm leading-snug">
+                    <CheckCircle
+                      size={17}
+                      weight="fill"
+                      className="text-emerald-500 dark:text-emerald-400 shrink-0 mt-0.5"
+                    />
                     <span>{item}</span>
                   </li>
                 ))}
@@ -224,8 +264,12 @@ export default function CourseLanding() {
                   "You're already a developer (this will be too slow for you)",
                   'You want to learn "real" programming syntax',
                 ].map((item) => (
-                  <li key={item} className="flex items-start gap-2 text-sm leading-snug">
-                    <span className="text-red-500 dark:text-red-400 font-bold shrink-0 mt-0.5">✗</span>
+                  <li key={item} className="flex items-start gap-2.5 text-sm leading-snug">
+                    <XCircle
+                      size={17}
+                      weight="fill"
+                      className="text-red-400 dark:text-red-400 shrink-0 mt-0.5"
+                    />
                     <span className="text-black/55 dark:text-white/55">{item}</span>
                   </li>
                 ))}
@@ -291,9 +335,11 @@ export default function CourseLanding() {
               <button
                 type="submit"
                 disabled={status === 'loading'}
-                className="w-full bg-white text-black font-semibold py-3.5 rounded-xl text-sm hover:opacity-90 transition-opacity disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed"
+                className="w-full flex items-center justify-center gap-2 bg-white text-black font-semibold py-3.5 rounded-xl text-sm hover:opacity-90 transition-opacity disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed"
               >
-                {status === 'loading' ? 'Signing you up…' : 'Get instant access →'}
+                {status === 'loading' ? 'Signing you up…' : (
+                  <>Get instant access <ArrowRight size={15} weight="bold" /></>
+                )}
               </button>
 
               <p className="text-center text-xs text-white/30">
