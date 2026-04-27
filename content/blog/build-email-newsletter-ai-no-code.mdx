@@ -1,0 +1,113 @@
+---
+title: "How to build an email newsletter tool with AI and no coding skills"
+description: "Build a fully functional email newsletter tool using AI and no code. A practical guide for designers, PMs, and founders who want to own their stack."
+slug: "build-email-newsletter-ai-no-code"
+type: "guide"
+tags: ["email", "no-code", "ai-tools", "vibe-coding", "beginners"]
+publishedAt: "2026-04-27"
+---
+
+If you've ever wanted to run your own newsletter without paying $50/month for Mailchimp or wrestling with Substack's limitations — good news: you can build your own email newsletter tool with AI in a weekend, and you don't need to write a single line of code yourself.
+
+I built mine using Lovable and a Resend integration, and it handles everything from subscriber management to scheduling. Here's exactly how to do it.
+
+## Why build your own newsletter tool?
+
+Most newsletter platforms take a cut of your revenue, limit your customisation, or lock you into their ecosystem. When you vibe code your own tool, you own the data, you own the design, and you pay only for what you actually use (usually just email sending costs, which are tiny at small scale).
+
+Plus, it's a genuinely satisfying project that teaches you a lot about how software works — even if you never touch code directly.
+
+## What you'll need before you start
+
+You don't need coding experience, but you'll want to gather a few things:
+
+- A **Lovable** account (free tier works for getting started) — find it in the [Vibestack directory of AI app builders](https://vibestack.in/tools?category=app-builders)
+- A **Resend** account for sending emails (generous free tier, no credit card needed)
+- A **Supabase** account for storing your subscriber list — also free to start
+- About 2-3 hours of focused time
+
+That's genuinely it. No servers to configure, no complex infrastructure to set up.
+
+## Step 1: Describe what you want to Claude or Lovable
+
+Open Lovable and start a new project. Write a prompt like this:
+
+> "Build me a newsletter tool where I can manage subscribers, write and format email drafts with a rich text editor, schedule sends, and view basic analytics like open rate and clicks. Use Supabase for the database and Resend for sending emails. I want a clean, minimal admin dashboard."
+
+Be specific about what you want. The more context you give, the less back-and-forth you'll have. Mention things like: should subscribers be able to manage their own preferences? Do you want a public signup page? Any branding colours?
+
+## Step 2: Connect your database
+
+Once Lovable generates the initial app, you'll need to connect it to Supabase. Lovable makes this straightforward — there's a Supabase integration built in. You'll create a project in Supabase, copy your API credentials, and paste them into Lovable's settings panel.
+
+Supabase will hold your subscriber list, your email drafts, and your send history. You can see everything in Supabase's dashboard, which is nice and visual — no SQL required unless you want it.
+
+## Step 3: Set up Resend for sending
+
+Resend is the cleanest email API I've found for vibe coding projects. Sign up, verify a sending domain (or use their sandbox for testing), and grab your API key. In Lovable, tell Claude:
+
+> "Connect the send email function to Resend using my API key, and make sure it uses my verified domain as the from address."
+
+Claude will wire it up. Test with a draft email to yourself before anything else.
+
+## Step 4: Build your subscriber signup page
+
+You'll want a public-facing page where people can subscribe. Ask Lovable to generate one:
+
+> "Create a simple, beautiful signup page with my newsletter name, a one-sentence description, and an email capture form. When someone submits the form, add them to the subscribers table in Supabase and send them a welcome email via Resend."
+
+The welcome email automation is a nice touch and only takes a single prompt to add.
+
+## Step 5: Write and send your first issue
+
+Your admin dashboard should have a text editor for composing emails. Write your first draft, preview it (always preview before sending), then hit send. Resend will handle delivery and you'll start seeing stats trickle in.
+
+For analytics, you can ask Lovable to add an analytics view:
+
+> "Add a simple dashboard showing total subscribers, emails sent this month, and average open rate pulled from Resend's API."
+
+## Common things people ask for next
+
+Once your basic tool is working, the most common next steps are:
+
+**Tags and segments** — group subscribers by interest so you can send targeted issues. Ask Claude to add a tags system to your subscriber table.
+
+**Unsubscribe handling** — legally required in most countries. Lovable can add an unsubscribe link to every email that marks the subscriber as inactive in Supabase.
+
+**Scheduling** — want to write on Sunday and send on Tuesday morning? Ask for a scheduling feature that queues emails with a future send time.
+
+**Import existing subscribers** — if you're moving from another platform, you can upload a CSV and ask Claude to bulk-import your list.
+
+## How much does this actually cost?
+
+For a newsletter under 3,000 subscribers sending weekly:
+- Lovable: free tier or ~$25/month on paid
+- Supabase: free tier easily covers this
+- Resend: free up to 3,000 emails/month, then $0.80 per 1,000 after
+
+So you could run this for basically nothing until you're at meaningful scale. Compare that to Mailchimp at $80+/month for 5,000 subscribers.
+
+## Explore more tools for your newsletter stack
+
+The Vibestack directory has a whole section on [AI tools for content creators](https://vibestack.in/tools?category=content) that pair well with a custom newsletter tool — from AI writing assistants to image generation tools for making your emails look great.
+
+You might also want to look at [MCP servers for automation](https://vibestack.in/tools?category=mcp-servers) so you can connect your newsletter tool to Notion, Airtable, or wherever you draft your content.
+
+## Ready to build?
+
+Head to [vibestack.in](https://vibestack.in) and browse the AI app builders to pick your starting point. Lovable, Bolt, and Replit are all solid choices for a project like this. Start with the free tier, get your first version working, and then decide if you want to invest in a paid plan.
+
+Building your own tools is one of the most empowering things you can do as a non-coder. An email newsletter tool is the perfect first "real" project — it has real users, real utility, and real satisfaction when it works.
+
+---
+
+## FAQ
+
+**Do I need a custom domain to send emails?**
+Technically no — you can use Resend's sandbox for testing. But for a real newsletter, you'll want a custom domain to avoid spam filters and look professional. Resend's docs walk you through domain verification in about 10 minutes.
+
+**Can I migrate my existing subscribers from Substack or Mailchimp?**
+Yes. Both platforms let you export your subscriber list as a CSV. Once you have the file, you can upload it and ask Claude to write a script that imports the data into your Supabase table. Take about 15 minutes.
+
+**What happens if my newsletter grows really large?**
+The stack described here (Lovable + Supabase + Resend) can comfortably handle tens of thousands of subscribers. Resend's pricing scales linearly and remains reasonable. Supabase's free tier covers up to 50,000 rows, and paid plans are affordable. You won't need to rebuild anything until you're at serious scale.

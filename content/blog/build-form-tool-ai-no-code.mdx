@@ -1,0 +1,122 @@
+---
+title: "How to build a custom form tool with AI and no coding skills"
+description: "Build a fully custom form tool with AI and no code. Stop paying for Typeform — here's how to own your forms, data, and design from scratch."
+slug: "build-form-tool-ai-no-code"
+type: "guide"
+tags: ["forms", "no-code", "ai-tools", "vibe-coding", "beginners"]
+publishedAt: "2026-04-27"
+---
+
+Custom form tools are one of the most underrated things you can build with AI — and one of the most immediately useful. Whether you need a client intake form, a job application, a feedback survey, or an internal request tracker, you can build something better than Typeform in a few hours, own all your data, and pay basically nothing to run it.
+
+I built my first custom form tool after getting fed up with Typeform's $50/month plan for what is essentially a form that collects data. Here's the exact approach I used, and how you can do the same without any coding experience.
+
+## Why build your own form tool?
+
+Most form tools (Typeform, Jotform, Google Forms, Tally) are designed for the average use case. They're great for simple surveys but hit walls quickly when you need:
+
+- Custom logic (show question 5 only if the answer to question 3 is "yes")
+- Data stored in *your* database, not theirs
+- Custom design that matches your brand exactly
+- Integration with specific internal tools
+- File uploads, signatures, or multi-step flows
+
+With AI, you can describe exactly the form experience you want and get it built — including all the edge cases and integrations that off-the-shelf tools struggle with.
+
+## What you'll need
+
+- A **Lovable** or **Bolt** account (free tiers work well for this)
+- A **Supabase** account for storing form responses
+- Optionally, a **Resend** account for email notifications
+- About 2-3 hours
+
+No coding knowledge required. Seriously.
+
+## Step 1: Describe your form in detail
+
+The more specific your initial prompt, the better your result. Don't just say "build a contact form." Instead, write something like:
+
+> "Build a multi-step contact form for a marketing agency. Step 1 asks for name, company, email, and phone. Step 2 asks what service they're interested in (options: brand strategy, digital campaigns, content production, other) and their estimated budget. Step 3 asks them to describe their project in a text area and allows them to optionally upload a brief (PDF or Word doc). After submission, show a thank you message and send the form data to my email. Store all responses in a Supabase database."
+
+That level of detail means Lovable won't make assumptions that don't fit your workflow.
+
+## Step 2: Set up conditional logic
+
+Most forms need conditional logic — showing or hiding fields based on previous answers. This is notoriously annoying to set up in no-code tools. With AI, you just describe it:
+
+> "If the user selects 'other' for the service type in step 2, show an additional text field asking them to describe what they need."
+
+Or:
+
+> "If the budget selection is 'under $5,000', show a message saying 'We typically work with budgets of $5,000+, but fill in your details and we'll be in touch if there's a fit.'"
+
+Cascade (in Windsurf) or Claude (in Lovable) will implement this exactly as described. Test it by going through the form yourself after each change.
+
+## Step 3: Connect to your data store
+
+Your form is useless if the responses go nowhere. Supabase is the best choice for beginners — it's a free database with a visual interface, so you can see all your form submissions in a spreadsheet-like view without ever touching SQL.
+
+Tell your AI:
+
+> "When the form is submitted, save all field values to a Supabase table called 'contact_submissions' with columns for each field, plus a timestamp and a unique ID."
+
+You can also ask it to connect to Airtable, Notion, or Google Sheets if you prefer those — each has integration options via API or MCP servers. Browse [MCP server options on Vibestack](https://vibestack.in/tools?category=mcp-servers) to find connectors for your preferred tools.
+
+## Step 4: Add email notifications
+
+You'll want to know when someone submits the form. Ask your AI to add a notification:
+
+> "When a form is submitted, send an email to hello@mycompany.com with the submitter's name, email, and a summary of their responses. Use Resend for email sending."
+
+You can also set up autoresponders — automatic confirmation emails to the person who submitted the form:
+
+> "Send the submitter a confirmation email saying their inquiry was received and you'll respond within 2 business days. Use my brand name and keep the tone warm and professional."
+
+## Step 5: Style it to match your brand
+
+One of the main reasons to build your own form tool is design control. Use this:
+
+> "Style the form to match these brand guidelines: primary colour #2D5BE3, white background, clean sans-serif typography, rounded input fields with a subtle border. The submit button should be the primary brand colour with white text."
+
+You can also share a screenshot of your existing website or brand identity and ask the AI to match the style.
+
+## Deploying your form
+
+Once your form looks and works the way you want, you need to make it live. The options:
+
+**Lovable hosting** — Lovable can deploy your app directly from the interface. One click, it's live at a Lovable URL, and you can connect a custom domain.
+
+**Vercel** — free hosting for web apps. Ask your AI to set up deployment to Vercel and it'll walk you through connecting your project.
+
+**Embed in your site** — if you want the form on an existing website, ask the AI to package it as an iframe embed or a JavaScript snippet you can paste into your site.
+
+## Advanced features worth adding
+
+Once your basic form works, here are things that will genuinely delight users:
+
+**Progress bar** — for multi-step forms, show how far through they are. Significantly reduces drop-off.
+
+**Smart defaults** — pre-fill fields based on URL parameters (e.g., if someone clicks from a specific campaign, pre-select the relevant service option).
+
+**Partial save** — let users save their progress and come back later. Especially useful for longer application forms.
+
+**Admin dashboard** — a password-protected view of all submissions with filtering and export. Ask for this once your form is working: "Build a simple admin page at /admin that requires a password and shows all form submissions in a table with a CSV export button."
+
+## The result
+
+What you end up with is a form tool that's completely yours — your data, your design, your logic — running for a few dollars a month at most. That's a genuinely better outcome than any SaaS form tool for most use cases.
+
+Explore the full suite of AI app builders at [vibestack.in](https://vibestack.in) and find the right tool for your project. The directory covers everything from quick prototyping tools to production-grade app builders, all tested for non-coder usability.
+
+---
+
+## FAQ
+
+**Can I build a form that accepts file uploads?**
+Yes — Supabase has built-in storage for files. Ask your AI to add file upload support: "Allow users to upload a file up to 10MB. Accepted formats: PDF, Word, PNG, JPG. Store the file in Supabase storage and save the URL in the form submission record."
+
+**How do I handle spam submissions?**
+Ask your AI to add a honeypot field (a hidden field that real users won't fill in, but bots will) and a rate limit. For heavier protection, you can add a CAPTCHA — just ask: "Add a Cloudflare Turnstile CAPTCHA to the form to prevent spam." Cloudflare Turnstile is free and non-annoying for real users.
+
+**Can my form connect directly to my CRM?**
+Depends on your CRM. HubSpot, Salesforce, and most major CRMs have APIs. You can ask the AI to write an integration: "When a form is submitted, create a new contact in HubSpot with the submitted email, name, and company." You'll need an API key from your CRM — check the [Vibestack MCP servers section](https://vibestack.in/tools?category=mcp-servers) for pre-built connectors that make this even simpler.

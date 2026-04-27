@@ -5,7 +5,11 @@
       "title": "25 vibe coding project ideas you can actually ship this weekend",
       "slug": "vibe-coding-project-ideas",
       "type": "roundup",
-      "tags": ["vibe-coding", "beginners", "projects"],
+      "tags": [
+        "vibe-coding",
+        "beginners",
+        "projects"
+      ],
       "status": "done",
       "publishedAt": "2026-03-26"
     },
@@ -14,7 +18,11 @@
       "title": "Best MCP servers for designers in 2026",
       "slug": "best-mcp-servers-for-designers",
       "type": "roundup",
-      "tags": ["mcp", "designers", "claude"],
+      "tags": [
+        "mcp",
+        "designers",
+        "claude"
+      ],
       "status": "done",
       "publishedAt": "2026-03-26"
     },
@@ -23,7 +31,11 @@
       "title": "v0 vs Bolt: which AI app builder should you use in 2026?",
       "slug": "v0-vs-bolt",
       "type": "comparison",
-      "tags": ["v0", "bolt", "comparison"],
+      "tags": [
+        "v0",
+        "bolt",
+        "comparison"
+      ],
       "status": "done",
       "publishedAt": "2026-03-26"
     },
@@ -32,7 +44,11 @@
       "title": "Replit vs Claude Code: which should you use for vibe coding?",
       "slug": "replit-vs-claude-code",
       "type": "comparison",
-      "tags": ["replit", "claude-code", "comparison"],
+      "tags": [
+        "replit",
+        "claude-code",
+        "comparison"
+      ],
       "status": "done",
       "publishedAt": "2026-03-26"
     },
@@ -41,7 +57,10 @@
       "title": "Vibe coding for product managers: build your own tools without a developer",
       "slug": "vibe-coding-for-product-managers",
       "type": "guide",
-      "tags": ["vibe-coding", "product-managers"],
+      "tags": [
+        "vibe-coding",
+        "product-managers"
+      ],
       "status": "done",
       "publishedAt": "2026-03-26"
     },
@@ -50,7 +69,11 @@
       "title": "Vibe coding vs no-code tools: which should you use?",
       "slug": "vibe-coding-vs-nocode",
       "type": "comparison",
-      "tags": ["vibe-coding", "no-code", "comparison"],
+      "tags": [
+        "vibe-coding",
+        "no-code",
+        "comparison"
+      ],
       "status": "done",
       "publishedAt": "2026-03-29"
     },
@@ -59,7 +82,10 @@
       "title": "Claude Code for designers: vibe code without switching tools",
       "slug": "claude-code-for-designers",
       "type": "guide",
-      "tags": ["claude-code", "designers"],
+      "tags": [
+        "claude-code",
+        "designers"
+      ],
       "status": "done",
       "publishedAt": "2026-03-29"
     },
@@ -68,7 +94,11 @@
       "title": "Claude Code tutorial: getting started from scratch",
       "slug": "claude-code-tutorial-beginners",
       "type": "guide",
-      "tags": ["claude-code", "tutorial", "beginners"],
+      "tags": [
+        "claude-code",
+        "tutorial",
+        "beginners"
+      ],
       "status": "done",
       "publishedAt": "2026-03-29"
     },
@@ -77,7 +107,10 @@
       "title": "Claude Code: how to build a website from a single prompt",
       "slug": "claude-code-build-website",
       "type": "guide",
-      "tags": ["claude-code", "tutorial"],
+      "tags": [
+        "claude-code",
+        "tutorial"
+      ],
       "status": "done",
       "publishedAt": "2026-03-29"
     },
@@ -86,7 +119,10 @@
       "title": "Vibe coding for designers: the complete guide",
       "slug": "vibe-coding-for-designers",
       "type": "guide",
-      "tags": ["vibe-coding", "designers"],
+      "tags": [
+        "vibe-coding",
+        "designers"
+      ],
       "status": "done",
       "publishedAt": "2026-03-29"
     },
@@ -95,320 +131,1138 @@
       "title": "Lovable vs Replit: which is better for beginners?",
       "slug": "lovable-vs-replit",
       "type": "comparison",
-      "tags": ["lovable", "replit", "comparison"],
-      "status": "pending"
+      "tags": [
+        "lovable",
+        "replit",
+        "comparison"
+      ],
+      "status": "done",
+      "publishedAt": "2026-03-31"
     },
     {
       "keyword": "Figma Make vs v0",
       "title": "Figma Make vs v0: which is better for designers?",
       "slug": "figma-make-vs-v0",
       "type": "comparison",
-      "tags": ["figma-make", "v0", "comparison", "designers"],
-      "status": "pending"
+      "tags": [
+        "figma-make",
+        "v0",
+        "comparison",
+        "designers"
+      ],
+      "status": "done",
+      "publishedAt": "2026-03-31"
     },
     {
       "keyword": "Figma MCP Claude setup",
       "title": "How to set up Figma MCP with Claude: step by step",
       "slug": "figma-mcp-claude-setup",
       "type": "guide",
-      "tags": ["figma", "mcp", "claude", "tutorial"],
-      "status": "pending"
+      "tags": [
+        "figma",
+        "mcp",
+        "claude",
+        "tutorial"
+      ],
+      "status": "done",
+      "publishedAt": "2026-03-31"
     },
     {
       "keyword": "Webflow MCP tutorial",
       "title": "Webflow MCP: update your site by chatting with AI",
       "slug": "webflow-mcp-tutorial",
       "type": "guide",
-      "tags": ["webflow", "mcp", "tutorial"],
-      "status": "pending"
+      "tags": [
+        "webflow",
+        "mcp",
+        "tutorial"
+      ],
+      "status": "done",
+      "publishedAt": "2026-03-31"
     },
     {
       "keyword": "Framer MCP guide",
       "title": "Framer MCP: edit your designs with Claude and Cursor",
       "slug": "framer-mcp-guide",
       "type": "guide",
-      "tags": ["framer", "mcp", "claude"],
-      "status": "pending"
+      "tags": [
+        "framer",
+        "mcp",
+        "claude"
+      ],
+      "status": "done",
+      "publishedAt": "2026-03-31"
     },
     {
       "keyword": "Blender MCP Claude",
       "title": "Blender MCP: control Blender with Claude AI",
       "slug": "blender-mcp-claude",
       "type": "guide",
-      "tags": ["blender", "mcp", "claude", "3d"],
-      "status": "pending"
+      "tags": [
+        "blender",
+        "mcp",
+        "claude",
+        "3d"
+      ],
+      "status": "done",
+      "publishedAt": "2026-03-31"
     },
     {
       "keyword": "what is an MCP server for designers",
       "title": "What is an MCP server? Explained for designers and non-coders",
       "slug": "what-is-mcp-server-designers",
       "type": "guide",
-      "tags": ["mcp", "designers", "beginners"],
-      "status": "pending"
+      "tags": [
+        "mcp",
+        "designers",
+        "beginners"
+      ],
+      "status": "done",
+      "publishedAt": "2026-03-31"
     },
     {
       "keyword": "Figma Make tutorial",
       "title": "Figma Make tutorial for beginners: build your first app",
       "slug": "figma-make-tutorial-beginners",
       "type": "guide",
-      "tags": ["figma-make", "tutorial", "beginners"],
-      "status": "pending"
+      "tags": [
+        "figma-make",
+        "tutorial",
+        "beginners"
+      ],
+      "status": "done",
+      "publishedAt": "2026-03-31"
     },
     {
       "keyword": "Paper design tool AI",
       "title": "Paper design tool: AI-powered design for agents reviewed",
       "slug": "paper-design-tool-review",
       "type": "guide",
-      "tags": ["paper", "design", "ai-tools"],
-      "status": "pending"
+      "tags": [
+        "paper",
+        "design",
+        "ai-tools"
+      ],
+      "status": "done",
+      "publishedAt": "2026-03-31"
     },
     {
       "keyword": "Google Stitch vs Figma Make",
       "title": "Google Stitch vs Figma Make: AI design tools compared",
       "slug": "google-stitch-vs-figma-make",
       "type": "comparison",
-      "tags": ["google-stitch", "figma-make", "comparison"],
-      "status": "pending"
+      "tags": [
+        "google-stitch",
+        "figma-make",
+        "comparison"
+      ],
+      "status": "done",
+      "publishedAt": "2026-03-31"
     },
     {
       "keyword": "best AI app builder non-coders",
       "title": "Best AI app builders for non-coders in 2026",
       "slug": "best-ai-app-builders-non-coders",
       "type": "roundup",
-      "tags": ["ai-tools", "non-coders", "app-builders"],
-      "status": "pending"
+      "tags": [
+        "ai-tools",
+        "non-coders",
+        "app-builders"
+      ],
+      "status": "done",
+      "publishedAt": "2026-04-01"
     },
     {
       "keyword": "build SaaS without coding AI",
       "title": "How to build a SaaS without coding using AI",
       "slug": "build-saas-without-coding-ai",
       "type": "guide",
-      "tags": ["saas", "no-code", "vibe-coding"],
-      "status": "pending"
+      "tags": [
+        "saas",
+        "no-code",
+        "vibe-coding"
+      ],
+      "status": "done",
+      "publishedAt": "2026-04-01"
     },
     {
       "keyword": "turn idea into app AI",
       "title": "How to turn your idea into an app using AI",
       "slug": "turn-idea-into-app-ai",
       "type": "guide",
-      "tags": ["ai-tools", "vibe-coding", "beginners"],
-      "status": "pending"
+      "tags": [
+        "ai-tools",
+        "vibe-coding",
+        "beginners"
+      ],
+      "status": "done",
+      "publishedAt": "2026-04-01"
     },
     {
       "keyword": "build automation no code Opal",
       "title": "Build automation without coding using Opal by Google",
       "slug": "build-automation-opal-google",
       "type": "guide",
-      "tags": ["opal", "google", "automation", "no-code"],
-      "status": "pending"
+      "tags": [
+        "opal",
+        "google",
+        "automation",
+        "no-code"
+      ],
+      "status": "done",
+      "publishedAt": "2026-04-01"
     },
     {
       "keyword": "vibe coding for founders",
       "title": "Vibe coding for solo founders: idea to MVP without developers",
       "slug": "vibe-coding-for-founders",
       "type": "guide",
-      "tags": ["vibe-coding", "founders", "mvp"],
-      "status": "pending"
+      "tags": [
+        "vibe-coding",
+        "founders",
+        "mvp"
+      ],
+      "status": "done",
+      "publishedAt": "2026-04-01"
     },
     {
       "keyword": "AI tools designers who code",
       "title": "Best AI tools for designers who want to code in 2026",
       "slug": "ai-tools-designers-who-code",
       "type": "roundup",
-      "tags": ["ai-tools", "designers", "vibe-coding"],
-      "status": "pending"
+      "tags": [
+        "ai-tools",
+        "designers",
+        "vibe-coding"
+      ],
+      "status": "done",
+      "publishedAt": "2026-04-02"
     },
     {
       "keyword": "AI tools PMs build prototypes",
       "title": "Best AI tools for PMs to build and test prototypes",
       "slug": "ai-tools-pms-build-prototypes",
       "type": "roundup",
-      "tags": ["ai-tools", "product-managers", "prototypes"],
-      "status": "pending"
+      "tags": [
+        "ai-tools",
+        "product-managers",
+        "prototypes"
+      ],
+      "status": "done",
+      "publishedAt": "2026-04-02"
     },
     {
       "keyword": "Claude Code Skills 2.0 designers",
       "title": "Claude Code Skills 2.0 for designers: practical setup guide",
       "slug": "claude-code-skills-2-designers",
       "type": "guide",
-      "tags": ["claude-code", "designers", "skills"],
-      "status": "pending"
+      "tags": [
+        "claude-code",
+        "designers",
+        "skills"
+      ],
+      "status": "done",
+      "publishedAt": "2026-04-02"
     },
     {
       "keyword": "enterprise chatbot Claude Code",
       "title": "How an indie hacker built an enterprise chatbot with Claude Code",
       "slug": "enterprise-chatbot-claude-code",
       "type": "guide",
-      "tags": ["claude-code", "chatbot", "indie-hacker"],
-      "status": "pending"
+      "tags": [
+        "claude-code",
+        "chatbot",
+        "indie-hacker"
+      ],
+      "status": "done",
+      "publishedAt": "2026-04-02"
     },
     {
       "keyword": "Claude use cases non-coders",
       "title": "8 practical Claude use cases for non-coders",
       "slug": "claude-use-cases-non-coders",
       "type": "roundup",
-      "tags": ["claude", "non-coders", "use-cases"],
-      "status": "pending"
+      "tags": [
+        "claude",
+        "non-coders",
+        "use-cases"
+      ],
+      "status": "done",
+      "publishedAt": "2026-04-02"
     },
     {
       "keyword": "vibe coded SaaS examples",
       "title": "Vibe coded SaaS examples: real products built without a dev team",
       "slug": "vibe-coded-saas-examples",
       "type": "roundup",
-      "tags": ["vibe-coding", "saas", "examples"],
-      "status": "pending"
+      "tags": [
+        "vibe-coding",
+        "saas",
+        "examples"
+      ],
+      "status": "done",
+      "publishedAt": "2026-04-05"
     },
     {
       "keyword": "real vibe coded app examples",
       "title": "10 real apps built with vibe coding (with tools and results)",
       "slug": "real-vibe-coded-app-examples",
       "type": "roundup",
-      "tags": ["vibe-coding", "examples", "apps"],
-      "status": "pending"
+      "tags": [
+        "vibe-coding",
+        "examples",
+        "apps"
+      ],
+      "status": "done",
+      "publishedAt": "2026-04-05"
     },
     {
       "keyword": "run Ollama Mac setup",
       "title": "How to run Ollama on your Mac: complete setup guide",
       "slug": "run-ollama-mac-setup",
       "type": "guide",
-      "tags": ["ollama", "mac", "local-ai", "tutorial"],
-      "status": "pending"
+      "tags": [
+        "ollama",
+        "mac",
+        "local-ai",
+        "tutorial"
+      ],
+      "status": "done",
+      "publishedAt": "2026-04-05"
     },
     {
       "keyword": "Ollama tutorial beginners",
       "title": "Ollama tutorial for beginners: local AI in 10 minutes",
       "slug": "ollama-tutorial-beginners",
       "type": "guide",
-      "tags": ["ollama", "tutorial", "beginners", "local-ai"],
-      "status": "pending"
+      "tags": [
+        "ollama",
+        "tutorial",
+        "beginners",
+        "local-ai"
+      ],
+      "status": "done",
+      "publishedAt": "2026-04-05"
     },
     {
       "keyword": "Ollama vs OpenRouter",
       "title": "Ollama vs OpenRouter: which should you use?",
       "slug": "ollama-vs-openrouter",
       "type": "comparison",
-      "tags": ["ollama", "openrouter", "comparison", "local-ai"],
-      "status": "pending"
+      "tags": [
+        "ollama",
+        "openrouter",
+        "comparison",
+        "local-ai"
+      ],
+      "status": "done",
+      "publishedAt": "2026-04-05"
     },
     {
       "keyword": "run AI locally no API cost",
       "title": "How to run AI locally with no API costs using Ollama",
       "slug": "run-ai-locally-no-api-cost",
       "type": "guide",
-      "tags": ["ollama", "local-ai", "free", "privacy"],
-      "status": "pending"
+      "tags": [
+        "ollama",
+        "local-ai",
+        "free",
+        "privacy"
+      ],
+      "status": "done",
+      "publishedAt": "2026-04-05"
     },
     {
       "keyword": "Ollama vibe coding",
       "title": "How to use Ollama for vibe coding projects",
       "slug": "ollama-vibe-coding",
       "type": "guide",
-      "tags": ["ollama", "vibe-coding", "local-ai"],
-      "status": "pending"
+      "tags": [
+        "ollama",
+        "vibe-coding",
+        "local-ai"
+      ],
+      "status": "done",
+      "publishedAt": "2026-04-05"
     },
     {
       "keyword": "Opal by Google vs n8n",
       "title": "Opal by Google vs n8n: which automation tool should you use?",
       "slug": "opal-google-vs-n8n",
       "type": "comparison",
-      "tags": ["opal", "google", "n8n", "automation", "comparison"],
-      "status": "pending"
+      "tags": [
+        "opal",
+        "google",
+        "n8n",
+        "automation",
+        "comparison"
+      ],
+      "status": "done",
+      "publishedAt": "2026-04-05"
     },
     {
       "keyword": "Google Stitch tutorial designers",
       "title": "Google Stitch tutorial for designers who don't code",
       "slug": "google-stitch-tutorial-designers",
       "type": "guide",
-      "tags": ["google-stitch", "designers", "tutorial"],
-      "status": "pending"
+      "tags": [
+        "google-stitch",
+        "designers",
+        "tutorial"
+      ],
+      "status": "done",
+      "publishedAt": "2026-04-05"
     },
     {
       "keyword": "Google AI tools developers 2026",
       "title": "All Google AI tools for vibe coding in 2026",
       "slug": "google-ai-tools-vibe-coding-2026",
       "type": "roundup",
-      "tags": ["google", "ai-tools", "vibe-coding", "2026"],
-      "status": "pending"
+      "tags": [
+        "google",
+        "ai-tools",
+        "vibe-coding",
+        "2026"
+      ],
+      "status": "done",
+      "publishedAt": "2026-04-05"
     },
     {
       "keyword": "build website with AI no code",
       "title": "How to build a website with AI and no coding experience",
       "slug": "build-website-ai-no-code",
       "type": "guide",
-      "tags": ["website", "no-code", "ai-tools", "beginners"],
-      "status": "pending"
+      "tags": [
+        "website",
+        "no-code",
+        "ai-tools",
+        "beginners"
+      ],
+      "status": "done",
+      "publishedAt": "2026-04-05"
     },
     {
       "keyword": "vibe coding for non-coders",
       "title": "Vibe coding for non-coders: where to start in 2026",
       "slug": "vibe-coding-for-non-coders",
       "type": "guide",
-      "tags": ["vibe-coding", "non-coders", "beginners"],
-      "status": "pending"
+      "tags": [
+        "vibe-coding",
+        "non-coders",
+        "beginners"
+      ],
+      "status": "done",
+      "publishedAt": "2026-04-05"
     },
     {
       "keyword": "build chatbot AI no code",
       "title": "How to build a chatbot with AI and no coding skills",
       "slug": "build-chatbot-ai-no-code",
       "type": "guide",
-      "tags": ["chatbot", "no-code", "ai-tools"],
-      "status": "pending"
+      "tags": [
+        "chatbot",
+        "no-code",
+        "ai-tools"
+      ],
+      "status": "done",
+      "publishedAt": "2026-04-05"
     },
     {
       "keyword": "designer built app without developer",
       "title": "How I built a full app as a designer without a single developer",
       "slug": "designer-built-app-without-developer",
       "type": "guide",
-      "tags": ["designers", "vibe-coding", "story"],
-      "status": "pending"
+      "tags": [
+        "designers",
+        "vibe-coding",
+        "story"
+      ],
+      "status": "done",
+      "publishedAt": "2026-04-05"
     },
     {
       "keyword": "vibe coding for marketers",
       "title": "Vibe coding for marketers: build landing pages and tools without engineering",
       "slug": "vibe-coding-for-marketers",
       "type": "guide",
-      "tags": ["vibe-coding", "marketers", "no-code"],
-      "status": "pending"
+      "tags": [
+        "vibe-coding",
+        "marketers",
+        "no-code"
+      ],
+      "status": "done",
+      "publishedAt": "2026-04-05"
     },
     {
       "keyword": "Bolt vs Replit",
       "title": "Bolt vs Replit: which AI builder is right for your project?",
       "slug": "bolt-vs-replit",
       "type": "comparison",
-      "tags": ["bolt", "replit", "comparison"],
-      "status": "pending"
+      "tags": [
+        "bolt",
+        "replit",
+        "comparison"
+      ],
+      "status": "done",
+      "publishedAt": "2026-04-06"
     },
     {
       "keyword": "Jules Google vs Claude Code",
       "title": "Jules by Google vs Claude Code: which coding agent wins?",
       "slug": "jules-google-vs-claude-code",
       "type": "comparison",
-      "tags": ["jules", "google", "claude-code", "comparison"],
-      "status": "pending"
+      "tags": [
+        "jules",
+        "google",
+        "claude-code",
+        "comparison"
+      ],
+      "status": "done",
+      "publishedAt": "2026-04-06"
     },
     {
       "keyword": "Figma Make vs Lovable",
       "title": "Figma Make vs Lovable: design-first vs chat-first building",
       "slug": "figma-make-vs-lovable",
       "type": "comparison",
-      "tags": ["figma-make", "lovable", "comparison"],
-      "status": "pending"
+      "tags": [
+        "figma-make",
+        "lovable",
+        "comparison"
+      ],
+      "status": "done",
+      "publishedAt": "2026-04-06"
     },
     {
       "keyword": "best Ollama models open source",
       "title": "Best open-source models to run with Ollama for vibe coding",
       "slug": "best-ollama-models-vibe-coding",
       "type": "roundup",
-      "tags": ["ollama", "open-source", "models", "local-ai"],
-      "status": "pending"
+      "tags": [
+        "ollama",
+        "open-source",
+        "models",
+        "local-ai"
+      ],
+      "status": "done",
+      "publishedAt": "2026-04-06"
     },
     {
       "keyword": "build portfolio website AI",
       "title": "Build a portfolio website with AI in under an hour",
       "slug": "build-portfolio-website-ai",
       "type": "guide",
-      "tags": ["portfolio", "ai-tools", "lovable", "tutorial"],
-      "status": "pending"
+      "tags": [
+        "portfolio",
+        "ai-tools",
+        "lovable",
+        "tutorial"
+      ],
+      "status": "done",
+      "publishedAt": "2026-04-06"
+    }
+    ,{
+      "keyword": "Cursor AI for non-coders",
+      "title": "Cursor AI for non-coders: how to use it without writing a single line of code",
+      "slug": "cursor-ai-for-non-coders",
+      "type": "guide",
+      "tags": ["cursor", "non-coders", "beginners"],
+      "status": "done",
+      "publishedAt": "2026-04-07"
+    },
+    {
+      "keyword": "Windsurf IDE review designers",
+      "title": "Windsurf IDE review: is it the best vibe coding tool for designers?",
+      "slug": "windsurf-ide-review-designers",
+      "type": "guide",
+      "tags": ["windsurf", "designers", "review"],
+      "status": "done",
+      "publishedAt": "2026-04-07"
+    },
+    {
+      "keyword": "best AI tools freelancers 2026",
+      "title": "Best AI tools for freelancers in 2026: build faster, charge more",
+      "slug": "best-ai-tools-freelancers-2026",
+      "type": "roundup",
+      "tags": ["ai-tools", "freelancers", "2026"],
+      "status": "done",
+      "publishedAt": "2026-04-07"
+    },
+    {
+      "keyword": "how to prompt AI to build an app",
+      "title": "How to prompt AI to build a full app: the non-coder's cheat sheet",
+      "slug": "how-to-prompt-ai-build-app",
+      "type": "guide",
+      "tags": ["prompting", "ai-tools", "vibe-coding"],
+      "status": "done",
+      "publishedAt": "2026-04-07"
+    },
+    {
+      "keyword": "Lovable AI review 2026",
+      "title": "Lovable AI review 2026: is it still the best way to build apps without code?",
+      "slug": "lovable-ai-review-2026",
+      "type": "guide",
+      "tags": ["lovable", "review", "app-builders"],
+      "status": "done",
+      "publishedAt": "2026-04-07"
+    },
+    {
+      "keyword": "v0 by Vercel tutorial for beginners",
+      "title": "v0 by Vercel: a beginner's guide to generating UI with AI",
+      "slug": "v0-vercel-tutorial-beginners",
+      "type": "guide",
+      "tags": ["v0", "vercel", "tutorial", "beginners"],
+      "status": "done",
+      "publishedAt": "2026-04-08"
+    },
+    {
+      "keyword": "build landing page with AI no code",
+      "title": "How to build a landing page with AI and zero coding skills",
+      "slug": "build-landing-page-ai-no-code",
+      "type": "guide",
+      "tags": ["landing-page", "no-code", "ai-tools", "beginners"],
+      "status": "done",
+      "publishedAt": "2026-04-08"
+    },
+    {
+      "keyword": "AI tools for solopreneurs 2026",
+      "title": "Best AI tools for solopreneurs in 2026: build, ship, and grow solo",
+      "slug": "ai-tools-solopreneurs-2026",
+      "type": "roundup",
+      "tags": ["ai-tools", "solopreneurs", "founders", "2026"],
+      "status": "done",
+      "publishedAt": "2026-04-08"
+    },
+    {
+      "keyword": "GitHub Copilot for non-coders",
+      "title": "GitHub Copilot for non-coders: can you actually use it without coding?",
+      "slug": "github-copilot-non-coders",
+      "type": "guide",
+      "tags": ["github-copilot", "non-coders", "beginners"],
+      "status": "done",
+      "publishedAt": "2026-04-08"
+    },
+    {
+      "keyword": "vibe coding productivity tips",
+      "title": "10 vibe coding tips that will make you ship faster",
+      "slug": "vibe-coding-productivity-tips",
+      "type": "guide",
+      "tags": ["vibe-coding", "productivity", "tips"],
+      "status": "done",
+      "publishedAt": "2026-04-08"
+    }
+    ,{
+      "keyword": "Bolt.new vs Lovable",
+      "title": "Bolt.new vs Lovable: which AI app builder wins in 2026?",
+      "slug": "bolt-new-vs-lovable",
+      "type": "comparison",
+      "tags": ["bolt", "lovable", "comparison", "app-builders"],
+      "status": "done",
+      "publishedAt": "2026-04-09"
+    },
+    {
+      "keyword": "make money with vibe coding",
+      "title": "How to make money with vibe coding in 2026",
+      "slug": "make-money-with-vibe-coding",
+      "type": "guide",
+      "tags": ["vibe-coding", "monetisation", "founders", "micro-saas"],
+      "status": "done",
+      "publishedAt": "2026-04-09"
+    },
+    {
+      "keyword": "Cursor vs GitHub Copilot non-coders",
+      "title": "Cursor vs GitHub Copilot for non-coders: which should you use?",
+      "slug": "cursor-vs-github-copilot-non-coders",
+      "type": "comparison",
+      "tags": ["cursor", "github-copilot", "comparison", "non-coders"],
+      "status": "done",
+      "publishedAt": "2026-04-09"
+    },
+    {
+      "keyword": "best free vibe coding tools 2026",
+      "title": "Best free vibe coding tools in 2026: build apps without spending a cent",
+      "slug": "best-free-vibe-coding-tools-2026",
+      "type": "roundup",
+      "tags": ["vibe-coding", "free-tools", "beginners", "ai-tools"],
+      "status": "done",
+      "publishedAt": "2026-04-09"
+    },
+    {
+      "keyword": "AI tools for teachers 2026",
+      "title": "Best AI tools for teachers who want to build their own apps in 2026",
+      "slug": "ai-tools-for-teachers-2026",
+      "type": "roundup",
+      "tags": ["ai-tools", "teachers", "education", "no-code"],
+      "status": "done",
+      "publishedAt": "2026-04-09"
+    },
+    {
+      "keyword": "vibe coding side project to product",
+      "title": "How to go from vibe coding side project to real product",
+      "slug": "vibe-coding-side-project-to-product",
+      "type": "guide",
+      "tags": ["vibe-coding", "founders", "mvp", "side-project"],
+      "status": "done",
+      "publishedAt": "2026-04-09"
+    },
+    {
+      "keyword": "vibe coding with Claude vs ChatGPT",
+      "title": "Vibe coding with Claude vs ChatGPT: which AI should you build with?",
+      "slug": "vibe-coding-claude-vs-chatgpt",
+      "type": "comparison",
+      "tags": ["claude", "chatgpt", "comparison", "vibe-coding"],
+      "status": "done",
+      "publishedAt": "2026-04-12"
+    },
+    {
+      "keyword": "how to build a mobile app with AI no code",
+      "title": "How to build a mobile app with AI and no coding skills",
+      "slug": "build-mobile-app-ai-no-code",
+      "type": "guide",
+      "tags": ["mobile-app", "no-code", "ai-tools", "beginners"],
+      "status": "done",
+      "publishedAt": "2026-04-12"
+    },
+    {
+      "keyword": "best AI tools for content creators 2026",
+      "title": "Best AI tools for content creators who want to build their own apps in 2026",
+      "slug": "best-ai-tools-content-creators-2026",
+      "type": "roundup",
+      "tags": ["ai-tools", "content-creators", "2026"],
+      "status": "done",
+      "publishedAt": "2026-04-12"
+    },
+    {
+      "keyword": "Cursor AI review 2026",
+      "title": "Cursor AI review 2026: is it the best AI code editor for non-coders?",
+      "slug": "cursor-ai-review-2026",
+      "type": "guide",
+      "tags": ["cursor", "review", "2026", "ai-tools"],
+      "status": "done",
+      "publishedAt": "2026-04-12"
+    },
+    {
+      "keyword": "no-code app builder comparison 2026",
+      "title": "No-code app builder comparison 2026: Lovable vs Bolt vs Replit vs v0",
+      "slug": "no-code-app-builder-comparison-2026",
+      "type": "comparison",
+      "tags": ["no-code", "app-builders", "comparison", "2026"],
+      "status": "done",
+      "publishedAt": "2026-04-12"
+    },
+    {
+      "keyword": "Windsurf vs Cursor AI 2026",
+      "title": "Windsurf vs Cursor AI: which vibe coding editor should you pick in 2026?",
+      "slug": "windsurf-vs-cursor-ai-2026",
+      "type": "comparison",
+      "tags": ["windsurf", "cursor", "comparison", "2026"],
+      "status": "done",
+      "publishedAt": "2026-04-13"
+    },
+    {
+      "keyword": "best MCP servers for productivity 2026",
+      "title": "Best MCP servers for productivity in 2026: a non-coder's guide",
+      "slug": "best-mcp-servers-productivity-2026",
+      "type": "roundup",
+      "tags": ["mcp", "productivity", "non-coders", "2026"],
+      "status": "done",
+      "publishedAt": "2026-04-13"
+    },
+    {
+      "keyword": "how to build a dashboard with AI no code",
+      "title": "How to build a data dashboard with AI and no coding experience",
+      "slug": "build-dashboard-ai-no-code",
+      "type": "guide",
+      "tags": ["dashboard", "no-code", "ai-tools", "beginners"],
+      "status": "done",
+      "publishedAt": "2026-04-13"
+    },
+    {
+      "keyword": "AI agents for business owners 2026",
+      "title": "Best AI agents for business owners who don't code in 2026",
+      "slug": "ai-agents-business-owners-2026",
+      "type": "roundup",
+      "tags": ["ai-agents", "business", "non-coders", "2026"],
+      "status": "done",
+      "publishedAt": "2026-04-13"
+    },
+    {
+      "keyword": "Gemini CLI vs Claude Code",
+      "title": "Gemini CLI vs Claude Code: which AI coding agent is better for non-coders?",
+      "slug": "gemini-cli-vs-claude-code",
+      "type": "comparison",
+      "tags": ["gemini", "claude-code", "comparison", "non-coders"],
+      "status": "done",
+      "publishedAt": "2026-04-13"
+    },
+    {
+      "keyword": "best vibe coding tools for Windows 2026",
+      "title": "Best vibe coding tools for Windows users in 2026",
+      "slug": "best-vibe-coding-tools-windows-2026",
+      "type": "roundup",
+      "tags": ["vibe-coding", "windows", "ai-tools", "2026"],
+      "status": "done",
+      "publishedAt": "2026-04-14"
+    },
+    {
+      "keyword": "Replit AI Agents tutorial beginners",
+      "title": "Replit AI Agents tutorial: build without code in 2026",
+      "slug": "replit-ai-agents-tutorial",
+      "type": "guide",
+      "tags": ["replit", "ai-agents", "tutorial", "beginners"],
+      "status": "done",
+      "publishedAt": "2026-04-14"
+    },
+    {
+      "keyword": "build Chrome extension AI no code",
+      "title": "How to build a Chrome extension with AI and no coding skills",
+      "slug": "build-chrome-extension-ai-no-code",
+      "type": "guide",
+      "tags": ["chrome-extension", "no-code", "ai-tools", "tutorial"],
+      "status": "done",
+      "publishedAt": "2026-04-14"
+    },
+    {
+      "keyword": "Supabase for non-coders guide",
+      "title": "Supabase for non-coders: your AI-powered backend, explained",
+      "slug": "supabase-non-coders-guide",
+      "type": "guide",
+      "tags": ["supabase", "backend", "non-coders", "vibe-coding"],
+      "status": "done",
+      "publishedAt": "2026-04-14"
+    },
+    {
+      "keyword": "best AI tools for e-commerce 2026",
+      "title": "Best AI tools for e-commerce founders who don't code in 2026",
+      "slug": "best-ai-tools-ecommerce-2026",
+      "type": "roundup",
+      "tags": ["ai-tools", "ecommerce", "founders", "2026"],
+      "status": "done",
+      "publishedAt": "2026-04-14"
+    },
+    {
+      "keyword": "Tempo Labs vs Lovable",
+      "title": "Tempo Labs vs Lovable: which AI app builder is right for you?",
+      "slug": "tempo-labs-vs-lovable",
+      "type": "comparison",
+      "tags": ["tempo-labs", "lovable", "comparison", "app-builders"],
+      "status": "done",
+      "publishedAt": "2026-04-16"
+    },
+    {
+      "keyword": "how to deploy a vibe coded app",
+      "title": "How to deploy your vibe coded app: a non-coder's complete guide",
+      "slug": "how-to-deploy-vibe-coded-app",
+      "type": "guide",
+      "tags": ["vibe-coding", "deployment", "beginners", "tutorial"],
+      "status": "done",
+      "publishedAt": "2026-04-16"
+    },
+    {
+      "keyword": "best MCP servers for Claude 2026",
+      "title": "Best MCP servers for Claude in 2026: top picks for non-coders",
+      "slug": "best-mcp-servers-claude-2026",
+      "type": "roundup",
+      "tags": ["mcp", "claude", "non-coders", "2026"],
+      "status": "done",
+      "publishedAt": "2026-04-16"
+    },
+    {
+      "keyword": "vibe coding mistakes beginners",
+      "title": "7 vibe coding mistakes beginners make (and how to avoid them)",
+      "slug": "vibe-coding-mistakes-beginners",
+      "type": "guide",
+      "tags": ["vibe-coding", "beginners", "tips"],
+      "status": "done",
+      "publishedAt": "2026-04-16"
+    },
+    {
+      "keyword": "AI tools for HR teams 2026",
+      "title": "Best AI tools for HR teams who want to build their own apps in 2026",
+      "slug": "ai-tools-hr-teams-2026",
+      "type": "roundup",
+      "tags": ["ai-tools", "hr", "no-code", "2026"],
+      "status": "done",
+      "publishedAt": "2026-04-16"
+    },
+    {
+      "keyword": "vibe coding with Gemini 2.5 Pro",
+      "title": "Vibe coding with Gemini 2.5 Pro: a non-coder's practical guide",
+      "slug": "vibe-coding-gemini-2-5-pro",
+      "type": "guide",
+      "tags": ["gemini", "vibe-coding", "google", "beginners"],
+      "status": "done",
+      "publishedAt": "2026-04-18"
+    },
+    {
+      "keyword": "AI tools for startup founders 2026",
+      "title": "Best AI tools for startup founders in 2026: build and ship without a team",
+      "slug": "ai-tools-startup-founders-2026",
+      "type": "roundup",
+      "tags": ["ai-tools", "founders", "startups", "2026"],
+      "status": "done",
+      "publishedAt": "2026-04-18"
+    },
+    {
+      "keyword": "how to build an API with AI no code",
+      "title": "How to build an API with AI and no coding skills",
+      "slug": "build-api-ai-no-code",
+      "type": "guide",
+      "tags": ["api", "no-code", "ai-tools", "beginners", "vibe-coding"],
+      "status": "done",
+      "publishedAt": "2026-04-18"
+    },
+    {
+      "keyword": "MCP server tutorial beginners",
+      "title": "MCP server tutorial for beginners: connect AI to your tools in 2026",
+      "slug": "mcp-server-tutorial-beginners",
+      "type": "guide",
+      "tags": ["mcp", "tutorial", "beginners", "claude", "non-coders"],
+      "status": "done",
+      "publishedAt": "2026-04-18"
+    },
+    {
+      "keyword": "Vercel vs Netlify for vibe coders",
+      "title": "Vercel vs Netlify for vibe coders: which should you use in 2026?",
+      "slug": "vercel-vs-netlify-vibe-coders",
+      "type": "comparison",
+      "tags": ["vercel", "netlify", "comparison", "vibe-coding", "deployment"],
+      "status": "done",
+      "publishedAt": "2026-04-18"
+    },
+    {
+      "keyword": "Bolt vs Cursor vibe coding",
+      "title": "Bolt vs Cursor: which vibe coding tool should you use in 2026?",
+      "slug": "bolt-vs-cursor-vibe-coding",
+      "type": "comparison",
+      "tags": ["bolt", "cursor", "comparison", "vibe-coding", "non-coders"],
+      "status": "done",
+      "publishedAt": "2026-04-20"
+    },
+    {
+      "keyword": "best AI tools indie hackers 2026",
+      "title": "Best AI tools for indie hackers in 2026: build solo, ship fast",
+      "slug": "best-ai-tools-indie-hackers-2026",
+      "type": "roundup",
+      "tags": ["ai-tools", "indie-hackers", "founders", "vibe-coding", "2026"],
+      "status": "done",
+      "publishedAt": "2026-04-20"
+    },
+    {
+      "keyword": "n8n vs Zapier non-coders 2026",
+      "title": "n8n vs Zapier for non-coders in 2026: which automation tool wins?",
+      "slug": "n8n-vs-zapier-non-coders-2026",
+      "type": "comparison",
+      "tags": ["n8n", "zapier", "automation", "no-code", "comparison"],
+      "status": "done",
+      "publishedAt": "2026-04-20"
+    },
+    {
+      "keyword": "Lovable Supabase SaaS tutorial",
+      "title": "How to build a SaaS with Lovable and Supabase (no coding required)",
+      "slug": "lovable-supabase-saas-tutorial",
+      "type": "guide",
+      "tags": ["lovable", "supabase", "saas", "tutorial", "vibe-coding"],
+      "status": "done",
+      "publishedAt": "2026-04-20"
+    },
+    {
+      "keyword": "Notion AI vs Claude non-coders",
+      "title": "Notion AI vs Claude for non-coders: which should you use in 2026?",
+      "slug": "notion-ai-vs-claude-non-coders",
+      "type": "comparison",
+      "tags": ["notion", "claude", "comparison", "non-coders", "productivity"],
+      "status": "done",
+      "publishedAt": "2026-04-20"
+    },
+    {
+      "keyword": "Claude Sonnet 4.5 vibe coding review",
+      "title": "Claude Sonnet 4.5 for vibe coding: is it the best AI model for non-coders?",
+      "slug": "claude-sonnet-4-5-vibe-coding-review",
+      "type": "guide",
+      "tags": ["claude", "vibe-coding", "review", "ai-models", "2026"],
+      "status": "done",
+      "publishedAt": "2026-04-20"
+    },
+    {
+      "keyword": "best vibe coding tools for Mac 2026",
+      "title": "Best vibe coding tools for Mac users in 2026",
+      "slug": "best-vibe-coding-tools-mac-2026",
+      "type": "roundup",
+      "tags": ["vibe-coding", "mac", "ai-tools", "2026"],
+      "status": "done",
+      "publishedAt": "2026-04-21"
+    },
+    {
+      "keyword": "build Stripe payment page AI no code",
+      "title": "How to add Stripe payments to your app with AI and no coding",
+      "slug": "build-stripe-payment-page-ai-no-code",
+      "type": "guide",
+      "tags": ["stripe", "payments", "no-code", "ai-tools", "vibe-coding"],
+      "status": "done",
+      "publishedAt": "2026-04-21"
+    },
+    {
+      "keyword": "best MCP servers for data analysis 2026",
+      "title": "Best MCP servers for data analysis in 2026: a non-coder's guide",
+      "slug": "mcp-servers-data-analysis-2026",
+      "type": "roundup",
+      "tags": ["mcp", "data", "analytics", "non-coders", "2026"],
+      "status": "done",
+      "publishedAt": "2026-04-21"
+    },
+    {
+      "keyword": "build internal tool AI no code 2026",
+      "title": "How to build an internal tool with AI and no coding in 2026",
+      "slug": "build-internal-tool-ai-no-code-2026",
+      "type": "guide",
+      "tags": ["internal-tools", "no-code", "ai-tools", "beginners", "vibe-coding"],
+      "status": "done",
+      "publishedAt": "2026-04-21"
+    },
+    {
+      "keyword": "Claude Opus 4 vs Sonnet 4 vibe coding",
+      "title": "Claude Opus 4 vs Sonnet 4 for vibe coding: which model should you use?",
+      "slug": "claude-opus-4-vs-sonnet-4-vibe-coding",
+      "type": "comparison",
+      "tags": ["claude", "vibe-coding", "comparison", "ai-models", "2026"],
+      "status": "done",
+      "publishedAt": "2026-04-21"
+    },
+    {
+      "keyword": "best AI tools for UX designers 2026",
+      "title": "Best AI tools for UX designers in 2026",
+      "slug": "best-ai-tools-ux-designers-2026",
+      "type": "roundup",
+      "tags": ["ai-tools", "ux-design", "designers", "2026"],
+      "status": "done",
+      "publishedAt": "2026-04-22"
+    },
+    {
+      "keyword": "how to build a Notion clone with AI no code",
+      "title": "How to build a Notion-style app with AI and no coding skills",
+      "slug": "build-notion-clone-ai-no-code",
+      "type": "guide",
+      "tags": ["no-code", "ai-tools", "vibe-coding", "productivity", "beginners"],
+      "status": "done",
+      "publishedAt": "2026-04-22"
+    },
+    {
+      "keyword": "Claude Projects for non-coders",
+      "title": "Claude Projects for non-coders: how to build your own AI assistant",
+      "slug": "claude-projects-non-coders",
+      "type": "guide",
+      "tags": ["claude", "non-coders", "ai-tools", "productivity", "beginners"],
+      "status": "done",
+      "publishedAt": "2026-04-22"
+    },
+    {
+      "keyword": "AI tools for real estate agents 2026",
+      "title": "Best AI tools for real estate agents who don't code in 2026",
+      "slug": "ai-tools-real-estate-agents-2026",
+      "type": "roundup",
+      "tags": ["ai-tools", "real-estate", "non-coders", "2026"],
+      "status": "done",
+      "publishedAt": "2026-04-22"
+    },
+    {
+      "keyword": "Cursor vs Lovable vibe coding",
+      "title": "Cursor vs Lovable for vibe coding: which should you use in 2026?",
+      "slug": "cursor-vs-lovable-vibe-coding",
+      "type": "comparison",
+      "tags": ["cursor", "lovable", "comparison", "vibe-coding", "non-coders"],
+      "status": "done",
+      "publishedAt": "2026-04-22"
+    },
+    {
+      "keyword": "how to build a Slack bot with AI no code",
+      "title": "How to build a Slack bot with AI and no coding skills",
+      "slug": "build-slack-bot-ai-no-code",
+      "type": "guide",
+      "tags": ["slack", "no-code", "ai-tools", "automation", "beginners"],
+      "status": "done",
+      "publishedAt": "2026-04-24"
+    },
+    {
+      "keyword": "vibe coding with Cursor and Claude",
+      "title": "Vibe coding with Cursor and Claude: the ultimate non-coder combo in 2026",
+      "slug": "vibe-coding-cursor-and-claude",
+      "type": "guide",
+      "tags": ["cursor", "claude", "vibe-coding", "non-coders", "tutorial"],
+      "status": "done",
+      "publishedAt": "2026-04-24"
+    },
+    {
+      "keyword": "best AI tools for consultants 2026",
+      "title": "Best AI tools for consultants in 2026: automate the boring, keep the thinking",
+      "slug": "best-ai-tools-consultants-2026",
+      "type": "roundup",
+      "tags": ["ai-tools", "consultants", "productivity", "automation", "2026"],
+      "status": "done",
+      "publishedAt": "2026-04-24"
+    },
+    {
+      "keyword": "Perplexity AI vs Claude for research",
+      "title": "Perplexity AI vs Claude for research: which should you use in 2026?",
+      "slug": "perplexity-ai-vs-claude-research",
+      "type": "comparison",
+      "tags": ["perplexity", "claude", "comparison", "research", "non-coders"],
+      "status": "done",
+      "publishedAt": "2026-04-24"
+    },
+    {
+      "keyword": "build web app with Gemini AI no code",
+      "title": "How to build a web app with Gemini AI and no coding skills",
+      "slug": "build-web-app-gemini-ai-no-code",
+      "type": "guide",
+      "tags": ["gemini", "google", "no-code", "ai-tools", "beginners", "vibe-coding"],
+      "status": "done",
+      "publishedAt": "2026-04-24"
+    },
+    {
+      "keyword": "build email newsletter tool AI no code",
+      "title": "How to build an email newsletter tool with AI and no coding skills",
+      "slug": "build-email-newsletter-ai-no-code",
+      "type": "guide",
+      "tags": ["email", "no-code", "ai-tools", "vibe-coding", "beginners"],
+      "status": "done",
+      "publishedAt": "2026-04-27"
+    },
+    {
+      "keyword": "best AI coding assistants 2026",
+      "title": "Best AI coding assistants in 2026: a non-coder's honest guide",
+      "slug": "best-ai-coding-assistants-2026",
+      "type": "roundup",
+      "tags": ["ai-tools", "vibe-coding", "non-coders", "comparison", "2026"],
+      "status": "done",
+      "publishedAt": "2026-04-27"
+    },
+    {
+      "keyword": "vibe coding with Windsurf beginners",
+      "title": "Vibe coding with Windsurf: a complete beginner's guide for 2026",
+      "slug": "vibe-coding-with-windsurf-beginners",
+      "type": "guide",
+      "tags": ["windsurf", "vibe-coding", "beginners", "tutorial", "non-coders"],
+      "status": "done",
+      "publishedAt": "2026-04-27"
+    },
+    {
+      "keyword": "AI tools for lawyers 2026",
+      "title": "Best AI tools for lawyers who want to build their own apps in 2026",
+      "slug": "ai-tools-for-lawyers-2026",
+      "type": "roundup",
+      "tags": ["ai-tools", "lawyers", "legal", "no-code", "2026"],
+      "status": "done",
+      "publishedAt": "2026-04-27"
+    },
+    {
+      "keyword": "build form tool AI no code",
+      "title": "How to build a custom form tool with AI and no coding skills",
+      "slug": "build-form-tool-ai-no-code",
+      "type": "guide",
+      "tags": ["forms", "no-code", "ai-tools", "vibe-coding", "beginners"],
+      "status": "done",
+      "publishedAt": "2026-04-27"
     }
   ]
 }

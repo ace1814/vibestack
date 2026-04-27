@@ -1,0 +1,94 @@
+---
+title: "Vibe coding with Windsurf: a complete beginner's guide for 2026"
+description: "Learn how to vibe code with Windsurf IDE as a complete beginner. This guide covers setup, prompting, and building your first app without coding skills."
+slug: "vibe-coding-with-windsurf-beginners"
+type: "guide"
+tags: ["windsurf", "vibe-coding", "beginners", "tutorial", "non-coders"]
+publishedAt: "2026-04-27"
+---
+
+Windsurf is one of the most beginner-friendly AI code editors out there right now, and if you've been curious about vibe coding but felt intimidated by tools like Cursor or Claude Code, Windsurf is a genuinely great place to start. You can describe what you want to build, and Windsurf's built-in AI agent — called Cascade — will plan the work, write the code, and run it, all while explaining what it's doing.
+
+I came to Windsurf as a designer with basically zero coding background, and it clicked for me faster than any other tool I tried. Here's what you need to know to get started.
+
+## What is Windsurf, exactly?
+
+Windsurf is an AI-native code editor made by Codeium. Think of it as a version of VS Code (the most popular coding app in the world) but with an AI agent deeply integrated into the experience. The key differentiator is Cascade — the AI assistant that doesn't just answer questions or complete lines of code, but actually *acts* on your behalf. It can read your files, run commands, fix errors it encounters, and take a project from idea to working app.
+
+Unlike browser-based tools like Lovable or Bolt, Windsurf runs on your computer. This gives you more control over your files and lets you connect to more powerful tools and integrations. The trade-off is a slightly steeper setup process — but it's genuinely not that bad.
+
+## Getting started: installation
+
+1. Download Windsurf from the official site (windsurf.com)
+2. Install it like any other Mac or Windows app
+3. Open it and sign in with a Google or GitHub account
+4. You'll land in an editor that looks like a code window with a chat panel on the right
+
+If you've never used VS Code, this might feel unfamiliar at first. Give it 20 minutes and you'll get comfortable with the layout.
+
+## Your first project with Cascade
+
+Click the Cascade panel on the right side (or press `Cmd+L` on Mac). This is where you talk to your AI agent. Start with a clear description of what you want to build:
+
+> "I want to build a simple habit tracker app. It should let me add habits, check them off daily, and show a streak count for each habit. Make it a web app with a clean, minimal design."
+
+Cascade will respond with a plan, then start building. Watch what it does — it'll create files, write code, and explain its decisions. You don't need to understand every line, but paying attention will accelerate your learning significantly.
+
+## How to write good prompts for Windsurf
+
+The quality of what you get out depends heavily on the quality of what you put in. Here are a few patterns that work well:
+
+**Be specific about the user experience.** Instead of "add a login page," say "add a login page with email and password fields, a 'forgot password' link, and a sign-in button. After login, redirect to the dashboard."
+
+**Describe what you see, not what the code should do.** "I want a sidebar on the left with navigation links" is better than "add a nav component." You're designing; let the AI handle the implementation.
+
+**When something's wrong, describe what you expected.** "The submit button doesn't do anything when I click it — it should save the form data and show a success message" is much more useful than "fix the button."
+
+**Ask Cascade to explain.** At any point you can say "explain what you just did" or "why did you structure it this way?" This is how you build understanding without feeling overwhelmed.
+
+## Connecting to external services
+
+Windsurf pairs really well with [MCP servers from the Vibestack directory](https://vibestack.in/tools?category=mcp-servers), which let your app connect to services like Notion, Airtable, Slack, or GitHub. Once you have a basic app working, you can say:
+
+> "I want to save habit data to a Supabase database instead of local storage. Set up the Supabase connection and migrate the data model."
+
+Cascade will handle the integration. This is where vibe coding starts to feel genuinely powerful — you can keep layering in real functionality without ever needing to understand database schemas at a deep level.
+
+## What Windsurf is great for
+
+In my experience, Windsurf excels at:
+
+**Utility tools and dashboards** — internal tools, trackers, dashboards, admin panels. Cascade is very good at structured, functional interfaces.
+
+**Iterating on existing projects** — once you have something working, Windsurf is fantastic for "add this feature" or "change the design to look more like this." The whole-project context Cascade maintains means it doesn't get confused by your existing code.
+
+**Learning by doing** — because you can see the actual code being written, Windsurf is one of the best tools for picking up coding concepts alongside your project work.
+
+## What to be aware of as a beginner
+
+Windsurf works on your local machine, which means you'll need to run a local development server to see your app in a browser. Cascade will usually tell you how to do this, but it involves running a command in the terminal. Don't panic — Cascade can do this for you too, just ask.
+
+Also: save your work often and use version control. Cascade can set up Git for you if you ask ("initialise a git repo and make an initial commit"). This gives you a safety net if something goes wrong during an editing session.
+
+## Windsurf vs other vibe coding tools
+
+If you're wondering how Windsurf compares to the other tools in the space, check out our [Windsurf vs Cursor comparison](https://vibestack.in/blog/windsurf-vs-cursor-ai-2026) — they're similar in approach but have meaningful differences. The short version: Windsurf has a smoother onboarding experience and Cascade's autonomous agent behaviour is slightly more polished for non-coders.
+
+## Get building
+
+Windsurf's free tier gives you a solid amount of Cascade usage to get a real project off the ground. Start with something small — a habit tracker, a reading list, a simple calculator — and build from there. The best way to learn vibe coding is to ship something, even if it's imperfect.
+
+Browse more tools and guides at [vibestack.in](https://vibestack.in) — it's the best directory of vibe coding tools for designers, PMs, and founders who want to build without a traditional dev background.
+
+---
+
+## FAQ
+
+**Do I need to install anything else alongside Windsurf?**
+For most projects, you'll also need Node.js installed (for JavaScript/React apps) or Python (for Python apps). Cascade will tell you if something is missing and usually link you to where to download it. Both are free and straightforward to install.
+
+**Can Windsurf connect to design tools like Figma?**
+Windsurf can read Figma exports and there are community MCP integrations being built for deeper Figma-Windsurf workflows. For now, the most common approach is to export your Figma frames as images and describe the design to Cascade, or use a Figma MCP server — see our guide on [setting up Figma MCP with Claude](https://vibestack.in/blog/figma-mcp-claude-setup) for inspiration on a similar workflow.
+
+**Is Windsurf free?**
+Yes, there's a free tier that includes a generous amount of Cascade usage per month. Paid plans unlock more usage, faster models, and team features. For a solo project, the free tier is plenty to get started and often sufficient for ongoing work.
