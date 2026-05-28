@@ -19,6 +19,7 @@ import {
   Trophy,
   ArrowSquareOut,
 } from '@phosphor-icons/react/dist/ssr';
+import CopyCodeBlock from './CopyCodeBlock';
 
 export const metadata: Metadata = {
   title: 'Vibe Coding Course Content — VibeStack',
@@ -62,19 +63,6 @@ function YTEmbed({ videoId, title }: { videoId: string; title: string }) {
   );
 }
 
-function CodeBlock({ children, label = 'Prompt' }: { children: string; label?: string }) {
-  return (
-    <div className="my-4">
-      <p className="flex items-center gap-1.5 mb-1.5 text-[11px] font-semibold uppercase tracking-wider text-black/30 dark:text-white/30">
-        <Terminal size={11} weight="bold" />
-        {label}
-      </p>
-      <pre className="bg-zinc-950 dark:bg-zinc-900 text-zinc-100 rounded-xl px-5 py-4 overflow-x-auto text-sm leading-relaxed font-mono whitespace-pre-wrap">
-        {children}
-      </pre>
-    </div>
-  );
-}
 
 function InlineCode({ children }: { children: React.ReactNode }) {
   return (
@@ -583,7 +571,7 @@ export default function CourseContentPage() {
                     <>Copy both the <strong>Project URL</strong> and the <strong>anon / public</strong> key — save them in a text file for Module 5</>,
                   ]}
                 />
-                <YTEmbed videoId="dU7GwCOgvNY" title="Learn Supabase – Full Tutorial for Beginners" />
+                <YTEmbed videoId="i_bPeTZVlg0" title="Supabase Tutorial for Beginners" />
                 <FAQSection
                   items={[
                     { q: "What's a database?", a: "A database is like a spreadsheet that your app reads and writes automatically. You don't open it manually — your app does it for you." },
@@ -732,34 +720,34 @@ export default function CourseContentPage() {
               </P>
 
               <P>❌ <strong>Bad prompt:</strong></P>
-              <CodeBlock label="Example — too vague">{'Make me an app'}</CodeBlock>
+              <CopyCodeBlock label="Example — too vague">{'Make me an app'}</CopyCodeBlock>
 
               <P>✅ <strong>Good prompt:</strong></P>
-              <CodeBlock label="Example — specific and detailed">{`Create a Kanban board web app using HTML, CSS, and JavaScript.
+              <CopyCodeBlock label="Example — specific and detailed">{`Create a Kanban board web app using HTML, CSS, and JavaScript.
 It should have three columns: "To Do", "In Progress", and "Done".
 Each column should have a button to add a new task card.
 Task cards should have a title and a right-arrow button that moves them to the next column.
 Cards in the "Done" column should have a delete button instead.
-The design should be clean and minimal with a white background and subtle card shadows.`}</CodeBlock>
+The design should be clean and minimal with a white background and subtle card shadows.`}</CopyCodeBlock>
 
               <H2>The prompt formula</H2>
-              <CodeBlock label="Template">{`Create [what you want].
+              <CopyCodeBlock label="Template">{`Create [what you want].
 It should have [specific features].
 When someone [does action], it should [result].
 The design should be [style description].
-Use [technology or colours if you have a preference].`}</CodeBlock>
+Use [technology or colours if you have a preference].`}</CopyCodeBlock>
 
               <H2>The &quot;fix it&quot; formula</H2>
               <P>When something looks wrong, describe what you see:</P>
-              <CodeBlock label="Fix-it template">{`The "Move Right" button on cards in the "In Progress" column is not visible.
-Please make it visible and style it as a small blue button.`}</CodeBlock>
+              <CopyCodeBlock label="Fix-it template">{`The "Move Right" button on cards in the "In Progress" column is not visible.
+Please make it visible and style it as a small blue button.`}</CopyCodeBlock>
 
               <H2>Starter prompt for your Kanban board</H2>
               <P>
                 Press <InlineCode>Cmd+L</InlineCode> (Mac) or <InlineCode>Ctrl+L</InlineCode> (Windows)
                 in Cursor to open the AI chat, then paste this:
               </P>
-              <CodeBlock label="Your first prompt — copy and paste this">{`Create a Kanban board web app as a single HTML file called index.html.
+              <CopyCodeBlock label="Your first prompt — copy and paste this">{`Create a Kanban board web app as a single HTML file called index.html.
 
 The board should have three columns: "To Do", "In Progress", and "Done".
 
@@ -782,7 +770,7 @@ Style it with:
 - Blue "Add Task" buttons
 - Clean font (use system-ui or Inter from Google Fonts)
 
-Store the tasks in the browser's localStorage so they persist after page refresh.`}</CodeBlock>
+Store the tasks in the browser's localStorage so they persist after page refresh.`}</CopyCodeBlock>
 
               <FAQSection
                 items={[
@@ -846,10 +834,35 @@ Store the tasks in the browser's localStorage so they persist after page refresh
 
               <H2>Step 3: Build the board with your first prompt</H2>
               <P>
-                Copy the starter prompt from Module 3 and paste it into the AI chat. Press Enter. Watch
-                the AI write the code — it takes 30–60 seconds. When it finishes, you&apos;ll see a file
-                called <InlineCode>index.html</InlineCode> in the left panel.
+                Copy the prompt below and paste it into the AI chat (<InlineCode>Cmd+L</InlineCode> on Mac,{' '}
+                <InlineCode>Ctrl+L</InlineCode> on Windows). Press Enter. Watch the AI write the code —
+                it takes 30–60 seconds. When it finishes, you&apos;ll see a file called{' '}
+                <InlineCode>index.html</InlineCode> in the left panel.
               </P>
+              <CopyCodeBlock label="Starter prompt — copy and paste this into Cursor">{`Create a Kanban board web app as a single HTML file called index.html.
+
+The board should have three columns: "To Do", "In Progress", and "Done".
+
+Each column should:
+- Have a bold heading at the top
+- Show a list of task cards
+- Have an "Add Task" button at the bottom that opens a simple input for typing a task name
+
+Each task card should:
+- Show the task title
+- Have a right-arrow (→) button to move it to the next column
+- Have a delete (×) button to remove it from the board
+
+The "Done" column should not have a right-arrow button (since there's no column after it).
+
+Style it with:
+- Light grey (#f4f4f5) page background
+- White column backgrounds with rounded corners
+- Subtle drop shadows on cards
+- Blue "Add Task" buttons
+- Clean, readable font (use system-ui or Inter from Google Fonts)
+
+Store the tasks in the browser's localStorage so they are still there when the page is refreshed.`}</CopyCodeBlock>
 
               <H2>Step 4: See your app in your browser</H2>
               <P>
@@ -872,11 +885,11 @@ Store the tasks in the browser's localStorage so they persist after page refresh
               />
 
               <H2>Step 6: Make changes by describing them</H2>
-              <CodeBlock label="Follow-up prompt">{'Add a task count badge to each column heading showing how many tasks are in it.'}</CodeBlock>
-              <CodeBlock label="Follow-up prompt">{`Make the card background slightly different per column:
+              <CopyCodeBlock label="Follow-up prompt">{'Add a task count badge to each column heading showing how many tasks are in it.'}</CopyCodeBlock>
+              <CopyCodeBlock label="Follow-up prompt">{`Make the card background slightly different per column:
 - To Do: white
 - In Progress: light blue tint (#f0f7ff)
-- Done: light green tint (#f0fdf4)`}</CodeBlock>
+- Done: light green tint (#f0fdf4)`}</CopyCodeBlock>
 
               <FAQSection
                 items={[
@@ -964,7 +977,7 @@ Store the tasks in the browser's localStorage so they persist after page refresh
                 Get your Supabase URL and anon key from <strong>Project Settings → API</strong>. You
                 saved these in Module 2.
               </P>
-              <CodeBlock label="Paste this into Cursor AI chat">{`Update my Kanban board to use Supabase instead of localStorage.
+              <CopyCodeBlock label="Paste this into Cursor AI chat">{`Update my Kanban board to use Supabase instead of localStorage.
 
 My Supabase URL is: [paste your URL here]
 My Supabase anon key is: [paste your key here]
@@ -976,7 +989,7 @@ Changes needed:
 3. When moving a task with the → button, update its "status" in Supabase
 4. When deleting a task with the × button, delete its row from Supabase
 
-Use the Supabase JavaScript library via CDN (add it as a script tag in the HTML).`}</CodeBlock>
+Use the Supabase JavaScript library via CDN (add it as a script tag in the HTML).`}</CopyCodeBlock>
 
               <H2>Step 4: Test the database connection</H2>
               <StepList
@@ -1051,12 +1064,12 @@ Use the Supabase JavaScript library via CDN (add it as a script tag in the HTML)
                 Press <InlineCode>Ctrl+`</InlineCode> (Windows) or <InlineCode>Cmd+`</InlineCode> (Mac)
                 to open the terminal in Cursor:
               </P>
-              <CodeBlock label="Terminal commands">{`git init
+              <CopyCodeBlock label="Terminal commands">{`git init
 git add .
 git commit -m "my kanban app"
 git branch -M main
 git remote add origin [your GitHub repo URL]
-git push -u origin main`}</CodeBlock>
+git push -u origin main`}</CopyCodeBlock>
 
               <H2>Step 2: Deploy with Vercel</H2>
               <StepList
