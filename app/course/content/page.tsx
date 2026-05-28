@@ -834,9 +834,18 @@ Store the tasks in the browser's localStorage so they persist after page refresh
 
               <H2>Step 3: Build the board with your first prompt</H2>
               <P>
-                Copy the prompt below and paste it into the AI chat (<InlineCode>Cmd+L</InlineCode> on Mac,{' '}
-                <InlineCode>Ctrl+L</InlineCode> on Windows). Press Enter. Watch the AI write the code —
-                it takes 30–60 seconds. When it finishes, you&apos;ll see a file called{' '}
+                Open the AI chat with <InlineCode>Cmd+L</InlineCode> (Mac) or{' '}
+                <InlineCode>Ctrl+L</InlineCode> (Windows).
+              </P>
+              <P>
+                <strong>Important — switch to Agent mode first.</strong> At the bottom of the chat panel
+                you&apos;ll see a dropdown that says <strong>Ask</strong>. Click it and change it to{' '}
+                <strong>Agent</strong>. Agent mode lets the AI create files and make changes directly in
+                your project — without it, the AI will only give you text replies.
+              </P>
+              <P>
+                Now copy the prompt below, paste it into the chat, and press Enter. Watch the AI write
+                the code — it takes 30–60 seconds. When it finishes, you&apos;ll see a file called{' '}
                 <InlineCode>index.html</InlineCode> in the left panel.
               </P>
               <CopyCodeBlock label="Starter prompt — copy and paste this into Cursor">{`Create a Kanban board web app as a single HTML file called index.html.
@@ -864,13 +873,21 @@ Style it with:
 
 Store the tasks in the browser's localStorage so they are still there when the page is refreshed.`}</CopyCodeBlock>
 
-              <H2>Step 4: See your app in your browser</H2>
+              <H2>Step 4: Install Live Preview and open your app</H2>
               <P>
-                Press <InlineCode>Ctrl+Shift+P</InlineCode> (Windows) or{' '}
-                <InlineCode>Cmd+Shift+P</InlineCode> (Mac) → type{' '}
-                <strong>Live Preview</strong> → click <strong>Show Live Preview</strong>. Your browser
-                opens showing your Kanban board.
+                Cursor doesn&apos;t show your HTML file automatically — you need a free extension called
+                <strong> Live Preview</strong>. Here&apos;s how to install it:
               </P>
+              <StepList
+                steps={[
+                  <>Press <InlineCode>Cmd+Shift+X</InlineCode> (Mac) or <InlineCode>Ctrl+Shift+X</InlineCode> (Windows) to open the <strong>Extensions</strong> panel on the left</>,
+                  <>Type <strong>Live Preview</strong> in the search box</>,
+                  <>Find the one published by <strong>Microsoft</strong> — it has a blue icon and says "Hosts a local server for you to preview your web projects on"</>,
+                  <>Click <strong>Install</strong> and wait a few seconds</>,
+                  <>Once installed, go to the left panel, right-click on <InlineCode>index.html</InlineCode>, and click <strong>Show Preview</strong></>,
+                  <>A preview pane opens inside Cursor showing your Kanban board — or you can click the pop-out icon to open it in your browser</>,
+                ]}
+              />
 
               <H2>Step 5: Test it</H2>
               <StepList
@@ -885,11 +902,32 @@ Store the tasks in the browser's localStorage so they are still there when the p
               />
 
               <H2>Step 6: Make changes by describing them</H2>
+              <P>
+                Go back to the AI chat and try these follow-up prompts one at a time. Check the preview
+                after each one.
+              </P>
               <CopyCodeBlock label="Follow-up prompt">{'Add a task count badge to each column heading showing how many tasks are in it.'}</CopyCodeBlock>
               <CopyCodeBlock label="Follow-up prompt">{`Make the card background slightly different per column:
 - To Do: white
 - In Progress: light blue tint (#f0f7ff)
 - Done: light green tint (#f0fdf4)`}</CopyCodeBlock>
+
+              <div className="mt-6 p-5 bg-stone-50 dark:bg-zinc-900 rounded-xl border border-black/6 dark:border-white/6">
+                <p className="font-semibold mb-1">Keep experimenting 🎨</p>
+                <p className="text-sm text-black/60 dark:text-white/60 leading-relaxed">
+                  Feel free to keep describing changes — different colours, a new font, rounded corners,
+                  a header with a title. There are no rules. The more you experiment now, the more
+                  comfortable you&apos;ll get with the process.
+                </p>
+                <p className="text-sm text-black/60 dark:text-white/60 leading-relaxed mt-3">
+                  When you&apos;re happy with how it looks, head to{' '}
+                  <a href="#module-5" className="underline underline-offset-2 font-medium text-black dark:text-white">
+                    Module 5
+                  </a>
+                  {' '}— where we&apos;ll connect your board to Supabase so tasks are saved to a real
+                  database and persist across devices.
+                </p>
+              </div>
 
               <FAQSection
                 items={[
